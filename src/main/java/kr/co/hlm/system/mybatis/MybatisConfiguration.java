@@ -18,25 +18,13 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class MybatisConfiguration {
 
-
-    @Bean
-    public DataSource customDataSource() {
-        return DataSourceBuilder.create()
-                .url("jdbc:oracle:thin:@localhost:1521:xe")
-                .driverClassName("oracle.jdbc.driver.OracleDriver")
-                .username("mybatis")
-                .password("mybatis$")
-                .build();
-    }
-
-
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setMapperLocations(
                 new PathMatchingResourcePatternResolver().
-                        getResources("classpath:mapper/settings/config-mybatis.xml"));
+                        getResources("classpath:config-mybatis.xml"));
         sqlSessionFactoryBean.setMapperLocations(
                 new PathMatchingResourcePatternResolver().
                         getResources("classpath:mapper/*.xml"));
