@@ -7,5 +7,4 @@ public interface HelmetStateService {
     public List<HelmetState> getHelmetStates(HelmetState helmetState);
     public HelmetState getHelmetState(HelmetState helmetState);
     public void editHelmetState(HelmetState helmetState);
-
 }

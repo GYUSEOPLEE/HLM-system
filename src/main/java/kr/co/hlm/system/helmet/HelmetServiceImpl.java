@@ -1,7 +1,10 @@
 package kr.co.hlm.system.helmet;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class HelmetServiceImpl implements HelmetService{
     @Override
     public void createHelmet(Helmet helmet) {
