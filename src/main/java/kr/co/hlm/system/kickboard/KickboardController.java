@@ -17,6 +17,7 @@ public class KickboardController {
 
     @GetMapping("/kickboards")
     public ModelAndView getKickboards(){
+
         return null;
     }
 

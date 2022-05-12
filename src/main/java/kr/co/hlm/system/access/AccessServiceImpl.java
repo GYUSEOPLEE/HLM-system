@@ -3,10 +3,15 @@ package kr.co.hlm.system.access;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Service
 @RequiredArgsConstructor
-public class AccessServiceImpl implements AccessService{
+public class AccessServiceImpl implements HandlerInterceptor, AccessService{
     private final AdminMapper adminMapper;
 
     @Override
@@ -15,10 +20,28 @@ public class AccessServiceImpl implements AccessService{
         int gab = adminMapper.select(admin);
         boolean result = false;
 
-        if(gab != 0) {
+        if(gab == 1) {
             result = true;
         }
 
         return result;
     }
+
+    @Override
+    public void login(Admin admin, HttpSession httpSession) {
+        if(getAdmin(admin)){
+            httpSession.setAttribute("id",admin.getId());//해당하는 아이디가 있으면 세션 생성
+        }
+    }
+
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        HttpSession session = request.getSession();
+//       if(session.getAttribute("id") != null){
+//           return true;
+//       }
+//
+//        response.sendRedirect("helmets/list");
+//       return false;
+//    }
 }
