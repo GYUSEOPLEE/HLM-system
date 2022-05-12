@@ -3,5 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hlm.system.access.AdminMapper">
-
+    <select id="select" parameterType="kr.co.hlm.system.access.Admin" resultType="int">
+        SELECT COUNT(*) COUNT
+        FROM ADMIN
+        WHERE ID = #{id}
+          AND PASSWORD = #{password};
+    </select>
 </mapper>
