@@ -1,4 +1,4 @@
-package kr.co.hlm.system.helmetstate.helmet;
+package kr.co.hlm.system.helmet;
 
 import org.springframework.stereotype.Service;
 

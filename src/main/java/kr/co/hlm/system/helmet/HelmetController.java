@@ -1,4 +1,4 @@
-package kr.co.hlm.system.helmetstate.helmet;
+package kr.co.hlm.system.helmet;
 
 import kr.co.hlm.system.management.ReceiveState;
 import org.springframework.http.MediaType;

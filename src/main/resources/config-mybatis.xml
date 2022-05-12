@@ -12,7 +12,7 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="kr.co.hlm.system.helmetstate.helmet.Helmet" alias="helmet"/>
+        <typeAlias type="kr.co.hlm.system.helmet.Helmet" alias="helmet"/>
         <typeAlias type="kr.co.hlm.system.helmetstate.HelmetState" alias="helmetState"/>
         <typeAlias type="kr.co.hlm.system.kickboard.Kickboard" alias="kickboard"/>
         <typeAlias type="kr.co.hlm.system.kickboardlocation.KickboardLocation" alias="kickboardLocation"/>
