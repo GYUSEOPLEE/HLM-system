@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface KickboardService {
     public void createKickboard(Kickboard kickboard);
     public List<Kickboard> getKickboards(Kickboard kickboard);

@@ -1,14 +1,13 @@
 package kr.co.hlm.system.access;
 
-import org.mybatis.spring.annotation.MapperScan;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@MapperScan(basePackages = "")
+@RequiredArgsConstructor
 public class AccessServiceImpl implements AccessService{
-    @Autowired
-    AdminMapper adminMapper;
+    private final AdminMapper adminMapper;
 
     @Override
     public boolean getAdmin(Admin admin) {

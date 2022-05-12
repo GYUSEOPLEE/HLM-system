@@ -1,16 +1,16 @@
 package kr.co.hlm.system.kickboard;
 
-import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class KickboardServiceImpl implements KickboardService{
 
-    @Autowired
-    KickboardMapper kickboardMapper;
+    private final KickboardMapper kickboardMapper;
 
     @Override
     public void createKickboard(Kickboard kickboard) {

@@ -17,4 +17,12 @@
         <typeAlias type="kr.co.hlm.system.kickboard.Kickboard" alias="kickboard"/>
         <typeAlias type="kr.co.hlm.system.kickboardlocation.KickboardLocation" alias="kickboardLocation"/>
     </typeAliases>
+
+    <mappers>
+        <mapper resource="mapper/AdminMapper.xml"/>
+        <mapper resource="mapper/HelmetMapper.xml"/>
+        <mapper resource="mapper/HelmetStateMapper.xml"/>
+        <mapper resource="mapper/KickboardLocationMapper.xml"/>
+        <mapper resource="mapper/KickboardMapper.xml"/>
+    </mappers>
 </configuration>
