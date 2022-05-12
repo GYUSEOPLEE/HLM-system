@@ -2,43 +2,63 @@ package kr.co.hlm.system.kickboard;
 
 import kr.co.hlm.system.management.ReceiveState;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class KickboardController {
     private final KickboardService kickboardService;
 
+    //킥보드 목록 조회 폼
     @GetMapping("/kickboards")
     public ModelAndView getKickboards(){
-
-        return null;
+        return new ModelAndView(new RedirectView("kickboard/list"));
     }
 
-    @PostMapping("/kickboards")
-    public ModelAndView getKickboards(Kickboard kickboard){
-        return null;
+    //킥보드 목록 조회
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Kickboard> getKickboards(Kickboard kickboard){
+        List<Kickboard> kickboards = kickboardService.getKickboards(kickboard);
+
+        return kickboards;
     }
 
+    //킥보드 조회
     @GetMapping("/kickboards/{kickboardNo}")
-    public Map<String, Object> getKickboard(Kickboard kickboard){
-        return null;
+    public ModelAndView getKickboard(Kickboard kickboard){
+        Kickboard resultKickboard = kickboardService.getKickboard(kickboard);
+        ModelAndView modelAndView = new ModelAndView(new RedirectView("kickboard/view"));
+        modelAndView.addObject(resultKickboard);
+
+        return modelAndView;
     }
 
+    //킥보드 수정
     @PutMapping("/kickboards/{kickboardNo}")
     public ModelAndView editKickboard(Kickboard kickboard){
-        return null;
+        kickboardService.editKickboard(kickboard);
+        Kickboard resultKickboard = kickboardService.getKickboard(kickboard);
+        ModelAndView modelAndView = new ModelAndView(new RedirectView("kickboard/{kickboardNo}"));
+        modelAndView.addObject(resultKickboard);
+
+        return modelAndView;
     }
 
-    @PostMapping("/kickboards/recive")
+    //킥보드 정보 수신
+    @PostMapping("/kickboards/info")
     public ReceiveState receiveKickboard(Kickboard kickboard){
-        return null;
+        kickboardService.createKickboard(kickboard);
+
+        ReceiveState receiveState = new ReceiveState();
+        receiveState.setCode("200");
+        receiveState.setMessage("OK");
+        return receiveState;
     }
 
 }

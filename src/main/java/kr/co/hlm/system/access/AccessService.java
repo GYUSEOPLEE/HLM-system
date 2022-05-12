@@ -6,5 +6,4 @@ import javax.servlet.http.HttpSession;
 
 public interface AccessService {
     public boolean getAdmin(Admin admin);
-    public void login(Admin admin, HttpSession httpSession);
 }
