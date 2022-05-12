@@ -2,6 +2,7 @@ package kr.co.hlm.system.kickboard;
 
 import kr.co.hlm.system.management.ReceiveState;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,12 +31,12 @@ public class KickboardController {
         return null;
     }
 
-    @PutMapping("/kickboards/{kickboardNo}")
+    @PostMapping("/kickboards/{kickboardNo}")
     public ModelAndView editKickboard(Kickboard kickboard){
         return null;
     }
 
-    @PostMapping("/kickboards")
+    @PostMapping("/kickboards/recive")
     public ReceiveState receiveKickboard(Kickboard kickboard){
         return null;
     }

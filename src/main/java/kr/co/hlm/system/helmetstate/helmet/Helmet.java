@@ -1,4 +1,4 @@
-package kr.co.hlm.system.helmet;
+package kr.co.hlm.system.helmetstate.helmet;
 
 import lombok.Getter;
 import lombok.Setter;
