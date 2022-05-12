@@ -5,18 +5,24 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/helmets")
 public class HelmetController {
-    @PostMapping
-    public ModelAndView getHelmets() {
-        //WEB-INF/jsp/helmet/list.jsp
-        return null;
-    }
+    private HelmetService helmetService;
 
     @GetMapping
-    public String getHelmets(Helmet helmet) {
-        return null;
+    public ModelAndView getHelmets() {
+        ModelAndView modelAndView = new ModelAndView("helmet/list");
+        return modelAndView;
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Helmet> getHelmets(Helmet helmet) {
+        List<Helmet> helmets = helmetService.getHelmets(helmet);
+
+        return helmets;
     }
 
     @GetMapping("/{no}")

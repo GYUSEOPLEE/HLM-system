@@ -1,6 +1,7 @@
 package kr.co.hlm.system.helmetstate;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class HelmetState implements Serializable {
     private int no;
     private LocalDateTime dateTime;
