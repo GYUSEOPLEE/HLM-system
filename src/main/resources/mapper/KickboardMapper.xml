@@ -3,5 +3,45 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hlm.system.kickboard.KickboardMapper">
+    <insert id="insert" parameterType="kr.co.hlm.system.kickboard.Kickboard">
+        INSERT INTO KICKBOARD (NO, MODEL, IP, ACTIVATION)
+        VALUES(#{no}, #{model}, #{ip}, #{activation})
+    </insert>
 
+    <select id="selectAll" parameterType="kr.co.hlm.system.kickboard.Kickboard" resultType="kr.co.hlm.system.kickboard.Kickboard">
+        SELECT NO, MODEL, IP, ACTIVATION
+        FROM KICKBOARD
+        <where>
+            <choose>
+                <when test="no != null">
+                    NO = #{no}
+                </when>
+                <otherwise>
+                    1 = 1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="select" parameterType="kr.co.hlm.system.kickboard.Kickboard" resultType="kr.co.hlm.system.kickboard.Kickboard">
+        SELECT NO, MODEL, IP, ACTIVATION
+        FROM KICKBOARD
+        WHERE NO = #{no}
+    </select>
+
+    <update id="update" parameterType="kickboard">
+        UPDATE KICKBOARD
+        <choose>
+            <when test="model != null and ip != null">
+                SET ACTIVATION = #{activation},
+                    MODEL = #{model},
+                    IP = #{ip}
+                WHERE NO = #{no}
+            </when>
+            <otherwise>
+                SET ACTIVATION = #{activation}
+                WHERE NO = #{no}
+            </otherwise>
+        </choose>
+    </update>
 </mapper>

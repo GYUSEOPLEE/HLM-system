@@ -3,5 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hlm.system.kickboardlocation.KickboardLocationMapper">
+    <insert id="insert" parameterType="kr.co.hlm.system.kickboardlocation.KickboardLocation">
+        INSERT INTO KICKBOARD_LOCATION (DATE_TIME, LATITUDE, LONGITUDE, KICKBOARD_NO)
+        VALUES(#{dateTime}, #{latitude}, #{longitude}, #{kickboardNo})
+    </insert>
+
+    <select id="select" parameterType="kr.co.hlm.system.kickboardlocation.KickboardLocation" resultType="kr.co.hlm.system.kickboardlocation.KickboardLocation">
+        SELECT NO, DATE_TIME, LATITUDE, LONGITUDE, KICKBOARD_NO
+        FROM KICKBOARD_LOCATION
+        WHERE KICKBOARD_NO = ${kickboardNo}
+            AND MAX(DATE_TIME)
+    </select>
 
 </mapper>
