@@ -27,13 +27,6 @@ public class AccessServiceImpl implements HandlerInterceptor, AccessService{
         return result;
     }
 
-    @Override
-    public void login(Admin admin, HttpSession httpSession) {
-        if(getAdmin(admin)){
-            httpSession.setAttribute("id",admin.getId());//해당하는 아이디가 있으면 세션 생성
-        }
-    }
-
 //    @Override
 //    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        HttpSession session = request.getSession();

@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Kickboard implements Serializable {
     private String no;
     private String model;

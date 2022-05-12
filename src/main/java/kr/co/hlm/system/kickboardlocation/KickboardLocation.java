@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class KickboardLocation implements Serializable {
     private int no;
     private LocalDateTime dateTime;

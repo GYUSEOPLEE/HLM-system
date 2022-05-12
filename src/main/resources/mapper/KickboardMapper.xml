@@ -17,7 +17,7 @@
                     NO = #{no}
                 </when>
                 <otherwise>
-                    1 = 1
+                    activation = 'Y'
                 </otherwise>
             </choose>
         </where>
@@ -27,6 +27,7 @@
         SELECT NO, MODEL, IP, ACTIVATION
         FROM KICKBOARD
         WHERE NO = #{no}
+        AND activation = 'Y';
     </select>
 
     <update id="update" parameterType="kickboard">

@@ -23,12 +23,17 @@ public class AccessController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(Admin admin, HttpSession session){
+    public ModelAndView login(Admin admin, HttpSession httpSession){
 
         if(accessService.getAdmin(admin)){
             return new ModelAndView(new RedirectView("access/login"));//입력값 없으면 로그인창으로
-        }else if(session.getAttribute("sessionId")==null){
+        }else {
+            if(accessService.getAdmin(admin)){
+                httpSession.setAttribute("id",admin.getId());//해당하는 아이디가 있으면 세션 생성
+            }
+            if(httpSession.getAttribute("sessionId")==null) {
                 return new ModelAndView(new RedirectView("access/login"));// 관리자 정보가 다르면 로그인창으로
+            }
         }
 
         return new ModelAndView(new RedirectView("helmets/list"));
