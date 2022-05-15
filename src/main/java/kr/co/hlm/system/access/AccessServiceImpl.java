@@ -27,14 +27,16 @@ public class AccessServiceImpl implements HandlerInterceptor, AccessService{
         return result;
     }
 
-//    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        HttpSession session = request.getSession();
-//       if(session.getAttribute("id") != null){
-//           return true;
-//       }
-//
-//        response.sendRedirect("helmets/list");
-//       return false;
-//    }
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("id") != null && session.getAttribute("id") != ""){
+            System.out.println("intercepter");
+            session.setMaxInactiveInterval(30 * 60);
+           return true;
+        }
+
+        response.sendRedirect("helmets/list");
+        return false;
+    }
 }

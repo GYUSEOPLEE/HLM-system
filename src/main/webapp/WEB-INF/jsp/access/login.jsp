@@ -6,5 +6,18 @@
 </head>
 <body>
 <h1>Hello World</h1>
+<form action="/login" method="post">
+    <table>
+        <td>
+            <tr>
+                ID : <input type="text" name="id">
+            </tr>
+            <tr>
+                PW : <input type="password" name="password">
+            </tr>
+        </td>
+    </table>
+    <input type="submit" value="로그인">
+</form>
 </body>
 </html>
