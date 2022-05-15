@@ -5,6 +5,18 @@
 <head>
 </head>
 <body>
-<h1>Hello World</h1>
+
+<form action="/kickboards" method="post">
+    <h1>킥보드 목록</h1>
+    <select name="activation">
+        <option value="">활성화 선택</option>
+        <option value="Y">활성</option>
+        <option value="N">비활성</option>
+    </select>
+    <input type="text" value="">
+</form>
+
+
+
 </body>
 </html>

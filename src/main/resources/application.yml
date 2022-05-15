@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hlm_db?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: mybatis$
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+mybatis:
+  config-location: classpath:config-mybatis.xml
+  type-aliases-package: kr.co.hlm.system.*
+
+server:
+  port: 80
