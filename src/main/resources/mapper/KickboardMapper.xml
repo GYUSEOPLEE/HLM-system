@@ -16,6 +16,9 @@
                 <when test="no != null">
                     NO = #{no}
                 </when>
+                <when test="model != null">
+                    MODEL = #{model}
+                </when>
                 <otherwise>
                     activation = 'Y'
                 </otherwise>

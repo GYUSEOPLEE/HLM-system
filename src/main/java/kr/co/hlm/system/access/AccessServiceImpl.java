@@ -1,6 +1,5 @@
 package kr.co.hlm.system.access;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Service
-@RequiredArgsConstructor
 public class AccessServiceImpl implements HandlerInterceptor, AccessService{
-    private final AdminMapper adminMapper;
+    @Autowired
+    private AdminMapper adminMapper;
 
     @Override
     public boolean getAdmin(Admin admin) {
@@ -27,16 +26,18 @@ public class AccessServiceImpl implements HandlerInterceptor, AccessService{
         return result;
     }
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
-        if(session.getAttribute("id") != null && session.getAttribute("id") != ""){
-            System.out.println("intercepter");
-            session.setMaxInactiveInterval(30 * 60);
-           return true;
-        }
-
-        response.sendRedirect("helmets/list");
-        return false;
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        HttpSession httpSession = request.getSession();
+//        if(httpSession.getAttribute("id") != null){
+//            System.out.println("실행");
+//            httpSession.setMaxInactiveInterval(30*60);
+//            response.sendRedirect("helmets/list");
+//            return true;
+//        } else {
+//            System.out.println("login실행");
+//            response.sendRedirect("/login");
+//            return false;
+//        }
+//    }
 }

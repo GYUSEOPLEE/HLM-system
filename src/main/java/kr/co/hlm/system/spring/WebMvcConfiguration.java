@@ -9,14 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
-@RequiredArgsConstructor
+//@Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
-    private final AdminMapper adminMapper;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AccessServiceImpl(adminMapper))
+        registry.addInterceptor(new AccessServiceImpl())
                 .addPathPatterns("/*")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/kickboards/info")

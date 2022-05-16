@@ -23,25 +23,23 @@ public class AccessController {
     @PostMapping("/login")
     public ModelAndView login(Admin admin, HttpSession httpSession){
 
-        System.out.println(admin.getId());
-        System.out.println(admin.getPassword());
-
         if("".equals(admin.getId()) || "".equals(admin.getPassword())){
+            System.out.println("비어있냐");
             return new ModelAndView(new RedirectView("/login"));//입력값 없으면 로그인창으로
         }else {
-            httpSession.setAttribute("id",admin.getId());//해당하는 아이디가 있으면 세션 생성
             if(accessService.getAdmin(admin)){
-                httpSession.setAttribute("id",admin.getId());
+                System.out.println("생성");
+                httpSession.setAttribute("id",admin.getId());//해당하는 아이디가 있으면 세션 생성
+                if(httpSession.getAttribute("id")==null){
+                    System.out.println("세션이 없다");
+                    return new ModelAndView(new RedirectView("/login"));// 관리자 정보가 다르면 로그인창으로
+                }
+                return new ModelAndView(new RedirectView("/helmets/list"));
             } else {
+                System.out.println("흠");
                 return new ModelAndView(new RedirectView("/login"));
             }
-            if(httpSession.getAttribute("id")==null){
-                System.out.println("not login");
-
-                return new ModelAndView(new RedirectView("/login"));// 관리자 정보가 다르면 로그인창으로
-            }
         }
-        return new ModelAndView(new RedirectView("/helmets/list"));
     }
 
     @GetMapping("/logout")

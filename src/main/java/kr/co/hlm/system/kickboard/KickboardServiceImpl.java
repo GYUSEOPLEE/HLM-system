@@ -22,14 +22,14 @@ public class KickboardServiceImpl implements KickboardService{
     }
 
     @Override
-    public Kickboard getKickboard(Kickboard kickboard) {
-        Kickboard resultKickboard = kickboardMapper.select(kickboard);
+    public Kickboard getKickboard(String no) {
+        Kickboard resultKickboard = kickboardMapper.select(no);
         return resultKickboard;
     }
 
     @Override
     public void editKickboard(Kickboard kickboard) {
-        Kickboard resultKickboard = kickboardMapper.select(kickboard);
+        Kickboard resultKickboard = kickboardMapper.select(kickboard.getNo());
         if(!resultKickboard.getNo().equals("null")) {
             kickboardMapper.update(kickboard);
         }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Admin implements Serializable {
+public class Admin {
     private String id;
     private String password;
 }
