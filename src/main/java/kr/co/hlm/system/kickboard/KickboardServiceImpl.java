@@ -30,8 +30,13 @@ public class KickboardServiceImpl implements KickboardService{
     @Override
     public void editKickboard(Kickboard kickboard) {
         Kickboard resultKickboard = kickboardMapper.select(kickboard.getNo());
-        if(!resultKickboard.getNo().equals("null")) {
-            kickboardMapper.update(kickboard);
+        if(!resultKickboard.getNo().equals(null)) {
+            if(resultKickboard.getActivation().equals("Y")){
+                resultKickboard.setActivation("N");
+            } else if(resultKickboard.getActivation().equals("N")){
+                resultKickboard.setActivation("Y");
+            }
+            kickboardMapper.update(resultKickboard);
         }
     }
 }

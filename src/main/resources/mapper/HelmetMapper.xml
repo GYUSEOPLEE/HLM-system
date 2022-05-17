@@ -33,7 +33,7 @@
 --           AND activation = 'Y';
     </select>
 
-    <update id="update" parameterType="Helmet">
+    <update id="update" parameterType="kr.co.hlm.system.helmet.Helmet">
         UPDATE HELMET
         <choose>
             <when test="activation == 'Y'">>

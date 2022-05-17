@@ -17,7 +17,7 @@
     <input type="text" id="search">
     <input type="submit" value="검색">
 </form>
-<table border="1px">
+<table>
     <tr>
         <th>번호</th>
         <th>일련번호</th>

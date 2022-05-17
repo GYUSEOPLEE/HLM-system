@@ -3,49 +3,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hlm.system.kickboard.KickboardMapper">
-    <insert id="insert" parameterType="kr.co.hlm.system.kickboard.Kickboard">
+    <insert id="insert" parameterType="kickboard">
         INSERT INTO KICKBOARD (NO, MODEL, IP, ACTIVATION)
         VALUES(#{no}, #{model}, #{ip}, #{activation})
     </insert>
 
-    <select id="selectAll" parameterType="kr.co.hlm.system.kickboard.Kickboard" resultType="kr.co.hlm.system.kickboard.Kickboard">
+    <select id="selectAll" parameterType="kickboard" resultType="kickboard">
         SELECT NO, MODEL, IP, ACTIVATION
         FROM KICKBOARD
         <where>
             <choose>
                 <when test="no != null">
                     NO = #{no}
+                    AND activation = 'Y'
                 </when>
                 <when test="model != null">
                     MODEL = #{model}
+                    AND activation = 'Y'
                 </when>
-                <otherwise>
-                    activation = 'Y'
-                </otherwise>
             </choose>
         </where>
     </select>
 
-    <select id="select" parameterType="kr.co.hlm.system.kickboard.Kickboard" resultType="kr.co.hlm.system.kickboard.Kickboard">
+    <select id="select" parameterType="String" resultType="kickboard">
         SELECT NO, MODEL, IP, ACTIVATION
         FROM KICKBOARD
         WHERE NO = #{no}
-        AND activation = 'Y';
     </select>
 
     <update id="update" parameterType="kickboard">
         UPDATE KICKBOARD
-        <choose>
-            <when test="model != null and ip != null">
-                SET ACTIVATION = #{activation},
-                    MODEL = #{model},
-                    IP = #{ip}
-                WHERE NO = #{no}
-            </when>
-            <otherwise>
-                SET ACTIVATION = #{activation}
-                WHERE NO = #{no}
-            </otherwise>
-        </choose>
+        SET ACTIVATION = #{activation}
+        WHERE NO = #{no}
     </update>
 </mapper>
