@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class HelmetServiceImpl implements HelmetService{
-    private HelmetMapper helmetMapper;
+    private final HelmetMapper helmetMapper;
 
     @Override
     public void createHelmet(Helmet helmet) {
@@ -36,6 +36,6 @@ public class HelmetServiceImpl implements HelmetService{
 
     @Override
     public void editHelmet(Helmet helmet) {
-        helmetMapper.update(helmet);
+        helmetMapper.update(helmetMapper.select(helmet));
     }
 }

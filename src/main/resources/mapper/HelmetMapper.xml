@@ -3,5 +3,46 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hlm.system.helmet.HelmetMapper">
+    <insert id="insert" parameterType="kr.co.hlm.system.helmet.Helmet">
+        INSERT INTO HELMET (NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP)
+        VALUES(#{no}, #{model}, #{size}, #{ip}, #{activation}, #{kickboardIp})
+    </insert>
 
+    <select id="selectAll" parameterType="kr.co.hlm.system.helmet.Helmet" resultType="kr.co.hlm.system.helmet.Helmet">
+        SELECT NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
+        FROM HELMET
+        <where>
+            <choose>
+                <when test="no != null and no != ''">
+                    NO = #{no}
+                </when>
+                <when test="model != null and model != ''">
+                    MODEL = #{model}
+                </when>
+                <otherwise>
+                    activation = 'Y'
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="select" parameterType="kr.co.hlm.system.helmet.Helmet" resultType="kr.co.hlm.system.helmet.Helmet">
+        SELECT NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
+        FROM HELMET
+        WHERE NO = #{no}
+--           AND activation = 'Y';
+    </select>
+
+    <update id="update" parameterType="Helmet">
+        UPDATE HELMET
+        <choose>
+            <when test="activation == 'Y'">>
+                SET ACTIVATION = 'N'
+            </when>
+            <when test="activation == 'N'">
+                SET ACTIVATION = 'Y'
+            </when>
+        </choose>
+        WHERE NO = #{no}
+    </update>
 </mapper>
