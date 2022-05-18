@@ -36,4 +36,23 @@
         SET ACTIVATION = #{activation}
         WHERE NO = #{no}
     </update>
+    
+    <select id="selectAllCount" parameterType="page" resultType="kickboard">
+        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, IP, MODEL, ACTIVATION
+        FROM KICKBOARD,  (SELECT @ROWNUM:=0) R
+        <where>
+            <choose>
+                <when test="no != null">
+                    NO = #{no}
+                </when>
+                <otherwise>
+                    NO = null
+                </otherwise>
+            </choose>
+        </where>
+        ORDER BY NO DESC, RN DESC
+        <if test="endRn > 0">
+            LIMIT #{startRn}, 10
+        </if>
+    </select>
 </mapper>

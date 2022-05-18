@@ -1,5 +1,6 @@
 package kr.co.hlm.system.kickboard;
 
+import kr.co.hlm.system.page.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,5 @@ public interface KickboardMapper {
     public List<Kickboard> selectAll(Kickboard kickboard);
     public Kickboard select(String no);
     public void update(Kickboard kickboard);
+    public void selectAllCount(Page page);
 }

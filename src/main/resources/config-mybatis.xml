@@ -16,6 +16,7 @@
         <typeAlias type="kr.co.hlm.system.helmetstate.HelmetState" alias="helmetState"/>
         <typeAlias type="kr.co.hlm.system.kickboard.Kickboard" alias="kickboard"/>
         <typeAlias type="kr.co.hlm.system.kickboardlocation.KickboardLocation" alias="kickboardLocation"/>
+        <typeAlias type="kr.co.hlm.system.page.Page" alias="page"/>
     </typeAliases>
 
     <mappers>

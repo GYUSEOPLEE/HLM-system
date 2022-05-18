@@ -5,21 +5,7 @@
 <html>
 <head>
     <title>로그인 화면</title>
-    <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/dragscroll.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/jquery.scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/custom.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/font-awesome/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jquery.scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap">
+    <%@ include file="/WEB-INF/jsp/include/head.jsp" %>
 </head>
 <body style="font-family: 'Noto Sans KR', sans-serif;">
 <div class="ts-page-wrapper ts-has-bokeh-bg" id="page-top">
