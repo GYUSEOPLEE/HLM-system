@@ -11,5 +11,5 @@ public class Kickboard {
     private String no;
     private String model;
     private String ip;
-    private String activation;
+    private char activation;
 }

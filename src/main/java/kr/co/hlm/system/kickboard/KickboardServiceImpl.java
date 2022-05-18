@@ -31,10 +31,10 @@ public class KickboardServiceImpl implements KickboardService{
     public void editKickboard(Kickboard kickboard) {
         Kickboard resultKickboard = kickboardMapper.select(kickboard.getNo());
         if(!resultKickboard.getNo().equals(null)) {
-            if(resultKickboard.getActivation().equals("Y")){
-                resultKickboard.setActivation("N");
-            } else if(resultKickboard.getActivation().equals("N")){
-                resultKickboard.setActivation("Y");
+            if(resultKickboard.getActivation() == 'Y'){
+                resultKickboard.setActivation('N');
+            } else if(resultKickboard.getActivation() == 'N'){
+                resultKickboard.setActivation('Y');
             }
             kickboardMapper.update(resultKickboard);
         }

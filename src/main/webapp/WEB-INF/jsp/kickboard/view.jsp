@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -29,32 +30,29 @@
                                     </div>
                                     <br>
                                     <br>
-                                    <br>
-                                    <br>
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-12 mx-auto" style="padding: 10px">
                                             <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 20%;">일련번호</label>
-                                            <p style="font-size: 1.5em;">${kickboard.no}</p>
+                                            <p style="font-size: 1.5em; transform: translate(9%, 50%);">${kickboard.no}</p>
                                         </div>
-                                        <br>
-                                        <div class="col-sm-4">
+                                        <div class="col-12 mx-auto" style="padding: 10px">
                                             <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 20%;">모델명</label>
-                                            <p style="font-size: 1.5em;">${kickboard.model}</p>
+                                            <p style="font-size: 1.5em; transform: translate(10%, 50%);">${kickboard.model}</p>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-12 mx-auto" style="padding: 10px">
                                             <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 20%;">킥보드 IP</label>
-                                            <p style="font-size: 1.5em;">${kickboard.ip}</p>
+                                            <p style="font-size: 1.5em; transform: translate(8%, 50%);">${kickboard.ip}</p>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-12 mx-auto" style="padding: 10px">
                                             <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 20%;">활성</label>
                                             <c:choose>
-                                            <c:when test="${kickboard.activation == 'Y'}">
-                                            <h3 class="p-2" style="margin: auto" data-toggle="tooltip" data-placement="right" title="상태 변경 : 비활성 버튼">
-                                                <button type="button" class="card ts-item ts-card ts-result border text-primary" style="font-size: 1.5em" data-toggle="modal" data-target="#activeCenter">${kickboard.activation}</button>
+                                            <c:when test="${fn:contains(kickboard.activation, 'Y')}">
+                                            <h3 class="p-2" style="margin: auto; transform: translate(11%, 0%);" data-toggle="tooltip" data-placement="right" title="상태 변경 : 비활성 버튼">
+                                                <button type="button" class="card ts-item ts-card ts-result border" style="font-size: 1em;" data-toggle="modal" data-target="#activeCenter">활성</button>
                                                 </c:when>
                                                 <c:otherwise>
-                                                <h3 class="p-2" style="margin: auto" data-toggle="tooltip" data-placement="right" title="상태 변경 : 활성 버튼">
-                                                    <button type="button" class="card ts-item ts-card ts-result border text-danger" style="font-size: 1.5em" data-toggle="modal" data-target="#activeCenter">${kickboard.activation}</button>
+                                                <h3 class="p-2" style="margin: auto; color: orange" data-toggle="tooltip" data-placement="right" title="상태 변경 : 활성 버튼">
+                                                    <button type="button" class="card ts-item ts-card ts-result border" style="font-size: 1em;" data-toggle="modal" data-target="#activeCenter">비활성</button>
                                                 </c:otherwise>
                                                     </c:choose>
                                             </h3>
@@ -85,7 +83,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <c:choose>
-                                                            <c:when test="${kickboard.activation == 'Y'}">
+                                                            <c:when test="${fn:contains(kickboard.activation, 'Y')}">
                                                                 <h3 class="form-check">비활성 상태로 변경하시겠습니까?</h3>
                                                             </c:when>
                                                             <c:otherwise>
@@ -115,7 +113,7 @@
     document.getElementById("editActiveButton").addEventListener("click", editActive, false);
 
     function editActive() {
-        if ("${kickboard.activation}" == "Y") {
+        if ("${fn:contains(kickboard.activation, 'Y')}") {
             sendEdit({"no":"${kickboard.no}","activation":"N"});
         } else {
             sendEdit({"no":"${kickboard.no}","activation":"Y"});
