@@ -35,14 +35,7 @@
 
     <update id="update" parameterType="kr.co.hlm.system.helmet.Helmet">
         UPDATE HELMET
-        <choose>
-            <when test="activation == 'Y'">>
-                SET ACTIVATION = 'N'
-            </when>
-            <when test="activation == 'N'">
-                SET ACTIVATION = 'Y'
-            </when>
-        </choose>
+        SET ACTIVATION = #{activation}
         WHERE NO = #{no}
     </update>
 </mapper>

@@ -36,6 +36,13 @@ public class HelmetServiceImpl implements HelmetService{
 
     @Override
     public void editHelmet(Helmet helmet) {
-        helmetMapper.update(helmetMapper.select(helmet));
+        Helmet viewHelmet = helmetMapper.select(helmet);
+
+        if (viewHelmet.getActivation() == 'Y') {
+            viewHelmet.setActivation('N');
+        } else {
+            viewHelmet.setActivation('Y');
+        }
+        helmetMapper.update(viewHelmet);
     }
 }
