@@ -38,7 +38,7 @@ public class KickboardController {
     public ModelAndView getKickboard(@PathVariable String no){
         Kickboard resultKickboard = kickboardService.getKickboard(no);
         ModelAndView modelAndView = new ModelAndView("kickboard/view");
-        modelAndView.addObject(resultKickboard);
+        modelAndView.addObject("kickboard",resultKickboard);
 
         return modelAndView;
     }
