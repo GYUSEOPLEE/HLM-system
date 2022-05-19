@@ -10,9 +10,8 @@ public class KickboardPageUtil {
     private static final int PAGE_SIZE = 5;
     private static final int ROW_SIZE = 10;
 
-    public Page setPage(String parasolId ,int totallRowCount, int pageNo) {
+    public Page setPage(int totallRowCount, int pageNo) {
         Page page = new Page();
-        page.setId(parasolId);
         page.setTotalRowCount(totallRowCount);
         page.setFinalPageNo(this.getFinalPageNo(totallRowCount));
         page.setStartPageNo(this.getStartPage(pageNo));
@@ -62,7 +61,6 @@ public class KickboardPageUtil {
 
         if (parasolStatusList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
-            drawPage.append("        <div class=\"container\">");
             drawPage.append("            <div class=\"ts-compare-items-table\">");
             drawPage.append("                <section id=\"details\">");
             drawPage.append("                    <div class=\"row\">");
@@ -85,7 +83,6 @@ public class KickboardPageUtil {
 
             drawPage.append("                </section>");
             drawPage.append("            </div>");
-            drawPage.append("        </div>");
             drawPage.append("    </section>");
             drawPage.append("    <section id=\"pagination\">");
             drawPage.append("        <div class=\"container\">");

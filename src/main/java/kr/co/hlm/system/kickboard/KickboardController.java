@@ -2,6 +2,7 @@ package kr.co.hlm.system.kickboard;
 
 import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.KickboardPageUtil;
+import kr.co.hlm.system.page.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,19 +21,19 @@ public class KickboardController {
     //킥보드 목록 조회 폼
     @GetMapping
     public ModelAndView getKickboards(){
-        Kickboard kickboard = new Kickboard();
-        List<Kickboard> kickboards = kickboardService.getKickboards(kickboard);
         ModelAndView modelAndView = new ModelAndView("kickboard/list");
-        modelAndView.addObject("kickboards",kickboards);
         return modelAndView;
     }
 
     //킥보드 목록 조회 (문서 바꾸기)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text;charset=UTF-8")
-    public String getKickboards(@RequestBody Kickboard kickboard){
-        List<Kickboard> kickboards = kickboardService.getKickboards(kickboard);
+    public String getKickboards(@RequestBody Page page){
+        String drawPage = "";
+        Page newPage = kickboardPageUtil.setPage(kickboardService.getKickboardsView(page).size(),page.getPageNo());
+        List<Kickboard> kickboardList = kickboardService.getKickboardsView(newPage);
+        drawPage = kickboardPageUtil.drawPage(newPage, kickboardList);
 
-        return null;
+        return drawPage;
     }
 
     //킥보드 조회 (문서 바꾸기)

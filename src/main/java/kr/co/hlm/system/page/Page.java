@@ -12,7 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @ToString
 public class Page implements Serializable {
-    private String id;
     private int StartPageNo;
     private int EndPageNo;
     private int finalPageNo;

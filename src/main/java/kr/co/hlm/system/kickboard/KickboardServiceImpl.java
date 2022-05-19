@@ -1,9 +1,11 @@
 package kr.co.hlm.system.kickboard;
 
+import kr.co.hlm.system.page.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,4 +41,14 @@ public class KickboardServiceImpl implements KickboardService{
             kickboardMapper.update(resultKickboard);
         }
     }
+
+    @Override
+    public List<Kickboard> getKickboardsView(Page page) {
+        List<Kickboard> kickboardList = kickboardMapper.selectAllCount(page);
+        return kickboardList != null ?
+                kickboardList :
+                new ArrayList<Kickboard>();
+    }
+
+
 }

@@ -15,8 +15,7 @@
         <br>
         <br>
         <br>
-    <section id="ts-hero" class=" mb-0">
-        <div class="ts-full-screen d-flex flex-column">
+        <br>
             <section class="ts-shadow__sm ts-z-index__2 ts-bg-light">
                 <div id="form-collapse" class="collapse ts-xs-hide-collapse show">
                     <div class="ts-form mb-0 d-flex flex-column flex-sm-row py-2 pl-2 pr-3">
@@ -36,10 +35,8 @@
                     </div>
                 </div>
             </section>
-        </div>
 
         <div id="drawInfo" style="text-align: center"></div>
-    </section>
 <script>
     pageOver(1);
 
