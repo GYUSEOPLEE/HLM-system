@@ -4,9 +4,9 @@
 		<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
 			<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" style="width: 60%">
-				<li><a href="#" class="nav-link px-2 link-secondary" style="font-weight: bold; font-size: 1.5em; padding-left: 100px;">메인</a></li>
-				<li><a href="#" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1.5em; padding-left: 100px;">헬멧 목록</a></li>
-				<li><a href="#" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1.5em; padding-left: 100px;">킥보드 목록</a></li>
+				<li><a href="/helmets/main" class="nav-link px-2 link-secondary" style="font-weight: bold; font-size: 1.5em; padding-left: 100px;">메인</a></li>
+				<li><a href="/helmets" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1.5em; padding-left: 100px;">헬멧 목록</a></li>
+				<li><a href="/kickboards" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1.5em; padding-left: 100px;">킥보드 목록</a></li>
 			</ul>
 
 			<div class="col-md-3 text-end">

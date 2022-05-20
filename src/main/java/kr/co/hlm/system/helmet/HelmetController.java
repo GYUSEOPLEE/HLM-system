@@ -2,6 +2,8 @@ package kr.co.hlm.system.helmet;
 
 import kr.co.hlm.system.kickboard.Kickboard;
 import kr.co.hlm.system.management.ReceiveState;
+import kr.co.hlm.system.page.HelmetPageUtil;
+import kr.co.hlm.system.page.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,14 @@ import java.util.List;
 @RequestMapping("/helmets")
 public class HelmetController {
     private final HelmetService helmetService;
+    private final HelmetPageUtil helmetPageUtil;
+
+    @GetMapping("/main")
+    public ModelAndView getMainPage() {
+        ModelAndView modelAndView = new ModelAndView("helmet/main");
+
+        return modelAndView;
+    }
 
     @GetMapping
     public ModelAndView getHelmets() {
@@ -23,11 +33,19 @@ public class HelmetController {
         return modelAndView;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Helmet> getHelmets(@RequestBody Helmet helmet) {
+    @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String getHelmets(@PathVariable int pageNo, @RequestBody Helmet helmet) {
+        String drawPage = "";
+
+        System.out.println(helmet.toString());
+
+        Page page = helmetPageUtil.setPage(helmet.getNo(), helmetService.getHelmets(helmet).size(), pageNo);
+
         List<Helmet> helmets = helmetService.getHelmets(helmet);
 
-        return helmets;
+        drawPage = helmetPageUtil.drawPage(page, helmets);
+
+        return drawPage;
     }
 
     @GetMapping("/{no}")
