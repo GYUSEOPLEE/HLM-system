@@ -14,15 +14,15 @@
         <where>
             <choose>
                 <when test="no != null and no != ''">
-                    NO = #{no}
+                    NO LIKE CONCAT('%', #{no}, '%')
+                    OR
+                    MODEL LIKE CONCAT('%', #{no}, '%')
                 </when>
-                <when test="model != null and model != ''">
-                    MODEL = #{model}
-                </when>
-                <otherwise>
-                    activation = 'Y'
-                </otherwise>
             </choose>
+
+            <if test="activation != 'X'">
+                AND activation = #{activation}
+            </if>
         </where>
     </select>
 
