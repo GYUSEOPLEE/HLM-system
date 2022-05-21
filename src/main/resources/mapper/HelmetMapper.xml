@@ -9,7 +9,7 @@
     </insert>
 
     <select id="selectAll" parameterType="kr.co.hlm.system.helmet.Helmet" resultType="kr.co.hlm.system.helmet.Helmet">
-        SELECT NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
+        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
         FROM HELMET
         <where>
             <choose>
@@ -24,6 +24,9 @@
                 AND activation = #{activation}
             </if>
         </where>
+        <if test="model != null">
+            LIMIT ${model}, 5
+        </if>
     </select>
 
     <select id="select" parameterType="kr.co.hlm.system.helmet.Helmet" resultType="kr.co.hlm.system.helmet.Helmet">
