@@ -10,8 +10,9 @@ public class KickboardPageUtil {
     private static final int PAGE_SIZE = 5;
     private static final int ROW_SIZE = 10;
 
-    public Page setPage(int totallRowCount, int pageNo) {
+    public Page setPage(String parasolId ,int totallRowCount, int pageNo) {
         Page page = new Page();
+        page.setId(parasolId);
         page.setTotalRowCount(totallRowCount);
         page.setFinalPageNo(this.getFinalPageNo(totallRowCount));
         page.setStartPageNo(this.getStartPage(pageNo));
@@ -56,10 +57,10 @@ public class KickboardPageUtil {
     }
 
     //드로우
-    public String drawPage(Page page, List<Kickboard> parasolStatusList) {
+    public String drawPage(Page page, List<Kickboard> kickboardList) {
         StringBuffer drawPage = new StringBuffer();
 
-        if (parasolStatusList.size() > 0) {
+        if (kickboardList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
             drawPage.append("            <div class=\"ts-compare-items-table\">");
             drawPage.append("                <section id=\"details\">");
@@ -71,13 +72,13 @@ public class KickboardPageUtil {
             drawPage.append("                        <div class=\"col ts-row-title text-left\">활성</div>");
             drawPage.append("                    </div>");
 
-            for (int i = 0; i < parasolStatusList.size(); i++) {
+            for (int i = 0; i < kickboardList.size(); i++) {
                 drawPage.append("<div class=\"row\">");
-                drawPage.append("    <div class=\"col text-center\">" + (parasolStatusList.size() - i) + "</div>");
-                drawPage.append("    <div class=\"col text-center\">" + parasolStatusList.get(i).getNo() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + parasolStatusList.get(i).getIp() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + parasolStatusList.get(i).getModel() + "℃</div>");
-                drawPage.append("    <div class=\"col text-left\">" + parasolStatusList.get(i).getActivation() + "</div>");
+                drawPage.append("    <div class=\"col text-center\">" + (i + 1 + (page.getPageNo() - 1) * 5) + "</div>");
+                drawPage.append("    <div class=\"col text-left\"> <a href=\"kickboards\\" + kickboardList.get(i).getNo() + "\">" + kickboardList.get(i).getNo() +"</a> </div>");
+                drawPage.append("    <div class=\"col text-left\">" + kickboardList.get(i).getIp() + "</div>");
+                drawPage.append("    <div class=\"col text-left\">" + kickboardList.get(i).getModel() + "℃</div>");
+                drawPage.append("    <div class=\"col text-left\">" + kickboardList.get(i).getActivation() + "</div>");
                 drawPage.append("</div>");
             }
 

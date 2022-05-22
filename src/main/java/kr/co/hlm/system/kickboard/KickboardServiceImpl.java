@@ -1,8 +1,6 @@
 package kr.co.hlm.system.kickboard;
 
-import kr.co.hlm.system.page.Page;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +18,11 @@ public class KickboardServiceImpl implements KickboardService{
 
     @Override
     public List<Kickboard> getKickboards(Kickboard kickboard) {
-        return kickboardMapper.selectAll(kickboard);
+        List<Kickboard> kickboards = kickboardMapper.selectAll(kickboard);
+
+        return kickboards != null
+                ? kickboards
+                : new ArrayList<Kickboard>();
     }
 
     @Override
@@ -31,24 +33,14 @@ public class KickboardServiceImpl implements KickboardService{
 
     @Override
     public void editKickboard(Kickboard kickboard) {
-        Kickboard resultKickboard = kickboardMapper.select(kickboard.getNo());
-        if(!resultKickboard.getNo().equals(null)) {
-            if(resultKickboard.getActivation() == 'Y'){
-                resultKickboard.setActivation('N');
-            } else if(resultKickboard.getActivation() == 'N'){
-                resultKickboard.setActivation('Y');
-            }
-            kickboardMapper.update(resultKickboard);
+        Kickboard viewKickboard = kickboardMapper.select(kickboard.getNo());
+
+        if (viewKickboard.getActivation() == 'Y') {
+            viewKickboard.setActivation('N');
+        } else {
+            viewKickboard.setActivation('Y');
         }
+
+        kickboardMapper.update(viewKickboard);
     }
-
-    @Override
-    public List<Kickboard> getKickboardsView(Page page) {
-        List<Kickboard> kickboardList = kickboardMapper.selectAllCount(page);
-        return kickboardList != null ?
-                kickboardList :
-                new ArrayList<Kickboard>();
-    }
-
-
 }

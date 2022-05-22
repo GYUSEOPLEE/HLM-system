@@ -1,5 +1,6 @@
 package kr.co.hlm.system.kickboard;
 
+import kr.co.hlm.system.helmet.Helmet;
 import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.KickboardPageUtil;
 import kr.co.hlm.system.page.Page;
@@ -26,12 +27,17 @@ public class KickboardController {
     }
 
     //킥보드 목록 조회 (문서 바꾸기)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/text;charset=UTF-8")
-    public String getKickboards(@RequestBody Page page){
+    @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String getKickboards(@PathVariable int pageNo, @RequestBody Kickboard kickboard){
         String drawPage = "";
-        Page newPage = kickboardPageUtil.setPage(kickboardService.getKickboardsView(page).size(),page.getPageNo());
-        List<Kickboard> kickboardList = kickboardService.getKickboardsView(newPage);
-        drawPage = kickboardPageUtil.drawPage(newPage, kickboardList);
+
+        Page page = kickboardPageUtil.setPage(kickboard.getNo(), kickboardService.getKickboards(kickboard).size(), pageNo);
+
+        kickboard.setModel("" + (pageNo - 1) * 5);
+
+        List<Kickboard> kickboards = kickboardService.getKickboards(kickboard);
+
+        drawPage = kickboardPageUtil.drawPage(page, kickboards);
 
         return drawPage;
     }

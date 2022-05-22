@@ -13,5 +13,4 @@ public interface KickboardMapper {
     public List<Kickboard> selectAll(Kickboard kickboard);
     public Kickboard select(String no);
     public void update(Kickboard kickboard);
-    public List<Kickboard> selectAllCount(Page page);
 }

@@ -9,20 +9,24 @@
     </insert>
 
     <select id="selectAll" parameterType="kickboard" resultType="kickboard">
-        SELECT NO, MODEL, IP, ACTIVATION
-        FROM KICKBOARD
+        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
+        FROM HELMET
         <where>
             <choose>
-                <when test="no != null">
-                    NO = #{no}
-                    AND activation = 'Y'
-                </when>
-                <when test="model != null">
-                    MODEL = #{model}
-                    AND activation = 'Y'
+                <when test="no != null and no != ''">
+                    NO LIKE CONCAT('%', #{no}, '%')
+                    OR
+                    MODEL LIKE CONCAT('%', #{no}, '%')
                 </when>
             </choose>
+
+            <if test="activation != 'X'">
+                AND activation = #{activation}
+            </if>
         </where>
+        <if test="model != null">
+            LIMIT ${model}, 5
+        </if>
     </select>
 
     <select id="select" parameterType="String" resultType="kickboard">
@@ -36,13 +40,4 @@
         SET ACTIVATION = #{activation}
         WHERE NO = #{no}
     </update>
-    
-    <select id="selectAllCount" parameterType="page" resultType="kickboard">
-        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, IP, MODEL, ACTIVATION
-        FROM KICKBOARD,  (SELECT @ROWNUM:=0) R
-        ORDER BY NO DESC, RN DESC
-        <if test="endRn > 0">
-            LIMIT #{startRn}, 10
-        </if>
-    </select>
 </mapper>

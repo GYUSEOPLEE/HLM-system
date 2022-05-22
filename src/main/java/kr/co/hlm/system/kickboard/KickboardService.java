@@ -10,5 +10,4 @@ public interface KickboardService {
     public List<Kickboard> getKickboards(Kickboard kickboard);
     public Kickboard getKickboard(String no);
     public void editKickboard(Kickboard kickboard);
-    public List<Kickboard> getKickboardsView(Page page);
 }
