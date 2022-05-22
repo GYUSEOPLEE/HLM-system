@@ -123,7 +123,7 @@
     function sendEdit(params) {
         var form = document.createElement("form");
         form.setAttribute("method", "post");
-        form.setAttribute("action", "/kickboards/${kickboard.no}");
+        form.setAttribute("action", "/kickboards/${kickboard.no}/edit");
         for(var key in params) {
             var hiddenField = document.createElement("input");
             hiddenField.setAttribute("type", "hidden");

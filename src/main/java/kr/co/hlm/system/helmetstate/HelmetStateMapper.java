@@ -9,4 +9,5 @@ public interface HelmetStateMapper {
     public void insert(HelmetState helmetState);
     public List<HelmetState> selectAll(HelmetState helmetState);
     public HelmetState select(HelmetState helmetState);
+    public void update(HelmetState helmetState);
 }

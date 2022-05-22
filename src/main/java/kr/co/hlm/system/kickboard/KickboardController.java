@@ -53,7 +53,7 @@ public class KickboardController {
     }
 
     //킥보드 수정
-    @PostMapping("/{no}")
+    @PostMapping("/{no}/edit")
     public ModelAndView editKickboard(Kickboard kickboard){
         kickboardService.editKickboard(kickboard);
         Kickboard resultKickboard = kickboardService.getKickboard(kickboard.getNo());
