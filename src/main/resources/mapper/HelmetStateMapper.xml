@@ -12,18 +12,21 @@
         SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, DATE_TIME, LATITUDE, LONGITUDE, LOSS, HELMET_NO
         FROM HELMET_STATE
         <where>
-            HELMET_NO = #{helmetNo}
+            <if test="helmetNo != null">
+                HELMET_NO = #{helmetNo}
+            </if>
         </where>
-        <if test="no != -1">
+        <if test="helmetNo != null and no != -1">
             LIMIT ${no}, 5
         </if>
     </select>
 
     <select id="select" parameterType="helmetState" resultType="helmetState">
-        SELECT NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
+        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, DATE_TIME, LATITUDE, LONGITUDE, LOSS, HELMET_NO
         FROM HELMET_STATE
-        WHERE NO = #{no}
---           AND activation = 'Y';
+        WHERE HELMET_NO = #{helmetNo}
+        ORDER BY NO DESC
+        LIMIT 0, 1
     </select>
 
     <update id="update" parameterType="HelmetState">

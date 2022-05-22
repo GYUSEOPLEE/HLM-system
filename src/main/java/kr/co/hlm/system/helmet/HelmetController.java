@@ -1,6 +1,7 @@
 package kr.co.hlm.system.helmet;
 
 
+import kr.co.hlm.system.helmetstate.HelmetState;
 import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.HelmetPageUtil;
 import kr.co.hlm.system.page.Page;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,14 @@ public class HelmetController {
         ModelAndView modelAndView = new ModelAndView("helmet/main");
 
         return modelAndView;
+    }
+
+    //문서 추가
+    @PostMapping(value = "/main", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Mark> getMainPage(@RequestBody Helmet helmet) {
+        List<Mark> mark = helmetService.getMarks(helmet);
+
+        return mark;
     }
 
     @GetMapping
@@ -58,6 +68,7 @@ public class HelmetController {
         return modelAndView;
     }
 
+    //문서추가
     @PostMapping("/{no}/edit")
     public ModelAndView editHelmet(Helmet helmet) {
         helmetService.editHelmet(helmet);

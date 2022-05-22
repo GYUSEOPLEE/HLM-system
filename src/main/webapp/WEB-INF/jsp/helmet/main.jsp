@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" id="keyword" name="managementNo" placeholder="헬멧 일련번호 or 모델명" />
                             </div>
                             <div class="form-group m-1 w-100">
-                                <select class="custom-select" id="type" name="active">
+                                <select class="custom-select" id="type" name="activation">
                                     <option value="X">전체</option>
                                     <option value="Y">활성</option>
                                     <option value="N">비활성</option>
@@ -74,9 +74,9 @@
         let infowindows = [];
         function search() {
             searchXmlHttpRequest = new XMLHttpRequest();
-            searchXmlHttpRequest.open("GET", "/parasol?managementNo=" + document.getElementById("keyword").value + "&active=" + document.getElementById("type").value, true);
+            searchXmlHttpRequest.open("POST", "/helmets/main", true);
             searchXmlHttpRequest.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-            searchXmlHttpRequest.send();
+            searchXmlHttpRequest.send('{"no" : "' + document.getElementById("keyword").value + '", "activation" : "' + document.getElementById("type").value + '"}');
             searchXmlHttpRequest.onreadystatechange = getData;
         }
         function getData() {
@@ -95,71 +95,85 @@
                 if (dataToJson.length > 0) {
                     var script = "";
                     for (var i = 0; i < dataToJson.length; i++) {
-                        let id = dataToJson[i].id;
-                        let active = dataToJson[i].active;
-                        let managementNo = dataToJson[i].managementNo;
-                        let status = dataToJson[i].status;
-                        let temperature = dataToJson[i].temperature;
+                        // let id = dataToJson[i].id;
+                        let no = dataToJson[i].no;
                         let dateTime = dataToJson[i].dateTime;
                         let latitude = dataToJson[i].latitude;
                         let longitude = dataToJson[i].longitude;
-                        let activeKr = "";
-                        let action;
+                        let activation = dataToJson[i].activation;
+                        let loss = dataToJson[i].loss;
+                        let wear = dataToJson[i].wear;
+                        let activationKr = "";
                         let color;
-                        if (status == "접힘" || status == null) {
-                            action = "U";
+
+                        if (activation == "Y") {
+                            activationKr = "활성"
                         } else {
-                            action = "F";
-                        }
-                        if (active == "Y") {
-                            activeKr = "활성"
-                        } else {
-                            activeKr = "비활성"
+                            activationKr = "비활성"
                             color = "text-danger";
                         }
-                        script += '<div class="ts-result-link card ts-item ts-card ts-result" data-ts-id="6" data-ts-ln="5">'
-                            + '    <a href="javascript:void(0);" onclick="moveMap(' + latitude + ', ' + longitude + ', ' + i + ')">'
-                            + '        <input type="hidden" id="id' + i + '" value="' + id + '" />'
-                            + '        <input type="hidden" id="active' + i + '" value="' + active + '" />'
-                            + '        <input type="hidden" id="managementNo' + i + '" value="' + managementNo + '" />'
-                            + '        <input type="hidden" id="status' + i + '" value="' + status + '" />'
-                            + '        <input type="hidden" id="temperature' + i + '" value="' + temperature + '" />'
-                            + '        <input type="hidden" id="dateTime' + i + '" value="' + dateTime + '" />'
-                            + '        <input type="hidden" id="latitude' + i + '" value="' + latitude + '" />'
-                            + '        <input type="hidden" id="longitude' + i + '" value="' + longitude + '" />'
-                            + '        <input type="hidden" id="activeKr' + i + '" value="' + activeKr + '" />'
-                            + '        <input type="hidden" id="action' + i + '" value="' + action + '" />'
-                            + '        <div class="card-body">'
-                            + '            <figure class="ts-item__info">'
-                            + '                <h3>' + managementNo + '</h3>'
-                            + '                <aside class="' + color + '" style="font-size: 1em">'
-                            + '                    <i class="fa fa-map-marker mr-2"></i>'
-                            +                      activeKr
-                            + '                </aside>'
-                            + '            </figure>'
-                            + '        </div>'
-                            + '    </a>'
-                            + '</div>';
+                            script += '<div class="ts-result-link card ts-item ts-card ts-result" data-ts-id="6" data-ts-ln="5">'
+                                + '    <a href="javascript:void(0);" onclick="moveMap(' + latitude + ', ' + longitude + ', ' + i + ')">'
+                                + '        <input type="hidden" id="no' + i + '" value="' + no + '" />'
+                                + '        <input type="hidden" id="dateTime' + i + '" value="' + dateTime + '" />'
+                                + '        <input type="hidden" id="latitude' + i + '" value="' + latitude + '" />'
+                                + '        <input type="hidden" id="longitude' + i + '" value="' + longitude + '" />'
+                                + '        <input type="hidden" id="activation' + i + '" value="' + activation + '" />'
+                                + '        <input type="hidden" id="loss' + i + '" value="' + loss + '" />'
+                                + '        <input type="hidden" id="wear' + i + '" value="' + wear + '" />'
+                                + '        <input type="hidden" id="activationKr' + i + '" value="' + activationKr + '" />'
+
+                                + '        <table>'
+                                + '             <tr>'
+                                + '                 <td>' + (i+1) + '</td>'
+                                + '                 <td>'
+                                + '                     <div class="card-body">'
+                                + '                         <figure class="ts-item__info">'
+                                + '                             <h3>' + no + '</h3>'
+                                + '                             <aside class="' + color + '" style="font-size: 1em">'
+                                + '                                 <i class="fa fa-map-marker mr-2"></i>'
+                                +                                   activationKr
+                                + '                             </aside>'
+                                + '                         </figure>'
+                                + '                     </div>'
+                                + '                 </td>'
+                                + '             </tr>'
+                                + '        </table>'
+
+                                // + '        <div class="card-body">'
+                                // + '            <figure class="ts-item__info">'
+                                // + '                <h3>' + managementNo + '</h3>'
+                                // + '                <aside class="' + color + '" style="font-size: 1em">'
+                                // + '                    <i class="fa fa-map-marker mr-2"></i>'
+                                // +                      activationKr
+                                // + '                </aside>'
+                                // + '            </figure>'
+                                // + '        </div>'
+                                + '    </a>'
+                                + '</div>';
                     }
                     document.getElementById("drawResult").innerHTML = script;
                     for (var i = 0; i < dataToJson.length; i++) {
                         let statusKr;
                         let color;
-                        if (document.getElementById("active" + i).value == "N") {
+                        if (document.getElementById("activation" + i).value == "N") {
                             color = "rgb(234,9,9)";
                         } else {
                             color = "rgb(5,148,252)";
                         }
+
                         if (document.getElementById("status" + i).value == "펼침") {
                             statusKr = "접기";
                         } else {
                             statusKr = "펼치기";
                         }
+
                         var marker = new naver.maps.Marker({
                             position: new naver.maps.LatLng(document.getElementById("latitude" + i).value, document.getElementById("longitude" + i).value),
                             map: map,
                             animation: naver.maps.Animation.DROP
                         });
+
                         var contentString = [
                             '<section style="margin: auto; width: fit-content" class="mb-1 pl-0">'
                             + '    <input type="hidden" id="contentString" value="' + i + '" />'
@@ -169,7 +183,7 @@
                             + '    <div style="text-align: center; margin: auto" class="row">'
                             + '        <div class="col-sm-4">'
                             + '            <label>활성</label>'
-                            + '            <p>' + document.getElementById("active" + i).value + '</p>'
+                            + '            <p>' + document.getElementById("activation" + i).value + '</p>'
                             + '        </div>'
                             + '        <div class="col-sm-4">'
                             + '            <label>상태</label>'
@@ -216,20 +230,6 @@
                         + '</div>';
                 }
             }
-        }
-        function sendAction(sendId, action, index) {
-            indexI = index;
-            document.getElementById("actionButton" + indexI).setAttribute('class', 'btn btn-outline-secondary btn-sm disabled');
-            document.getElementById("actionButton" + indexI).innerText = "동작중";
-            actionXmlHttpRequest = new XMLHttpRequest();
-            if (action == "F") {
-                actionXmlHttpRequest.open("POST", "/control/F", true);
-            } else {
-                actionXmlHttpRequest.open("POST", "/control/U", true);
-            }
-            actionXmlHttpRequest.setRequestHeader("Content-Type","application/json;charset=UTF-8");
-            actionXmlHttpRequest.send('{"id" : "' + sendId + '"}');
-            actionXmlHttpRequest.onreadystatechange = responseBysendAction;
         }
         function responseBysendAction() {
             if (actionXmlHttpRequest.readyState == 4 && actionXmlHttpRequest.status == 200) {

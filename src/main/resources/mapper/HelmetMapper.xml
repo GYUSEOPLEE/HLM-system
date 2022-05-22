@@ -33,7 +33,6 @@
         SELECT NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
         FROM HELMET
         WHERE NO = #{no}
---           AND activation = 'Y';
     </select>
 
     <update id="update" parameterType="helmet">
