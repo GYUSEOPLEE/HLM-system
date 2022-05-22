@@ -21,6 +21,11 @@ public class HelmetStateServiceImpl implements HelmetStateService{
 
     @Override
     public void createHelmetState(HelmetState helmetState) {
+
+        //킥보드 상태정보 가져오기
+        //헬멧 정보와 비교해서 분실여부 파악
+        //정보 저장
+
         helmetStateMapper.insert(helmetState);
     }
 

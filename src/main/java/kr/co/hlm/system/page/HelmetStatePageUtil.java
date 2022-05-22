@@ -1,5 +1,7 @@
 package kr.co.hlm.system.page;
 
+import kr.co.hlm.system.helmet.Helmet;
+import kr.co.hlm.system.helmetstate.HelmetState;
 import kr.co.hlm.system.kickboard.Kickboard;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +10,7 @@ import java.util.List;
 @Component
 public class HelmetStatePageUtil {
     private static final int PAGE_SIZE = 5;
-    private static final int ROW_SIZE = 10;
+    private static final int ROW_SIZE = 5;
 
     public Page setPage(String parasolId ,int totallRowCount, int pageNo) {
         Page page = new Page();
@@ -57,29 +59,31 @@ public class HelmetStatePageUtil {
     }
 
     //드로우
-    public String drawPage(Page page, List<Kickboard> parasolStatusList) {
+    public String drawPage(Page page, List<HelmetState> helmetStateList) {
         StringBuffer drawPage = new StringBuffer();
 
-        if (parasolStatusList.size() > 0) {
+        if (helmetStateList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
             drawPage.append("        <div class=\"container\">");
-            drawPage.append("            <div class=\"ts-compare-items-table\">");
+            drawPage.append("            <div class=\"ts-compare-items-table\" >");
             drawPage.append("                <section id=\"details\">");
             drawPage.append("                    <div class=\"row\">");
             drawPage.append("                        <div class=\"col ts-row-title text-center\">번호</div>");
             drawPage.append("                        <div class=\"col ts-row-title text-left\">일련번호</div>");
-            drawPage.append("                        <div class=\"col ts-row-title text-left\">킥보드IP</div>");
-            drawPage.append("                        <div class=\"col ts-row-title text-left\">모델</div>");
-            drawPage.append("                        <div class=\"col ts-row-title text-left\">활성</div>");
+            drawPage.append("                        <div class=\"col ts-row-title text-left\">일시</div>");
+            drawPage.append("                        <div class=\"col ts-row-title text-left\">위도</div>");
+            drawPage.append("                        <div class=\"col ts-row-title text-left\">경도</div>");
+            drawPage.append("                        <div class=\"col ts-row-title text-left\">분실여부</div>");
             drawPage.append("                    </div>");
 
-            for (int i = 0; i < parasolStatusList.size(); i++) {
+            for (int i = 0; i < helmetStateList.size(); i++) {
                 drawPage.append("<div class=\"row\">");
-                drawPage.append("    <div class=\"col text-center\">" + (parasolStatusList.size() - i) + "</div>");
-                drawPage.append("    <div class=\"col text-center\">" + parasolStatusList.get(i).getNo() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + parasolStatusList.get(i).getIp() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + parasolStatusList.get(i).getModel() + "℃</div>");
-                drawPage.append("    <div class=\"col text-left\">" + parasolStatusList.get(i).getActivation() + "</div>");
+                drawPage.append("    <div class=\"col text-center\">" + (page.getTotalRowCount() - (i + ((page.getPageNo()-1) * 5))) + "</div>");
+                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getHelmetNo() + "</div>");
+                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getDateTime() + "</div>");
+                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getLongitude() + "</div>");
+                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getLatitude() + "</div>");
+                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getLoss() + "</div>");
                 drawPage.append("</div>");
             }
 
@@ -87,6 +91,7 @@ public class HelmetStatePageUtil {
             drawPage.append("            </div>");
             drawPage.append("        </div>");
             drawPage.append("    </section>");
+
             drawPage.append("    <section id=\"pagination\">");
             drawPage.append("        <div class=\"container\">");
             drawPage.append("            <nav aria-label=\"Page navigation\">");
@@ -156,6 +161,7 @@ public class HelmetStatePageUtil {
             drawPage.append("    </div>");
             drawPage.append("</section>");
         }
+
         return drawPage.toString();
     }
 }

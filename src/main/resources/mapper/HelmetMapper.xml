@@ -3,12 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hlm.system.helmet.HelmetMapper">
-    <insert id="insert" parameterType="kr.co.hlm.system.helmet.Helmet">
+    <insert id="insert" parameterType="helmet">
         INSERT INTO HELMET (NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP)
         VALUES(#{no}, #{model}, #{size}, #{ip}, #{activation}, #{kickboardIp})
     </insert>
 
-    <select id="selectAll" parameterType="kr.co.hlm.system.helmet.Helmet" resultType="kr.co.hlm.system.helmet.Helmet">
+    <select id="selectAll" parameterType="helmet" resultType="helmet">
         SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
         FROM HELMET
         <where>
@@ -29,14 +29,14 @@
         </if>
     </select>
 
-    <select id="select" parameterType="kr.co.hlm.system.helmet.Helmet" resultType="kr.co.hlm.system.helmet.Helmet">
+    <select id="select" parameterType="helmet" resultType="helmet">
         SELECT NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
         FROM HELMET
         WHERE NO = #{no}
 --           AND activation = 'Y';
     </select>
 
-    <update id="update" parameterType="kr.co.hlm.system.helmet.Helmet">
+    <update id="update" parameterType="helmet">
         UPDATE HELMET
         SET ACTIVATION = #{activation}
         WHERE NO = #{no}

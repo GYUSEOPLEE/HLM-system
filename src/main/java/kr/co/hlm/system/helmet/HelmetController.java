@@ -19,6 +19,7 @@ public class HelmetController {
     private final HelmetService helmetService;
     private final HelmetPageUtil helmetPageUtil;
 
+    //문서 추가
     @GetMapping("/main")
     public ModelAndView getMainPage() {
         ModelAndView modelAndView = new ModelAndView("helmet/main");
@@ -33,6 +34,7 @@ public class HelmetController {
         return modelAndView;
     }
 
+    //문서 추가
     @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getHelmets(@PathVariable int pageNo, @RequestBody Helmet helmet) {
         String drawPage = "";

@@ -70,8 +70,6 @@
                     }
                 }
             }
-
-            // document.getElementById("search-btn").addEventListener("click", pageOver(1), false);
         </script>
 
     <%@ include file="/WEB-INF/jsp/include/bottom.jsp" %>

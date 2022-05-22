@@ -78,7 +78,7 @@ public class HelmetPageUtil {
 
             for (int i = 0; i < helmetList.size(); i++) {
                 drawPage.append("<div class=\"row\">");
-                drawPage.append("    <div class=\"col text-center\">" + (i + 1) + "</div>");
+                drawPage.append("    <div class=\"col text-center\">" + (i + 1 + ((page.getPageNo()-1) * 5)) + "</div>");
                 drawPage.append("    <div class=\"col text-left\"> <a href=\"helmets\\" + helmetList.get(i).getNo() + "\">" + helmetList.get(i).getNo() +"</a> </div>");
                 drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getIp() + "</div>");
                 drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getModel() + "</div>");

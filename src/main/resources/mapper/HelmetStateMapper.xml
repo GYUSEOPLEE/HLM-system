@@ -3,38 +3,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hlm.system.helmetstate.HelmetStateMapper">
-    <insert id="insert" parameterType="kr.co.hlm.system.helmetstate.HelmetState">
-        INSERT INTO HELMET (NO, DATE_TIME, LATITUDE, LONGITUDE, LOSS, HELMET_NO)
+    <insert id="insert" parameterType="helmetState">
+        INSERT INTO HELMET_STATE (NO, DATE_TIME, LATITUDE, LONGITUDE, LOSS, HELMET_NO)
         VALUES(#{no}, #{dateTime}, #{latitude}, #{longitude}, #{loss}, #{helmetNo})
     </insert>
 
-    <select id="selectAll" parameterType="kr.co.hlm.system.helmetstate.HelmetState" resultType="kr.co.hlm.system.helmetstate.HelmetState">
-        SELECT NO, DATE_TIME, LATITUDE, LONGITUDE, LOSS, HELMET_NO
-        FROM HELMETSTATE
+    <select id="selectAll" parameterType="helmetState" resultType="helmetState">
+        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, DATE_TIME, LATITUDE, LONGITUDE, LOSS, HELMET_NO
+        FROM HELMET_STATE
         <where>
-            <choose>
-                <when test="no != null and no != ''">
-                    NO = #{no}
-                </when>
-                <when test="model != null and model != ''">
-                    MODEL = #{model}
-                </when>
-                <otherwise>
-                    activation = 'Y'
-                </otherwise>
-            </choose>
+            HELMET_NO = #{helmetNo}
         </where>
+        <if test="no != -1">
+            LIMIT ${no}, 5
+        </if>
     </select>
 
-    <select id="select" parameterType="kr.co.hlm.system.helmetstate.HelmetState" resultType="kr.co.hlm.system.helmetstate.HelmetState">
+    <select id="select" parameterType="helmetState" resultType="helmetState">
         SELECT NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
-        FROM HELMETSTATE
+        FROM HELMET_STATE
         WHERE NO = #{no}
 --           AND activation = 'Y';
     </select>
 
     <update id="update" parameterType="HelmetState">
-        UPDATE HELMETSTATE
+        UPDATE HELMET_STATE
         <choose>
             <when test="activation == 'Y'">>
                 SET ACTIVATION = 'N'

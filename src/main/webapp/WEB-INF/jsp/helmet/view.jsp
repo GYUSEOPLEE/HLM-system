@@ -14,6 +14,11 @@
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    <div><a href="/helmetstates/${helmet.no}" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1em; float: right;background-color: blue;color: white;">헬멧 상태정보</a><</div>
+
     <main id="ts-main">
         <section id="agent-info">
             <div class="container col-md-9">
@@ -134,6 +139,7 @@
         document.body.appendChild(form);
         form.submit();
     }
+
 </script>
 
 <%@ include file="/WEB-INF/jsp/include/bottom.jsp" %>
