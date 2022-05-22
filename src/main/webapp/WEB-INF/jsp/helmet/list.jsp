@@ -29,7 +29,7 @@
                         </select>
                     </div>
                     <div class="form-group m-1 ml-auto">
-                        <button type="button" class="btn btn-primary" id="search-btn">검색</button>
+                        <button type="button" class="btn btn-primary" id="search-btn" onclick="pageOver(1)">검색</button>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 }
             }
 
-            document.getElementById("search-btn").addEventListener("click", pageOver(1), false);
+            // document.getElementById("search-btn").addEventListener("click", pageOver(1), false);
         </script>
 
     <%@ include file="/WEB-INF/jsp/include/bottom.jsp" %>

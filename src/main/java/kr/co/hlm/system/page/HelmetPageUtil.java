@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class HelmetPageUtil {
     private static final int PAGE_SIZE = 5;
-    private static final int ROW_SIZE = 10;
+    private static final int ROW_SIZE = 5;
 
     public Page setPage(String parasolId ,int totallRowCount, int pageNo) {
         Page page = new Page();
@@ -64,7 +64,7 @@ public class HelmetPageUtil {
         if (helmetList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
             drawPage.append("        <div class=\"container\">");
-            drawPage.append("            <div class=\"ts-compare-items-table\">");
+            drawPage.append("            <div class=\"ts-compare-items-table\" >");
             drawPage.append("                <section id=\"details\">");
             drawPage.append("                    <div class=\"row\">");
             drawPage.append("                        <div class=\"col ts-row-title text-center\">번호</div>");
@@ -78,8 +78,8 @@ public class HelmetPageUtil {
 
             for (int i = 0; i < helmetList.size(); i++) {
                 drawPage.append("<div class=\"row\">");
-                drawPage.append("    <div class=\"col text-center\">" + (helmetList.size() - i) + "</div>");
-                drawPage.append("    <div class=\"col text-center\">" + helmetList.get(i).getNo() + "</div>");
+                drawPage.append("    <div class=\"col text-center\">" + (i + 1) + "</div>");
+                drawPage.append("    <div class=\"col text-left\"> <a href=\"helmets\\" + helmetList.get(i).getNo() + "\">" + helmetList.get(i).getNo() +"</a> </div>");
                 drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getIp() + "</div>");
                 drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getModel() + "</div>");
                 drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getSize() + "</div>");
@@ -92,11 +92,6 @@ public class HelmetPageUtil {
             drawPage.append("            </div>");
             drawPage.append("        </div>");
             drawPage.append("    </section>");
-
-            drawPage.append("    <br>");
-            drawPage.append("    <br>");
-            drawPage.append("    <br>");
-            drawPage.append("    <br>");
 
             drawPage.append("    <section id=\"pagination\">");
             drawPage.append("        <div class=\"container\">");
@@ -167,22 +162,6 @@ public class HelmetPageUtil {
             drawPage.append("    </div>");
             drawPage.append("</section>");
         }
-
-//        drawPage.append("<div class=\"ts-form mb-0 d-flex flex-column flex-sm-row py-2 pl-2 pr-3\">");
-//        drawPage.append("   <div class=\"form-group m-1 w-100\">");
-//        drawPage.append("       <input type=\"text\" class=\"form-control\" id=\"keyword\" name=\"managementNo\" placeholder=\"헬멧 일련번호 or 모델명\" />");
-//        drawPage.append("   </div>");
-//        drawPage.append("   <div class=\"form-group m-1 w-100\">");
-//        drawPage.append("       <select class=\"custom-select\" id=\"type\" name=\"active\">");
-//        drawPage.append("           <option value=\"X\">전체</option>");
-//        drawPage.append("           <option value=\"Y\">활성</option>");
-//        drawPage.append("           <option value=\"N\">비활성</option>");
-//        drawPage.append("       </select>");
-//        drawPage.append("   </div>");
-//        drawPage.append("   <div class=\"form-group m-1 ml-auto\">");
-//        drawPage.append("       <button type=\"button\" class=\"btn btn-primary\" id=\"search-btn\">검색</button>");
-//        drawPage.append("   </div>");
-//        drawPage.append("</div>");
 
         return drawPage.toString();
     }

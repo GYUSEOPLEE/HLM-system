@@ -1,6 +1,6 @@
 package kr.co.hlm.system.helmet;
 
-import kr.co.hlm.system.kickboard.Kickboard;
+
 import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.HelmetPageUtil;
 import kr.co.hlm.system.page.Page;
@@ -37,9 +37,9 @@ public class HelmetController {
     public String getHelmets(@PathVariable int pageNo, @RequestBody Helmet helmet) {
         String drawPage = "";
 
-        System.out.println(helmet.toString());
-
         Page page = helmetPageUtil.setPage(helmet.getNo(), helmetService.getHelmets(helmet).size(), pageNo);
+
+        helmet.setModel("" + (pageNo - 1) * 5);
 
         List<Helmet> helmets = helmetService.getHelmets(helmet);
 
@@ -56,7 +56,7 @@ public class HelmetController {
         return modelAndView;
     }
 
-    @PostMapping("/{no}")
+    @PostMapping("/{no}/edit")
     public ModelAndView editHelmet(Helmet helmet) {
         helmetService.editHelmet(helmet);
 
