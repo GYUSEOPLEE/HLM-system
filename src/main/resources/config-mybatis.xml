@@ -12,6 +12,7 @@
     </settings>
 
     <typeAliases>
+        <typeAlias type="kr.co.hlm.system.access.Admin" alias="admin"/>
         <typeAlias type="kr.co.hlm.system.helmet.Helmet" alias="helmet"/>
         <typeAlias type="kr.co.hlm.system.helmetstate.HelmetState" alias="helmetState"/>
         <typeAlias type="kr.co.hlm.system.kickboard.Kickboard" alias="kickboard"/>

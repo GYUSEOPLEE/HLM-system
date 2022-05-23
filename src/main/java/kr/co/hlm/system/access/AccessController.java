@@ -1,7 +1,7 @@
 package kr.co.hlm.system.access;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -14,32 +14,32 @@ import javax.servlet.http.HttpSession;
 public class AccessController {
 
     private final AccessService accessService;
+    private boolean adminMatch = true;
 
     @GetMapping("/login")
     public ModelAndView loginForm(){
-        return new ModelAndView("/access/login");
+        ModelAndView modelAndView = new ModelAndView("/access/login");
+
+        modelAndView.addObject("adminMatch", adminMatch);
+
+        adminMatch = true;
+
+        return modelAndView;
     }
 
     @PostMapping("/login")
-    public ModelAndView login(Admin admin, HttpSession httpSession){
+    public ModelAndView login(Admin admin, Errors errors, HttpSession httpSession){
+        ModelAndView modelAndView = new ModelAndView(new RedirectView("/login"));
 
-        if("".equals(admin.getId()) || "".equals(admin.getPassword())){
-            System.out.println("비어있냐");
-            return new ModelAndView(new RedirectView("/login"));//입력값 없으면 로그인창으로
-        }else {
-            if(accessService.getAdmin(admin)){
-                System.out.println("생성");
-                httpSession.setAttribute("id",admin.getId());//해당하는 아이디가 있으면 세션 생성
-                if(httpSession.getAttribute("id")==null){
-                    System.out.println("세션이 없다");
-                    return new ModelAndView(new RedirectView("/login"));// 관리자 정보가 다르면 로그인창으로
-                }
-                return new ModelAndView(new RedirectView("/helmets/list"));
-            } else {
-                System.out.println("흠");
-                return new ModelAndView(new RedirectView("/login"));
+        if(adminMatch = !errors.hasErrors()) {
+            adminMatch = accessService.getAdmin(admin);
+            if(adminMatch) {
+                httpSession.setAttribute("login", admin);
+                modelAndView = new ModelAndView(new RedirectView("/helmets/main"));
             }
         }
+
+        return  modelAndView;
     }
 
     @GetMapping("/logout")

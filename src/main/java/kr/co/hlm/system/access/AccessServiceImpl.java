@@ -1,6 +1,6 @@
 package kr.co.hlm.system.access;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -9,35 +9,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Service
+@RequiredArgsConstructor
 public class AccessServiceImpl implements HandlerInterceptor, AccessService{
-    @Autowired
-    private AdminMapper adminMapper;
+    private final AdminMapper adminMapper;
 
     @Override
     public boolean getAdmin(Admin admin) {
+        Admin selectAdmin = adminMapper.select(admin);
 
-        int gab = adminMapper.select(admin);
-        boolean result = false;
-
-        if(gab == 1) {
-            result = true;
-        }
-
-        return result;
+        return selectAdmin != null;
     }
 
-//    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        HttpSession httpSession = request.getSession();
-//        if(httpSession.getAttribute("id") != null){
-//            System.out.println("실행");
-//            httpSession.setMaxInactiveInterval(30*60);
-//            response.sendRedirect("helmets/list");
-//            return true;
-//        } else {
-//            System.out.println("login실행");
-//            response.sendRedirect("/login");
-//            return false;
-//        }
-//    }
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession != null) {
+            Admin isLogin = (Admin) httpSession.getAttribute("login");
+            if(isLogin != null) {
+                return true;
+            }
+        }
+        response.sendRedirect("/login");
+        return false;
+    }
 }

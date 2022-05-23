@@ -1,6 +1,5 @@
 package kr.co.hlm.system.kickboard;
 
-import kr.co.hlm.system.helmet.Helmet;
 import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.KickboardPageUtil;
 import kr.co.hlm.system.page.Page;

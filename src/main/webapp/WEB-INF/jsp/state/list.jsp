@@ -16,7 +16,6 @@
     <br>
     <br>
     <br>
-    <div><a href="/helmets/${helmetNo}" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1em; float: right;background-color: blue;color: white;">헬멧 정보</a></div>
 
     <main id="ts-main">
         <section id="page-title" style="height: 20px">
@@ -32,6 +31,7 @@
         </section>
         <div id="drawInfo" style="text-align: center"></div>
     </main>
+    <div style="margin-right: 210px"><a href="/helmets/${helmetNo}" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1em; float: right;background-color: blue;color: white;">헬멧 정보</a></div>
 
     <input type="hidden" id="helmetNo" value="${helmetNo}"/>
 </div>
