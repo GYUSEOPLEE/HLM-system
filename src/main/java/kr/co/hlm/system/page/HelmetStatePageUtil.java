@@ -64,7 +64,6 @@ public class HelmetStatePageUtil {
 
         if (helmetStateList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
-            drawPage.append("        <div class=\"container\">");
             drawPage.append("            <div class=\"ts-compare-items-table\" >");
             drawPage.append("                <section id=\"details\">");
             drawPage.append("                    <div class=\"row\">");
@@ -88,7 +87,6 @@ public class HelmetStatePageUtil {
             }
 
             drawPage.append("                </section>");
-            drawPage.append("            </div>");
             drawPage.append("        </div>");
             drawPage.append("    </section>");
 

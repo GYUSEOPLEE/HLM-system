@@ -63,8 +63,7 @@ public class HelmetPageUtil {
 
         if (helmetList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
-            drawPage.append("        <div class=\"container\">");
-            drawPage.append("            <div class=\"ts-compare-items-table\" >");
+            drawPage.append("            <div class=\"ts-compare-items-table\">");
             drawPage.append("                <section id=\"details\">");
             drawPage.append("                    <div class=\"row\">");
             drawPage.append("                        <div class=\"col ts-row-title text-center\">번호</div>");
@@ -90,9 +89,7 @@ public class HelmetPageUtil {
 
             drawPage.append("                </section>");
             drawPage.append("            </div>");
-            drawPage.append("        </div>");
             drawPage.append("    </section>");
-
             drawPage.append("    <section id=\"pagination\">");
             drawPage.append("        <div class=\"container\">");
             drawPage.append("            <nav aria-label=\"Page navigation\">");
