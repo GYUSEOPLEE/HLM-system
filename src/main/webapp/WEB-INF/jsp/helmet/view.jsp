@@ -17,7 +17,6 @@
     <br>
     <br>
     <br>
-    <div><a href="/helmetstates/${helmet.no}" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1em; float: right;background-color: blue;color: white;">헬멧 상태정보</a><</div>
 
     <main id="ts-main">
         <section id="agent-info">
@@ -34,7 +33,7 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                            <div class="col-sm-4">
                                             <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 20%;">일련번호</label>
                                             <p style="font-size: 1.5em;">${helmet.no}</p>
                                         </div>
@@ -116,6 +115,8 @@
             </div>
         </section>
     </main>
+    <div style="margin-right: 210px"><a href="/helmetstates/${helmet.no}" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1em; float: right;background-color: blue;color: white;">헬멧 상태정보</a><</div>
+
 </div>
 
 <script>

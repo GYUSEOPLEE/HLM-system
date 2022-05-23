@@ -11,6 +11,6 @@ import java.util.List;
 public interface KickboardMapper {
     public void insert(Kickboard kickboard);
     public List<Kickboard> selectAll(Kickboard kickboard);
-    public Kickboard select(String no);
+    public Kickboard select(Kickboard kickboard);
     public void update(Kickboard kickboard);
 }

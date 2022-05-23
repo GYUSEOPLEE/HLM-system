@@ -44,10 +44,9 @@ public class KickboardController {
 
     //킥보드 조회 (문서 바꾸기)
     @GetMapping("/{no}")
-    public ModelAndView getKickboard(@PathVariable String no){
+    public ModelAndView getKickboard(Kickboard kickboard){
         ModelAndView modelAndView = new ModelAndView("kickboard/view");
-        Kickboard resultKickboard = kickboardService.getKickboard(no);
-        modelAndView.addObject("kickboard",resultKickboard);
+        modelAndView.addObject(kickboardService.getKickboard(kickboard));
 
         return modelAndView;
     }
@@ -56,7 +55,7 @@ public class KickboardController {
     @PostMapping("/{no}/edit")
     public ModelAndView editKickboard(Kickboard kickboard){
         kickboardService.editKickboard(kickboard);
-        Kickboard resultKickboard = kickboardService.getKickboard(kickboard.getNo());
+        Kickboard resultKickboard = kickboardService.getKickboard(kickboard);
         ModelAndView modelAndView = new ModelAndView(new RedirectView("/kickboards/" + kickboard.getNo()));
         modelAndView.addObject("kickboard",resultKickboard);
 

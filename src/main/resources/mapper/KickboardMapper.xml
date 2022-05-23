@@ -9,8 +9,8 @@
     </insert>
 
     <select id="selectAll" parameterType="kickboard" resultType="kickboard">
-        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, MODEL, SIZE, IP, ACTIVATION, KICKBOARD_IP
-        FROM HELMET
+        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, MODEL, IP, ACTIVATION
+        FROM KICKBOARD
         <where>
             <choose>
                 <when test="no != null and no != ''">
@@ -29,7 +29,7 @@
         </if>
     </select>
 
-    <select id="select" parameterType="String" resultType="kickboard">
+    <select id="select" parameterType="kickboard" resultType="kickboard">
         SELECT NO, MODEL, IP, ACTIVATION
         FROM KICKBOARD
         WHERE NO = #{no}

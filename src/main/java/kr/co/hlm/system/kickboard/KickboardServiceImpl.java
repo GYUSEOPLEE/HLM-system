@@ -1,5 +1,6 @@
 package kr.co.hlm.system.kickboard;
 
+import kr.co.hlm.system.helmet.Helmet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +27,17 @@ public class KickboardServiceImpl implements KickboardService{
     }
 
     @Override
-    public Kickboard getKickboard(String no) {
-        Kickboard resultKickboard = kickboardMapper.select(no);
-        return resultKickboard;
+    public Kickboard getKickboard(Kickboard kickboard) {
+        Kickboard viewKickboard = kickboardMapper.select(kickboard);
+
+        return viewKickboard != null
+                ? viewKickboard
+                : new Kickboard();
     }
 
     @Override
     public void editKickboard(Kickboard kickboard) {
-        Kickboard viewKickboard = kickboardMapper.select(kickboard.getNo());
+        Kickboard viewKickboard = kickboardMapper.select(kickboard);
 
         if (viewKickboard.getActivation() == 'Y') {
             viewKickboard.setActivation('N');

@@ -32,7 +32,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-12 mx-auto" style="padding: 10px">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 20%;">일련번호</label>
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 19%;">일련번호</label>
                                             <p style="font-size: 1.5em; transform: translate(9%, 50%);">${kickboard.no}</p>
                                         </div>
                                         <div class="col-12 mx-auto" style="padding: 10px">
@@ -40,7 +40,7 @@
                                             <p style="font-size: 1.5em; transform: translate(10%, 50%);">${kickboard.model}</p>
                                         </div>
                                         <div class="col-12 mx-auto" style="padding: 10px">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 20%;">킥보드 IP</label>
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 19%;">킥보드 IP</label>
                                             <p style="font-size: 1.5em; transform: translate(8%, 50%);">${kickboard.ip}</p>
                                         </div>
                                         <div class="col-12 mx-auto" style="padding: 10px">
