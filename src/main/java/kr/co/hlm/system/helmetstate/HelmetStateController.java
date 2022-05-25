@@ -29,8 +29,6 @@ public class HelmetStateController {
     //문서 추가
     @PostMapping(value = "/{helmetNo}/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getHelmetStates(@PathVariable int pageNo, @RequestBody HelmetState helmetState) {
-        System.out.println(helmetState.toString());
-
         String drawPage = "";
 
         Page page = helmetStatePageUtil.setPage(helmetState.getHelmetNo(), helmetStateService.getHelmetStates(helmetState).size(), pageNo);

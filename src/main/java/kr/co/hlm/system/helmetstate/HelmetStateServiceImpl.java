@@ -13,11 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HelmetStateServiceImpl implements HelmetStateService{
     private final HelmetStateMapper helmetStateMapper;
-    public static Map<String, Character> helmetWear;
-
-    static {
-        helmetWear = new HashMap<String, Character>();
-    }
+    public static Map<String, Character> helmetWear = new HashMap<String, Character>();
 
     @Override
     public void createHelmetState(HelmetState helmetState) {
@@ -49,6 +45,6 @@ public class HelmetStateServiceImpl implements HelmetStateService{
 
     @Override
     public void editHelmetState(HelmetState helmetState) {
-
+        helmetStateMapper.update(helmetState);
     }
 }

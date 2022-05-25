@@ -21,8 +21,6 @@ public class HelmetServiceImpl implements HelmetService{
 
     @Override
     public List<Mark> getMarks(Helmet helmet) {
-        System.out.println(HelmetStateServiceImpl.helmetWear.size());
-
         if (HelmetStateServiceImpl.helmetWear.size() == 0) {
             List<HelmetState> helmetStates = helmetStateMapper.selectAll(new HelmetState());
 
@@ -30,8 +28,6 @@ public class HelmetServiceImpl implements HelmetService{
                 HelmetStateServiceImpl.helmetWear.put(helmetInfo.getHelmetNo(), 'N');
             }
         }
-
-        System.out.println(HelmetStateServiceImpl.helmetWear.size());
 
         List<Mark> marks = new ArrayList<Mark>();
         List<Helmet> helmets = helmetMapper.selectAll(helmet);

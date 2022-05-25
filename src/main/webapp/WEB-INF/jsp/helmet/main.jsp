@@ -7,6 +7,12 @@
         <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2fxsselz7s"></script>
 
         <title>공유 킥보드 헬멧 관리 시스템 - 메인</title>
+
+        <style>
+            #tableSetting {
+                border-right: 1px solid #444444;
+            }
+        </style>
     </head>
     <body style="font-family: 'Noto Sans KR', sans-serif;">
 
@@ -16,6 +22,7 @@
             <div class="ts-full-screen d-flex flex-column">
                 <section class="ts-shadow__sm ts-z-index__2 ts-bg-light">
                     <%@ include file="/WEB-INF/jsp/include/header.jsp" %>
+                    <br>
                     <br>
                     <br>
                     <br>
@@ -95,7 +102,6 @@
                 if (dataToJson.length > 0) {
                     var script = "";
                     for (var i = 0; i < dataToJson.length; i++) {
-                        // let id = dataToJson[i].id;
                         let no = dataToJson[i].no;
                         let dateTime = dataToJson[i].dateTime;
                         let latitude = dataToJson[i].latitude;
@@ -125,7 +131,7 @@
 
                                 + '        <table>'
                                 + '             <tr>'
-                                + '                 <td>' + (i+1) + '</td>'
+                                + '                 <td id="tableSetting">' + (i+1) + '</td>'
                                 + '                 <td>'
                                 + '                     <div class="card-body">'
                                 + '                         <figure class="ts-item__info">'
