@@ -44,11 +44,10 @@ public class HelmetStateController {
         return drawPage;
     }
 //    문서 추가
-//    @GetMapping("/{no}")
-//    public ModelAndView getHelmetState(HelmetState helmetState) {
-//        //WEB-INF/jsp/state/view.jsp
-//        return null;
-//    }
+    @GetMapping(value = "/{helmetNo}/info", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public HelmetState getHelmetState(HelmetState helmetState) {
+        return helmetStateService.getHelmetState(helmetState);
+    }
 
     @PostMapping("/location")
     public ReceiveState receiveHelmetLocation(HelmetState helmetState) {

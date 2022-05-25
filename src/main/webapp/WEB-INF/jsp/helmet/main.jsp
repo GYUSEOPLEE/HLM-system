@@ -51,7 +51,7 @@
                 <div class="d-flex h-100">
                     <div class="ts-results__vertical ts-results__vertical-list ts-shadow__sm scrollbar-inner bg-white">
                         <section id="ts-results">
-                            <div id="drawResult"  class="ts-results-wrapper"></div>
+                            <div id="drawResult"  class="ts-results-wrapper" style="overflow: auto"></div>
                         </section>
                     </div>
                     <div class="ts-map w-100">
@@ -112,7 +112,7 @@
                             activationKr = "비활성"
                             color = "text-danger";
                         }
-                            script += '<div class="ts-result-link card ts-item ts-card ts-result" data-ts-id="6" data-ts-ln="5">'
+                            script += '<div class="ts-result-link card ts-item ts-card ts-result" data-ts-id="6" data-ts-ln="5" >'
                                 + '    <a href="javascript:void(0);" onclick="moveMap(' + latitude + ', ' + longitude + ', ' + i + ')">'
                                 + '        <input type="hidden" id="no' + i + '" value="' + no + '" />'
                                 + '        <input type="hidden" id="dateTime' + i + '" value="' + dateTime + '" />'
@@ -156,53 +156,59 @@
                     for (var i = 0; i < dataToJson.length; i++) {
                         let statusKr;
                         let color;
+                        //마커 색
                         if (document.getElementById("activation" + i).value == "N") {
                             color = "rgb(234,9,9)";
                         } else {
                             color = "rgb(5,148,252)";
                         }
 
+                        //마커 상태
                         if (document.getElementById("status" + i).value == "펼침") {
                             statusKr = "접기";
                         } else {
                             statusKr = "펼치기";
                         }
 
+                        //마커 하나하나 위치
                         var marker = new naver.maps.Marker({
                             position: new naver.maps.LatLng(document.getElementById("latitude" + i).value, document.getElementById("longitude" + i).value),
                             map: map,
                             animation: naver.maps.Animation.DROP
                         });
 
+                        //마커 윈도우 정보
                         var contentString = [
-                            '<section style="margin: auto; width: fit-content" class="mb-1 pl-0">'
-                            + '    <input type="hidden" id="contentString" value="' + i + '" />'
-                            + '    <div class="mb-2 card ts-item ts-card ts-result" data-toggle="tooltip" data-placement="right" title="상세 정보 보기">'
-                            + '        <a style="text-align: center; width: 100%; font-size: 1.5em" href="/parasol/' + document.getElementById("id" + i).value + '">' + document.getElementById("managementNo" + i).value + '</a>'
-                            + '    </div>'
-                            + '    <div style="text-align: center; margin: auto" class="row">'
-                            + '        <div class="col-sm-4">'
-                            + '            <label>활성</label>'
-                            + '            <p>' + document.getElementById("activation" + i).value + '</p>'
-                            + '        </div>'
-                            + '        <div class="col-sm-4">'
-                            + '            <label>상태</label>'
-                            + '            <p id="infoStatus' + i + '">' + document.getElementById("status" + i).value + '</p>'
-                            + '        </div>'
-                            + '        <div class="col-sm-4">'
-                            + '            <label>온도</label>'
-                            + '            <p id="infoTemperature' + i + '">' + document.getElementById("temperature" + i).value + '℃</p>'
-                            + '        </div>'
-                            + '        <div class="col-sm-12 mb-0 mb-sm-0 btn-sm d-block d-sm-inline-block">'
-                            + '            <label>일시</label>'
-                            + '            <p id="infoDateTime' + i + '">' + document.getElementById("dateTime" + i).value + '</p>'
-                            + '        </div>'
-                            + '        <div class="col-sm-12 mb-1">'
-                            + '           <a href="javascript:void(0);" id="actionButton' + i + '" onclick="sendAction(document.getElementById(`id' + i + '`).value, document.getElementById(`action' + i + '`).value, ' + i + ');" class="btn btn-primary">' + statusKr + '</a>'
-                            + '        </div>'
-                            + '    </div>'
-                            + '</section>'
+                            // '<section style="margin: auto; width: fit-content" class="mb-1 pl-0">'
+                            // + '    <input type="hidden" id="contentString" value="' + i + '" />'
+                            // + '    <div class="mb-2 card ts-item ts-card ts-result" data-toggle="tooltip" data-placement="right" title="상세 정보 보기">'
+                            // + '        <a style="text-align: center; width: 100%; font-size: 1.5em" href="/parasol/' + document.getElementById("id" + i).value + '">' + document.getElementById("managementNo" + i).value + '</a>'
+                            // + '    </div>'
+                            // + '    <div style="text-align: center; margin: auto" class="row">'
+                            // + '        <div class="col-sm-4">'
+                            // + '            <label>활성</label>'
+                            // + '            <p>' + document.getElementById("activation" + i).value + '</p>'
+                            // + '        </div>'
+                            // + '        <div class="col-sm-4">'
+                            // + '            <label>상태</label>'
+                            // + '            <p id="infoStatus' + i + '">' + document.getElementById("status" + i).value + '</p>'
+                            // + '        </div>'
+                            // + '        <div class="col-sm-4">'
+                            // + '            <label>온도</label>'
+                            // + '            <p id="infoTemperature' + i + '">' + document.getElementById("temperature" + i).value + '℃</p>'
+                            // + '        </div>'
+                            // + '        <div class="col-sm-12 mb-0 mb-sm-0 btn-sm d-block d-sm-inline-block">'
+                            // + '            <label>일시</label>'
+                            // + '            <p id="infoDateTime' + i + '">' + document.getElementById("dateTime" + i).value + '</p>'
+                            // + '        </div>'
+                            // + '        <div class="col-sm-12 mb-1">'
+                            // + '           <a href="javascript:void(0);" id="actionButton' + i + '" onclick="sendAction(document.getElementById(`id' + i + '`).value, document.getElementById(`action' + i + '`).value, ' + i + ');" class="btn btn-primary">' + statusKr + '</a>'
+                            // + '        </div>'
+                            // + '    </div>'
+                            // + '</section>'
                         ].join('');
+
+                        //마커 윈도우
                         var infowindow = new naver.maps.InfoWindow({
                             content: contentString,
                             maxWidth: 200,
@@ -214,7 +220,8 @@
                             anchorColor: "rgb(214,250,223)",
                             pixelOffset: new naver.maps.Point(20, -20)
                         });
-                        naver.maps.Event.addListener(marker, 'click', markerClick(i));
+
+                        //naver.maps.Event.addListener(marker, 'click', markerClick(i));
                         markers.push(marker);
                         infowindows.push(infowindow);
                     }
@@ -242,7 +249,7 @@
         }
         function receiveStatus(indexI) {
             StatusXmlHttpRequest = new XMLHttpRequest();
-            StatusXmlHttpRequest.open("GET", "/status/" + document.getElementById("id" + indexI).value, true);
+            StatusXmlHttpRequest.open("GET", "/helmetstates/" + document.getElementById("no" + indexI).value + "/info", true);
             StatusXmlHttpRequest.setRequestHeader("Content-Type","application/json;charset=UTF-8");
             StatusXmlHttpRequest.send();
             StatusXmlHttpRequest.onreadystatechange = function () {
@@ -252,49 +259,54 @@
                 }
             }
         }
-        function shiftElement(parasolStatus, indexI) {
-            document.getElementById("status" + indexI).setAttribute('value', parasolStatus.status);
-            document.getElementById("temperature" + indexI).setAttribute('value', parasolStatus.temperature);
-            document.getElementById("dateTime" + indexI).setAttribute('value', parasolStatus.dateTime);
-            document.getElementById("infoStatus" + indexI).innerText = parasolStatus.status;
-            document.getElementById("infoTemperature" + indexI).innerText = parasolStatus.temperature;
-            document.getElementById("infoDateTime" + indexI).innerText = parasolStatus.dateTime;
-            if (parasolStatus.status == "펼침") {
-                document.getElementById("action" + indexI).setAttribute('value', "F");
-                document.getElementById("actionButton" + indexI).innerText = "접기";
-            } else {
-                document.getElementById("action" + indexI).setAttribute('value', "U");
-                document.getElementById("actionButton" + indexI).innerText = "펼치기";
-            }
-            document.getElementById("actionButton" + indexI).setAttribute('class', "btn btn-primary");
-        }
-        function markerClick(index) {
-            return function (e) {
-                if (markers[index].getAnimation() != null) {
-                    markers[index].setAnimation(null);
-                } else {
-                    for (var i = 0; i < markers.length; i++) {
-                        markers[i].setAnimation(null);
-                    }
-                    markers[index].setAnimation(naver.maps.Animation.BOUNCE);
-                }
-                if (infowindows[index].getMap()) {
-                    infowindows[index].close();
-                } else {
-                    receiveStatus(index);
-                    infowindows[index].open(map, markers[index]);
-                }
-            }
-        }
+
+        //마커 값 변경
+        // function shiftElement(parasolStatus, indexI) {
+        //     document.getElementById("status" + indexI).setAttribute('value', parasolStatus.status);
+        //     document.getElementById("temperature" + indexI).setAttribute('value', parasolStatus.temperature);
+        //     document.getElementById("dateTime" + indexI).setAttribute('value', parasolStatus.dateTime);
+        //     document.getElementById("infoStatus" + indexI).innerText = parasolStatus.status;
+        //     document.getElementById("infoTemperature" + indexI).innerText = parasolStatus.temperature;
+        //     document.getElementById("infoDateTime" + indexI).innerText = parasolStatus.dateTime;
+        //     if (parasolStatus.status == "펼침") {
+        //         document.getElementById("action" + indexI).setAttribute('value', "F");
+        //         document.getElementById("actionButton" + indexI).innerText = "접기";
+        //     } else {
+        //         document.getElementById("action" + indexI).setAttribute('value', "U");
+        //         document.getElementById("actionButton" + indexI).innerText = "펼치기";
+        //     }
+        //     document.getElementById("actionButton" + indexI).setAttribute('class', "btn btn-primary");
+        // }
+
+        //마커 클릭했을때
+        // function markerClick(index) {
+        //     return function (e) {
+        //         if (markers[index].getAnimation() != null) {
+        //             markers[index].setAnimation(null);
+        //         } else {
+        //             for (var i = 0; i < markers.length; i++) {
+        //                 markers[i].setAnimation(null);
+        //             }
+        //             markers[index].setAnimation(naver.maps.Animation.BOUNCE);
+        //         }
+        //         if (infowindows[index].getMap()) {
+        //             infowindows[index].close();
+        //         } else {
+        //             receiveStatus(index);
+        //             infowindows[index].open(map, markers[index]);
+        //         }
+        //     }
+        // }
+
         function moveMap(latitude, longitude, index) {
             map.setCenter(new naver.maps.LatLng(latitude, longitude));
             map.setZoom(18);
-            for (var i = 0; i < markers.length; i++) {
-                if (markers[i].getAnimation() != null) {
-                    markers[i].setAnimation(null);
-                }
-            }
-            markers[index].setAnimation(naver.maps.Animation.BOUNCE);
+            // for (var i = 0; i < markers.length; i++) {
+            //     if (markers[i].getAnimation() != null) {
+            //         markers[i].setAnimation(null);
+            //     }
+            // }
+            // markers[index].setAnimation(naver.maps.Animation.BOUNCE);
             receiveStatus(index);
             infowindows[index].open(map, markers[index]);
         }
