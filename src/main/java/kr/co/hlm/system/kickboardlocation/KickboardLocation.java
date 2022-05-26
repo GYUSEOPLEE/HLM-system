@@ -1,9 +1,6 @@
 package kr.co.hlm.system.kickboardlocation;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class KickboardLocation implements Serializable {
     private int no;
     private LocalDateTime dateTime;

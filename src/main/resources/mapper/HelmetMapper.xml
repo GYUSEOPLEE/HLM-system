@@ -20,7 +20,10 @@
                 </when>
             </choose>
 
-            <if test="activation != 'X'">
+            <if test="activation == 'Y'">
+                AND activation = #{activation}
+            </if>
+            <if test="activation == 'N'">
                 AND activation = #{activation}
             </if>
         </where>

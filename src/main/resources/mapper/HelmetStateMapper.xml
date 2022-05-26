@@ -22,11 +22,10 @@
     </select>
 
     <select id="select" parameterType="helmetState" resultType="helmetState">
-        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, DATE_TIME, LATITUDE, LONGITUDE, LOSS, HELMET_NO
+        SELECT NO, MAX(DATE_TIME), LATITUDE, LONGITUDE, LOSS, HELMET_NO
         FROM HELMET_STATE
         WHERE HELMET_NO = #{helmetNo}
-        ORDER BY NO DESC
-        LIMIT 0, 1
+        GROUP BY HELMET_NO
     </select>
 
     <update id="update" parameterType="HelmetState">

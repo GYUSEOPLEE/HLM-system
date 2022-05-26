@@ -3,7 +3,10 @@ package kr.co.hlm.system.helmet;
 import kr.co.hlm.system.helmetstate.HelmetState;
 import kr.co.hlm.system.helmetstate.HelmetStateMapper;
 import kr.co.hlm.system.helmetstate.HelmetStateServiceImpl;
+import kr.co.hlm.system.kickboard.Kickboard;
+import kr.co.hlm.system.kickboard.KickboardMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,12 +16,30 @@ import java.util.*;
 public class HelmetServiceImpl implements HelmetService{
     private final HelmetMapper helmetMapper;
     private final HelmetStateMapper helmetStateMapper;
+    private final KickboardMapper kickboardMapper;
+    public static Map<String, String> helmetPair = new HashMap<String, String>();
 
     @Override
     public void createHelmet(Helmet helmet) {
-        helmetMapper.insert(helmet);
+        if (helmetPair.size() == 0) {
+            List<Helmet> helmets = helmetMapper.selectAll(new Helmet());
+
+            Kickboard kickboardInfo = new Kickboard();
+            for (Helmet helmetInfo : helmets) {
+                kickboardInfo.setIp(helmetInfo.getKickboardIp());
+
+                helmetPair.put(helmetInfo.getNo(), kickboardMapper.select(kickboardInfo).getNo());
+            }
+        }
+
+//        Kickboard pairKickboard = new Kickboard();
+//        pairKickboard.setIp(helmet.getKickboardIp());
+//        helmetPair.put(helmet.getNo(), kickboardMapper.select(pairKickboard).getNo());
+//
+//        helmetMapper.insert(helmet);
     }
 
+    //문서 추가
     @Override
     public List<Mark> getMarks(Helmet helmet) {
         if (HelmetStateServiceImpl.helmetWear.size() == 0) {

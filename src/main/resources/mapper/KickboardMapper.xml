@@ -32,7 +32,14 @@
     <select id="select" parameterType="kickboard" resultType="kickboard">
         SELECT NO, MODEL, IP, ACTIVATION
         FROM KICKBOARD
-        WHERE NO = #{no}
+        <choose>
+            <when test="no != null">
+                WHERE no = #{no}
+            </when>
+            <otherwise>
+                WHERE IP = #{ip}
+            </otherwise>
+        </choose>
     </select>
 
     <update id="update" parameterType="kickboard">

@@ -17,7 +17,7 @@ public class HelmetStateController {
     private final HelmetStateService helmetStateService;
     private final HelmetStatePageUtil helmetStatePageUtil;
 
-    //문서 추가
+    //문서 추가, 완성
     @GetMapping("/{helmetNo}")
     public ModelAndView getHelmetStates(@PathVariable String helmetNo) {
         ModelAndView modelAndView = new ModelAndView("state/list");
@@ -26,7 +26,7 @@ public class HelmetStateController {
         return modelAndView;
     }
 
-    //문서 추가
+    //문서 추가, 완성
     @PostMapping(value = "/{helmetNo}/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getHelmetStates(@PathVariable int pageNo, @RequestBody HelmetState helmetState) {
         String drawPage = "";
@@ -41,14 +41,15 @@ public class HelmetStateController {
 
         return drawPage;
     }
-//    문서 추가
+
+    //문서 추가, 완성
     @GetMapping(value = "/{helmetNo}/info", consumes = MediaType.APPLICATION_JSON_VALUE)
     public HelmetState getHelmetState(HelmetState helmetState) {
         return helmetStateService.getHelmetState(helmetState);
     }
 
     @PostMapping("/location")
-    public ReceiveState receiveHelmetLocation(HelmetState helmetState) {
+    public ReceiveState receiveHelmetLocation(@RequestBody HelmetState helmetState) {
         helmetStateService.createHelmetState(helmetState);
 
         ReceiveState state = new ReceiveState();
@@ -58,9 +59,10 @@ public class HelmetStateController {
         return state;
     }
 
+    //완성
     @PostMapping("/wear")
-    public ReceiveState receiceHelmetWear(HelmetState helmetState) {
-        HelmetStateServiceImpl.helmetWear.put(helmetState.getHelmetNo(), helmetState.getWear());
+    public ReceiveState receiceHelmetWear(@RequestBody HelmetState helmetState) {
+        helmetStateService.editHelmetState(helmetState);
 
         ReceiveState state = new ReceiveState();
         state.setCode("200");

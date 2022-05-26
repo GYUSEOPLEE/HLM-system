@@ -9,10 +9,10 @@
     </insert>
 
     <select id="select" parameterType="kickboardLocation" resultType="kickboardLocation">
-        SELECT NO, DATE_TIME, LATITUDE, LONGITUDE, KICKBOARD_NO
+        SELECT NO, MAX(DATE_TIME), LATITUDE, LONGITUDE, KICKBOARD_NO
         FROM KICKBOARD_LOCATION
-        WHERE KICKBOARD_NO = ${kickboardNo}
-            AND MAX(DATE_TIME)
+        WHERE KICKBOARD_NO = #{kickboardNo}
+        GROUP BY KICKBOARD_NO
     </select>
 
 </mapper>

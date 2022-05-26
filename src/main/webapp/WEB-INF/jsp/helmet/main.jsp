@@ -15,9 +15,6 @@
         </style>
     </head>
     <body style="font-family: 'Noto Sans KR', sans-serif;">
-
-
-
         <section id="ts-hero" class=" mb-0">
             <div class="ts-full-screen d-flex flex-column">
                 <section class="ts-shadow__sm ts-z-index__2 ts-bg-light">
@@ -74,13 +71,16 @@
 
     <script>
         search();
+
         let dataToJson;
         let mapOptions = {
             zoom: 9
         };
         let map = new naver.maps.Map('map', mapOptions);
-        let markers = [];
+        let markers = new Map();
+        let element;
         let infowindows = [];
+        let webSocket = new WebSocket("ws://" + location.host + "/helmets/main");
 
         //검색 조건에 따라 헬멧 상태 정보 목록 가져오기
         function search() {
@@ -97,12 +97,11 @@
                 dataToJson = JSON.parse(searchXmlHttpRequest.responseText);
             }
             if (markers.length > 0) {
-                for (var i = 0; i < markers.length; i ++) {
-                    markers[i].setMap(null);
-                    //infowindows[i].setMap(null);
-                }
-                infowindows = [];
-                markers = [];
+                // for (var i = 0; i < markers.length; i ++) {
+                //     markers[i].setMap(null);
+                // }
+                // infowindows = [];
+                markers = new Map();
             }
             if (dataToJson != null) {
                 if (dataToJson.length > 0) {
@@ -151,41 +150,47 @@
                                 + '                 </td>'
                                 + '             </tr>'
                                 + '        </table>'
-
-                                // + '        <div class="card-body">'
-                                // + '            <figure class="ts-item__info">'
-                                // + '                <h3>' + managementNo + '</h3>'
-                                // + '                <aside class="' + color + '" style="font-size: 1em">'
-                                // + '                    <i class="fa fa-map-marker mr-2"></i>'
-                                // +                      activationKr
-                                // + '                </aside>'
-                                // + '            </figure>'
-                                // + '        </div>'
                                 + '    </a>'
                                 + '</div>';
+
+                        let iconUrl;
+                        //마커 색
+                        if (loss == 'N') {
+                            if (wear == 'N') {
+                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-yellow.png";
+                            } else {
+                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-green.png";
+                            }
+                        } else {
+                            if (wear == 'N') {
+                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-red.png";
+                            } else {
+                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-orange.png";
+                            }
+                        }
+
+                        var marker = new naver.maps.Marker({
+                            position: new naver.maps.LatLng(latitude, longitude),
+                            map: map,
+                            icon: {
+                                url: iconUrl,
+                                size: new naver.maps.Size(22, 22),
+                                origin: new naver.maps.Point(0, 0),
+                                anchor: new naver.maps.Point(11, 35)
+                            }
+                        });
+
+
+
+                        element = [i, marker]
+                        markers.set(no, element);
                     }
                     document.getElementById("drawResult").innerHTML = script;
                     for (var i = 0; i < dataToJson.length; i++) {
-                        let color;
-                        //마커 색
-                        if (document.getElementById("activation" + i).value == "N") {
-                            color = "rgb(234,9,9)";
-                        } else {
-                            color = "rgb(5,148,252)";
-                        }
+
 
                         //마커 하나하나 위치
-                        var marker = new naver.maps.Marker({
-                            position: new naver.maps.LatLng(document.getElementById("latitude" + i).value, document.getElementById("longitude" + i).value),
-                            map: map
-                            // icon: {
-                            //     url: 'http://localhost/assets/img/marker-image/icon-circle-green.png',
-                            //     size: new naver.maps.Size(22, 35),
-                            //     origin: new naver.maps.Point(0, 0),
-                            //     anchor: new naver.maps.Point(11, 35)
-                            // }
-                            //animation: naver.maps.Animation.DROP
-                        });
+
 
                         //마커 윈도우 정보
                         var contentString = [
@@ -208,20 +213,20 @@
                         ].join('');
 
                         //마커 윈도우
-                        var infowindow = new naver.maps.InfoWindow({
-                            content: contentString,
-                            maxWidth: 200,
-                            backgroundColor: "rgb(214,250,223)",
-                            borderColor: color,
-                            borderWidth: 3,
-                            anchorSize: new naver.maps.Size(10, 10),
-                            anchorSkew: true,
-                            anchorColor: "rgb(214,250,223)",
-                            pixelOffset: new naver.maps.Point(20, -20)
-                        });
+                        // var infowindow = new naver.maps.InfoWindow({
+                        //     content: contentString,
+                        //     maxWidth: 200,
+                        //     backgroundColor: "rgb(214,250,223)",
+                        //     borderColor: color,
+                        //     borderWidth: 3,
+                        //     anchorSize: new naver.maps.Size(10, 10),
+                        //     anchorSkew: true,
+                        //     anchorColor: "rgb(214,250,223)",
+                        //     pixelOffset: new naver.maps.Point(20, -20)
+                        // });
 
                         //naver.maps.Event.addListener(marker, 'click', markerClick(i));
-                        markers.push(marker);
+
                         // infowindows.push(infowindow);
                     }
                 } else {
@@ -302,21 +307,44 @@
         //     }
         // }
 
+        //누른 항목으로 지도 이동
         function moveMap(latitude, longitude, index) {
             map.setCenter(new naver.maps.LatLng(latitude, longitude));
-            map.setZoom(18);
+            map.setZoom(19);
 
-            // for (var i = 0; i < markers.length; i++) {
-            //     if (markers[i].getAnimation() != null) {
-            //         markers[i].setAnimation(null);
-            //     }
-            // }
-            // markers[index].setAnimation(naver.maps.Animation.BOUNCE);
-            receiveStatus(index);
-
-            console.log(markers[index])
+            //receiveStatus(index);
+            //console.log(markers[index])
             //infowindows[index].open(map, markers[index]);
         }
+
+        //헬멧 정보 들어올 때마다 그리기
+        // function reload() {
+        //     webSocket.onmessage = function(msg) {
+        //
+        //         console.log(markers[indexI])
+        //
+        //         let helmetState = JSON.parse(msg.data);
+        //
+        //         console.log(helmetState);
+        //         console.log(helmetState.dateTime);
+        //         console.log(helmetState.latitude);
+        //         console.log(helmetState.longitude);
+        //         console.log(helmetState.loss);
+        //         console.log(helmetState.wear);
+        //
+        //         // var marker = new naver.maps.Marker({
+        //         //     position: new naver.maps.LatLng(document.getElementById("latitude" + i).value, document.getElementById("longitude" + i).value),
+        //         //     map: map
+        //         // });
+        //         //
+        //         // let dateTime = dataToJson[i].dateTime;
+        //         // let latitude = dataToJson[i].latitude;
+        //         // let longitude = dataToJson[i].longitude;
+        //         // let activation = dataToJson[i].activation;
+        //         // let loss = dataToJson[i].loss;
+        //         // let wear = dataToJson[i].wear;
+        //     }
+        // }
 
         document.getElementById("search-btn").addEventListener("click", search, false);
     </script>
