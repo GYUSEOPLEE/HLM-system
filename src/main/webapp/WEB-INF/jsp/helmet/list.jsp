@@ -70,6 +70,7 @@
                     }
                 }
             }
+
         </script>
 
     <%@ include file="/WEB-INF/jsp/include/bottom.jsp" %>
