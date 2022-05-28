@@ -29,10 +29,15 @@ public class HelmetStateServiceImpl implements HelmetStateService{
     @Override
     public void createHelmetState(HelmetState helmetState) {
         Helmet helmet = new Helmet();
-        KickboardLocation kickboardLocation = new KickboardLocation();
-
         helmet.setNo(helmetState.getHelmetNo());
+//        Helmet helmet = Helmet.builder()
+//                .no(helmetState.getHelmetNo()).build();
+
+        KickboardLocation kickboardLocation = new KickboardLocation();
         kickboardLocation.setKickboardNo(HelmetServiceImpl.helmetPair.get(helmetMapper.select(helmet).getNo()));
+//        KickboardLocation kickboardLocation = KickboardLocation.builder()
+//                .kickboardNo(HelmetServiceImpl.helmetPair.get(helmetMapper.select(helmet).getNo()))
+//                .build();
 
         //T면 분실X F면 분실
         if (helmetLostCalculation(helmetState, kickboardLocationMapper.select(kickboardLocation))) {

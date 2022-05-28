@@ -30,6 +30,8 @@ public class HelmetServiceImpl implements HelmetService{
 
                 helmetPair.put(helmetInfo.getNo(), kickboardMapper.select(kickboardInfo).getNo());
             }
+
+
         }
 
 //        Kickboard pairKickboard = new Kickboard();
@@ -43,9 +45,7 @@ public class HelmetServiceImpl implements HelmetService{
     @Override
     public List<Mark> getMarks(Helmet helmet) {
         if (HelmetStateServiceImpl.helmetWear.size() == 0) {
-            List<HelmetState> helmetStates = helmetStateMapper.selectAll(new HelmetState());
-
-            for (HelmetState helmetInfo : helmetStates) {
+            for (HelmetState helmetInfo : helmetStateMapper.selectAll(new HelmetState())) {
                 HelmetStateServiceImpl.helmetWear.put(helmetInfo.getHelmetNo(), 'N');
             }
         }
@@ -56,6 +56,7 @@ public class HelmetServiceImpl implements HelmetService{
         HelmetState helmetState = new HelmetState();
         for (Helmet setHelmet : helmets) {
             helmetState.setHelmetNo(setHelmet.getNo());
+            System.out.println(setHelmet.getNo());
             helmetState = helmetStateMapper.select(helmetState);
 
             if (helmetState == null) {

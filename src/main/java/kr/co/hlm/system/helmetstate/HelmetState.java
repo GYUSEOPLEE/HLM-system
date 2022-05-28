@@ -1,18 +1,13 @@
 package kr.co.hlm.system.helmetstate;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serializable;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-public class HelmetState implements Serializable {
+@NoArgsConstructor
+public class HelmetState {
     private int no;
     private LocalDateTime dateTime;
     private double latitude;

@@ -9,10 +9,10 @@
     </insert>
 
     <select id="select" parameterType="kickboardLocation" resultType="kickboardLocation">
-        SELECT NO, MAX(DATE_TIME), LATITUDE, LONGITUDE, KICKBOARD_NO
+        SELECT @ROWNUM:=@ROWNUM+1 AS RN, NO, DATE_TIME, LATITUDE, LONGITUDE, KICKBOARD_NO
         FROM KICKBOARD_LOCATION
         WHERE KICKBOARD_NO = #{kickboardNo}
-        GROUP BY KICKBOARD_NO
+        ORDER BY NO DESC
+        LIMIT 0, 1;
     </select>
-
 </mapper>

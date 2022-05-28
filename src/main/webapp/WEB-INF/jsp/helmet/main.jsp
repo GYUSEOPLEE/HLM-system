@@ -70,17 +70,24 @@
     </div>
 
     <script>
-        search();
-
+        let viewHelmet = null;
         let dataToJson;
         let mapOptions = {
-            zoom: 9
+            center: new naver.maps.LatLng(36.797999, 127.074503),
+            zoom: 15
         };
         let map = new naver.maps.Map('map', mapOptions);
         let markers = new Map();
         let element;
         let infowindows = [];
         let webSocket = new WebSocket("ws://" + location.host + "/helmets/main");
+
+        search();
+        reload();
+
+        function setViewHelmet(no) {
+            viewHelmet = no;
+        }
 
         //검색 조건에 따라 헬멧 상태 정보 목록 가져오기
         function search() {
@@ -93,12 +100,14 @@
 
         //가져온 목록 뿌리기
         function getData() {
+            viewHelmet = null;
+
             if (searchXmlHttpRequest.readyState == 4 && searchXmlHttpRequest.status == 200) {
                 dataToJson = JSON.parse(searchXmlHttpRequest.responseText);
             }
             if (markers.length > 0) {
                 // for (var i = 0; i < markers.length; i ++) {
-                //     markers[i].setMap(null);
+                //     markers[i].setMap(null); = 오버레이 지도에서 제거하기
                 // }
                 // infowindows = [];
                 markers = new Map();
@@ -124,7 +133,7 @@
                             color = "text-danger";
                         }
                             script += '<div class="ts-result-link card ts-item ts-card ts-result" data-ts-id="6" data-ts-ln="5" >'
-                                + '    <a href="javascript:void(0);" onclick="moveMap(' + latitude + ', ' + longitude + ', ' + i + ')">'
+                                + '    <a href="javascript:void(0);" id="moveButton' + i + '" onclick="moveMap(\'' + no + '\', ' + latitude + ', ' + longitude + ', ' + i + ')">'
                                 + '        <input type="hidden" id="no' + i + '" value="' + no + '" />'
                                 + '        <input type="hidden" id="dateTime' + i + '" value="' + dateTime + '" />'
                                 + '        <input type="hidden" id="latitude' + i + '" value="' + latitude + '" />'
@@ -308,9 +317,11 @@
         // }
 
         //누른 항목으로 지도 이동
-        function moveMap(latitude, longitude, index) {
+        function moveMap(no, latitude, longitude, index) {
+            setViewHelmet(no);
+
             map.setCenter(new naver.maps.LatLng(latitude, longitude));
-            map.setZoom(19);
+            map.setZoom(18);
 
             //receiveStatus(index);
             //console.log(markers[index])
@@ -318,33 +329,74 @@
         }
 
         //헬멧 정보 들어올 때마다 그리기
-        // function reload() {
-        //     webSocket.onmessage = function(msg) {
-        //
-        //         console.log(markers[indexI])
-        //
-        //         let helmetState = JSON.parse(msg.data);
-        //
-        //         console.log(helmetState);
-        //         console.log(helmetState.dateTime);
-        //         console.log(helmetState.latitude);
-        //         console.log(helmetState.longitude);
-        //         console.log(helmetState.loss);
-        //         console.log(helmetState.wear);
-        //
-        //         // var marker = new naver.maps.Marker({
-        //         //     position: new naver.maps.LatLng(document.getElementById("latitude" + i).value, document.getElementById("longitude" + i).value),
-        //         //     map: map
-        //         // });
-        //         //
-        //         // let dateTime = dataToJson[i].dateTime;
-        //         // let latitude = dataToJson[i].latitude;
-        //         // let longitude = dataToJson[i].longitude;
-        //         // let activation = dataToJson[i].activation;
-        //         // let loss = dataToJson[i].loss;
-        //         // let wear = dataToJson[i].wear;
-        //     }
-        // }
+        function reload() {
+            webSocket.onmessage = function(msg) {
+
+                // console.log(markers[indexI])
+
+                let helmetState = JSON.parse(msg.data);
+                //
+                // console.log(helmetState.helmetNo);
+                // console.log(helmetState.dateTime);
+                // console.log(helmetState.latitude);
+                // console.log(helmetState.longitude);
+                // console.log(helmetState.loss);
+                // console.log(helmetState.wear);
+                markers.get(helmetState.helmetNo)[1].setMap(null);
+
+                let iconUrl;
+                //마커 색
+                if (helmetState.loss == 'N') {
+                    if (helmetState.wear == 'N') {
+                        iconUrl = "http://localhost/assets/img/marker-image/icon-circle-yellow.png";
+                    } else {
+                        iconUrl = "http://localhost/assets/img/marker-image/icon-circle-green.png";
+                    }
+                } else {
+                    if (helmetState.wear == 'N') {
+                        iconUrl = "http://localhost/assets/img/marker-image/icon-circle-red.png";
+                    } else {
+                        iconUrl = "http://localhost/assets/img/marker-image/icon-circle-orange.png";
+                    }
+                }
+
+                var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(helmetState.latitude, helmetState.longitude),
+                    map: map,
+                    icon: {
+                        url: iconUrl,
+                        size: new naver.maps.Size(22, 22),
+                        origin: new naver.maps.Point(0, 0),
+                        anchor: new naver.maps.Point(11, 35)
+                    }
+                });
+
+                markers.get(helmetState.helmetNo)[1] = marker;
+
+                // document.getElementById("moveButton" + markers.get(helmetState.helmetNo)[0]).removeEventListener("click", moveMap)
+                // document.getElementById("moveButton" + markers.get(helmetState.helmetNo)[0]).addEventListener("click", moveMap)
+
+                if (viewHelmet != null
+                        && helmetState.helmetNo == viewHelmet) {
+                    moveMap(helmetState.helmetNo, helmetState.latitude, helmetState.longitude, markers.get(helmetState.helmetNo)[0], );
+                }
+
+                // console.log(helmetState.loss);
+                // console.log(helmetState.wear);
+
+                // var marker = new naver.maps.Marker({
+                //     position: new naver.maps.LatLng(document.getElementById("latitude" + i).value, document.getElementById("longitude" + i).value),
+                //     map: map
+                // });
+                //
+                // let dateTime = dataToJson[i].dateTime;
+                // let latitude = dataToJson[i].latitude;
+                // let longitude = dataToJson[i].longitude;
+                // let activation = dataToJson[i].activation;
+                // let loss = dataToJson[i].loss;
+                // let wear = dataToJson[i].wear;
+            }
+        }
 
         document.getElementById("search-btn").addEventListener("click", search, false);
     </script>

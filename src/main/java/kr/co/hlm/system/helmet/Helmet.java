@@ -1,17 +1,12 @@
 package kr.co.hlm.system.helmet;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.io.Serializable;
+import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-public class Helmet implements Serializable {
+@NoArgsConstructor
+public class Helmet {
     private String no;
     private String model;
     private String ip;

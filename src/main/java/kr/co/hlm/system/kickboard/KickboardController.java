@@ -63,7 +63,7 @@ public class KickboardController {
 
     //킥보드 정보 수신
     @PostMapping("/info")
-    public ReceiveState receiveKickboard(@RequestBody Kickboard kickboard){
+    public ReceiveState receiveKickboard(@RequestBody Kickboard kickboard) {
         kickboardService.createKickboard(kickboard);
 
         ReceiveState receiveState = new ReceiveState();
