@@ -6,19 +6,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HelmetLostUtil {
-
-    //헬멧 킥보드 거리에 따른 분실여부 계산
     public boolean helmetLostCalculation(HelmetState helmetState, KickboardLocation kickboardLocation){
+        boolean result = true;
         double theta = helmetState.getLongitude() - kickboardLocation.getLongitude();
         double dist = Math.sin(deg2rad(helmetState.getLatitude())) * Math.sin(deg2rad(kickboardLocation.getLatitude()))
-                + Math.cos(deg2rad(helmetState.getLongitude())) * Math.cos(deg2rad(kickboardLocation.getLongitude()))
+                + Math.cos(deg2rad(helmetState.getLatitude())) * Math.cos(deg2rad(kickboardLocation.getLatitude()))
                 * Math.cos(deg2rad(theta));
 
-        boolean result = false;
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist *= 60 * 1.1515;
+        dist *= 1609.344;
 
-        if(dist > 300){
-            result = true;
+        if(dist > 30){
+            result = false;
         }
+
+        System.out.println(dist);
 
         return result;
     }

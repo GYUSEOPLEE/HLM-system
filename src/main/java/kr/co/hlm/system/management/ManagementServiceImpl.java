@@ -1,24 +1,37 @@
 package kr.co.hlm.system.management;
 
-import kr.co.hlm.system.helmetstate.HelmetState;
-import kr.co.hlm.system.helmetstate.HelmetStateMapper;
-import kr.co.hlm.system.kickboardlocation.KickboardLocation;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import kr.co.hlm.system.helmet.Helmet;
 import lombok.RequiredArgsConstructor;
+import okhttp3.*;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
 public class ManagementServiceImpl implements ManagementService{
-    private final HelmetLostUtil helmetLostUtil;
-    private final HelmetStateMapper helmetStateMapper;
     @Override
-    public void sendHelmetLoss(HelmetState helmetState, KickboardLocation kickboardLocation) {
-        boolean lost = helmetLostUtil.helmetLostCalculation(helmetState, kickboardLocation);
+    public void sendHelmetLoss(Helmet helmet) {
+        String url = "http://" + helmet.getIp() + "/helmet/loss";
 
-        if(lost) {
-            helmetState.setLoss('Y');
-            helmetStateMapper.update(helmetState);
+        Gson helmetWear = new Gson();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("loss", 'Y');
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), helmetWear.toJson(jsonObject));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }
