@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
@@ -17,23 +18,10 @@ public class HelmetServiceImpl implements HelmetService{
     private final HelmetMapper helmetMapper;
     private final HelmetStateMapper helmetStateMapper;
     private final KickboardMapper kickboardMapper;
-    public static Map<String, String> helmetPair = new HashMap<String, String>();
+    public static Map<String, String> helmetPair = new HashMap<>();
 
     @Override
     public void createHelmet(Helmet helmet) {
-        if (helmetPair.size() == 0) {
-            List<Helmet> helmets = helmetMapper.selectAll(new Helmet());
-
-            Kickboard kickboardInfo = new Kickboard();
-            for (Helmet helmetInfo : helmets) {
-                kickboardInfo.setIp(helmetInfo.getKickboardIp());
-
-                helmetPair.put(helmetInfo.getNo(), kickboardMapper.select(kickboardInfo).getNo());
-            }
-
-
-        }
-
 //        Kickboard pairKickboard = new Kickboard();
 //        pairKickboard.setIp(helmet.getKickboardIp());
 //        helmetPair.put(helmet.getNo(), kickboardMapper.select(pairKickboard).getNo());
@@ -44,19 +32,12 @@ public class HelmetServiceImpl implements HelmetService{
     //문서 추가
     @Override
     public List<Mark> getMarks(Helmet helmet) {
-        if (HelmetStateServiceImpl.helmetWear.size() == 0) {
-            for (HelmetState helmetInfo : helmetStateMapper.selectAll(new HelmetState())) {
-                HelmetStateServiceImpl.helmetWear.put(helmetInfo.getHelmetNo(), 'N');
-            }
-        }
-
-        List<Mark> marks = new ArrayList<Mark>();
+        List<Mark> marks = new ArrayList<>();
         List<Helmet> helmets = helmetMapper.selectAll(helmet);
 
         HelmetState helmetState = new HelmetState();
         for (Helmet setHelmet : helmets) {
             helmetState.setHelmetNo(setHelmet.getNo());
-            System.out.println(setHelmet.getNo());
             helmetState = helmetStateMapper.select(helmetState);
 
             if (helmetState == null) {
@@ -79,11 +60,13 @@ public class HelmetServiceImpl implements HelmetService{
 
     @Override
     public List<Helmet> getHelmets(Helmet helmet) {
+        System.out.println(helmet.getNo());
+        System.out.println(helmet.getActivation());
         List<Helmet> helmets = helmetMapper.selectAll(helmet);
 
         return helmets != null
                 ? helmets
-                : new ArrayList<Helmet>();
+                : new ArrayList<>();
     }
 
     @Override
@@ -104,6 +87,24 @@ public class HelmetServiceImpl implements HelmetService{
         } else {
             viewHelmet.setActivation('Y');
         }
+
         helmetMapper.update(viewHelmet);
+    }
+
+    @PostConstruct
+    private void initHelmetPair() {
+        Kickboard kickboardInfo = new Kickboard();
+        for (Helmet helmetInfo : helmetMapper.selectAll(new Helmet())) {
+            kickboardInfo.setIp(helmetInfo.getKickboardIp());
+
+            helmetPair.put(helmetInfo.getNo(), kickboardMapper.select(kickboardInfo).getNo());
+        }
+    }
+
+    @PostConstruct
+    private void initHelmetWear() {
+        for (HelmetState helmetInfo : helmetStateMapper.selectAll(new HelmetState())) {
+            HelmetStateServiceImpl.helmetWear.put(helmetInfo.getHelmetNo(), 'N');
+        }
     }
 }

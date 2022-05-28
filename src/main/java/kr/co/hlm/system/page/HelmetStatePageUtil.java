@@ -60,7 +60,7 @@ public class HelmetStatePageUtil {
 
     //드로우
     public String drawPage(Page page, List<HelmetState> helmetStateList) {
-        StringBuffer drawPage = new StringBuffer();
+        StringBuilder drawPage = new StringBuilder();
 
         if (helmetStateList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
@@ -73,16 +73,18 @@ public class HelmetStatePageUtil {
             drawPage.append("                        <div class=\"col ts-row-title text-left\">위도</div>");
             drawPage.append("                        <div class=\"col ts-row-title text-left\">경도</div>");
             drawPage.append("                        <div class=\"col ts-row-title text-left\">분실여부</div>");
+            drawPage.append("                        <div class=\"col ts-row-title text-left\">착용여부</div>");
             drawPage.append("                    </div>");
 
             for (int i = 0; i < helmetStateList.size(); i++) {
                 drawPage.append("<div class=\"row\">");
-                drawPage.append("    <div class=\"col text-center\">" + (page.getTotalRowCount() - (i + ((page.getPageNo()-1) * 5))) + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getHelmetNo() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getDateTime() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getLongitude() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getLatitude() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetStateList.get(i).getLoss() + "</div>");
+                drawPage.append("    <div class=\"col text-center\">").append(page.getTotalRowCount() - (i + ((page.getPageNo() - 1) * 5))).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getHelmetNo()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getDateTime()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getLongitude()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getLatitude()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getLoss()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getWear()).append("</div>");
                 drawPage.append("</div>");
             }
 
@@ -102,11 +104,11 @@ public class HelmetStatePageUtil {
                 drawPage.append("</li>");
                 if ((page.getStartPageNo() - 25) > 0) {
                     drawPage.append("<li class=\"page-item\">");
-                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getEndPageNo() -  (PAGE_SIZE * 5)) + ")\">-5</a>");
+                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getEndPageNo() - (PAGE_SIZE * 5)).append(")\">-5</a>");
                     drawPage.append("</li>");
                 }
                 drawPage.append("<li class=\"page-item\">");
-                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getStartPageNo() -  1) + ")\">이전</a>");
+                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getStartPageNo() - 1).append(")\">이전</a>");
                 drawPage.append("</li>");
             }
 
@@ -114,12 +116,13 @@ public class HelmetStatePageUtil {
             drawPage.append("                    <ul class=\"pagination ts-center__horizontal col-4\">");
 
             for (int i = page.getStartPageNo(); i <= page.getEndPageNo(); i++) {
-                if (i == page.getPageNo()) {                    drawPage.append("<li class=\"page-item active\">");
-                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(" + i + ")\">" + i + "</a>");
+                if (i == page.getPageNo()) {
+                    drawPage.append("<li class=\"page-item active\">");
+                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(i).append(")\">").append(i).append("</a>");
                     drawPage.append("</li>");
                 } else {
                     drawPage.append("<li class=\"page-item\">");
-                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(" + i + ")\">" + i + "</a>");
+                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(i).append(")\">").append(i).append("</a>");
                     drawPage.append("</li>");
                 }
             }
@@ -129,17 +132,17 @@ public class HelmetStatePageUtil {
 
             if (page.getEndPageNo() != page.getFinalPageNo()) {
                 drawPage.append("<li class=\"page-item\">");
-                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getEndPageNo() +  1) + ")\">다음</a>");
+                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getEndPageNo() + 1).append(")\">다음</a>");
                 drawPage.append("</li>");
 
                 if ((page.getStartPageNo() + 25) < page.getFinalPageNo()) {
                     drawPage.append("<li class=\"page-item\">");
-                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getStartPageNo() +  (PAGE_SIZE * 5)) + ")\">+5</a>");
+                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getStartPageNo() + (PAGE_SIZE * 5)).append(")\">+5</a>");
                     drawPage.append("</li>");
                 }
 
                 drawPage.append("<li class=\"page-item\">");
-                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + page.getFinalPageNo() + ")\">마지막</a>");
+                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getFinalPageNo()).append(")\">마지막</a>");
                 drawPage.append("</li>");
             }
 

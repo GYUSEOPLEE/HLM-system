@@ -14,9 +14,9 @@
         <where>
             <choose>
                 <when test="no != null and no != ''">
-                    NO LIKE CONCAT('%', #{no}, '%')
+                    (NO LIKE CONCAT('%', #{no}, '%')
                     OR
-                    MODEL LIKE CONCAT('%', #{no}, '%')
+                    MODEL LIKE CONCAT('%', #{no}, '%'))
                 </when>
             </choose>
 

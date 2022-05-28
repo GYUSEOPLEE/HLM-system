@@ -24,7 +24,7 @@ public class HelmetStateServiceImpl implements HelmetStateService{
     private final KickboardMapper kickboardMapper;
     private final KickboardLocationMapper kickboardLocationMapper;
     private final ApplicationEventPublisher applicationEventPublisher;
-    public static Map<String, Character> helmetWear = new HashMap<String, Character>();
+    public static Map<String, Character> helmetWear = new HashMap<>();
 
     @Override
     public void createHelmetState(HelmetState helmetState) {
@@ -54,11 +54,13 @@ public class HelmetStateServiceImpl implements HelmetStateService{
 
     @Override
     public List<HelmetState> getHelmetStates(HelmetState helmetState) {
-       List<HelmetState>  helmetStates = helmetStateMapper.selectAll(helmetState);
+       List<HelmetState> helmetStates = helmetStateMapper.selectAll(helmetState);
 
-       return helmetStates != null
-               ? helmetStates
-               : new ArrayList<HelmetState>();
+       for (HelmetState insertHelmetWear : helmetStates) {
+           insertHelmetWear.setWear(helmetWear.get(insertHelmetWear.getHelmetNo()));
+       }
+
+       return helmetStates;
     }
 
     @Override

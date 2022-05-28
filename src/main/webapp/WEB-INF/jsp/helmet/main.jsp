@@ -133,7 +133,7 @@
                             color = "text-danger";
                         }
                             script += '<div class="ts-result-link card ts-item ts-card ts-result" data-ts-id="6" data-ts-ln="5" >'
-                                + '    <a href="javascript:void(0);" id="moveButton' + i + '" onclick="moveMap(\'' + no + '\', ' + latitude + ', ' + longitude + ', ' + i + ')">'
+                                + '    <a href="javascript:void(0);" id="move-btn' + i + '" onclick="moveMap(\'' + no + '\', ' + latitude + ', ' + longitude + ', ' + i + ')">'
                                 + '        <input type="hidden" id="no' + i + '" value="' + no + '" />'
                                 + '        <input type="hidden" id="dateTime' + i + '" value="' + dateTime + '" />'
                                 + '        <input type="hidden" id="latitude' + i + '" value="' + latitude + '" />'
@@ -335,25 +335,26 @@
                 // console.log(markers[indexI])
 
                 let helmetState = JSON.parse(msg.data);
-                //
-                // console.log(helmetState.helmetNo);
-                // console.log(helmetState.dateTime);
-                // console.log(helmetState.latitude);
-                // console.log(helmetState.longitude);
-                // console.log(helmetState.loss);
-                // console.log(helmetState.wear);
+
+                let no = helmetState.helmetNo;
+                let index = markers.get(no)[0];
+                let latitude = helmetState.latitude;
+                let longitude = helmetState.longitude;
+                let loss = helmetState.loss;
+                let wear = helmetState.wear;
+
                 markers.get(helmetState.helmetNo)[1].setMap(null);
 
                 let iconUrl;
                 //마커 색
-                if (helmetState.loss == 'N') {
-                    if (helmetState.wear == 'N') {
+                if (loss == 'N') {
+                    if (wear == 'N') {
                         iconUrl = "http://localhost/assets/img/marker-image/icon-circle-yellow.png";
                     } else {
                         iconUrl = "http://localhost/assets/img/marker-image/icon-circle-green.png";
                     }
                 } else {
-                    if (helmetState.wear == 'N') {
+                    if (wear == 'N') {
                         iconUrl = "http://localhost/assets/img/marker-image/icon-circle-red.png";
                     } else {
                         iconUrl = "http://localhost/assets/img/marker-image/icon-circle-orange.png";
@@ -361,7 +362,7 @@
                 }
 
                 var marker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(helmetState.latitude, helmetState.longitude),
+                    position: new naver.maps.LatLng(latitude, longitude),
                     map: map,
                     icon: {
                         url: iconUrl,
@@ -373,12 +374,11 @@
 
                 markers.get(helmetState.helmetNo)[1] = marker;
 
-                // document.getElementById("moveButton" + markers.get(helmetState.helmetNo)[0]).removeEventListener("click", moveMap)
-                // document.getElementById("moveButton" + markers.get(helmetState.helmetNo)[0]).addEventListener("click", moveMap)
+                document.getElementById("move-btn" + index).setAttribute("onClick", "moveMap('" + no + "', '" + latitude + "', '" + longitude + "', '" + index + "')")
 
                 if (viewHelmet != null
-                        && helmetState.helmetNo == viewHelmet) {
-                    moveMap(helmetState.helmetNo, helmetState.latitude, helmetState.longitude, markers.get(helmetState.helmetNo)[0], );
+                        && no == viewHelmet) {
+                    moveMap(no, latitude, longitude, index);
                 }
 
                 // console.log(helmetState.loss);

@@ -5,6 +5,5 @@ import kr.co.hlm.system.kickboardlocation.KickboardLocation;
 
 
 public interface ManagementService {
-    
-    public void sendHelmetLoss(HelmetState helmetState, KickboardLocation kickboardLocation);
+    void sendHelmetLoss(HelmetState helmetState, KickboardLocation kickboardLocation);
 }

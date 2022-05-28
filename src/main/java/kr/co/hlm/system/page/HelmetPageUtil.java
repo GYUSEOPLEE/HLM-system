@@ -59,7 +59,7 @@ public class HelmetPageUtil {
 
     //드로우
     public String drawPage(Page page, List<Helmet> helmetList) {
-        StringBuffer drawPage = new StringBuffer();
+        StringBuilder drawPage = new StringBuilder();
 
         if (helmetList.size() > 0) {
             drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
@@ -77,13 +77,13 @@ public class HelmetPageUtil {
 
             for (int i = 0; i < helmetList.size(); i++) {
                 drawPage.append("<div class=\"row\">");
-                drawPage.append("    <div class=\"col text-center\">" + (i + 1 + ((page.getPageNo()-1) * 5)) + "</div>");
-                drawPage.append("    <div class=\"col text-left\"> <a href=\"helmets\\" + helmetList.get(i).getNo() + "\">" + helmetList.get(i).getNo() +"</a> </div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getIp() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getModel() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getSize() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getKickboardIp() + "</div>");
-                drawPage.append("    <div class=\"col text-left\">" + helmetList.get(i).getActivation() + "</div>");
+                drawPage.append("    <div class=\"col text-center\">").append(i + 1 + ((page.getPageNo() - 1) * 5)).append("</div>");
+                drawPage.append("    <div class=\"col text-left\"> <a href=\"helmets\\").append(helmetList.get(i).getNo()).append("\">").append(helmetList.get(i).getNo()).append("</a> </div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetList.get(i).getIp()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetList.get(i).getModel()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetList.get(i).getSize()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetList.get(i).getKickboardIp()).append("</div>");
+                drawPage.append("    <div class=\"col text-left\">").append(helmetList.get(i).getActivation()).append("</div>");
                 drawPage.append("</div>");
             }
 
@@ -102,11 +102,11 @@ public class HelmetPageUtil {
                 drawPage.append("</li>");
                 if ((page.getStartPageNo() - 25) > 0) {
                     drawPage.append("<li class=\"page-item\">");
-                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getEndPageNo() -  (PAGE_SIZE * 5)) + ")\">-5</a>");
+                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getEndPageNo() - (PAGE_SIZE * 5)).append(")\">-5</a>");
                     drawPage.append("</li>");
                 }
                 drawPage.append("<li class=\"page-item\">");
-                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getStartPageNo() -  1) + ")\">이전</a>");
+                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getStartPageNo() - 1).append(")\">이전</a>");
                 drawPage.append("</li>");
             }
 
@@ -114,12 +114,13 @@ public class HelmetPageUtil {
             drawPage.append("                    <ul class=\"pagination ts-center__horizontal col-4\">");
 
             for (int i = page.getStartPageNo(); i <= page.getEndPageNo(); i++) {
-                if (i == page.getPageNo()) {                    drawPage.append("<li class=\"page-item active\">");
-                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(" + i + ")\">" + i + "</a>");
+                if (i == page.getPageNo()) {
+                    drawPage.append("<li class=\"page-item active\">");
+                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(i).append(")\">").append(i).append("</a>");
                     drawPage.append("</li>");
                 } else {
                     drawPage.append("<li class=\"page-item\">");
-                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(" + i + ")\">" + i + "</a>");
+                    drawPage.append("    <a class=\"page-link\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(i).append(")\">").append(i).append("</a>");
                     drawPage.append("</li>");
                 }
             }
@@ -129,17 +130,17 @@ public class HelmetPageUtil {
 
             if (page.getEndPageNo() != page.getFinalPageNo()) {
                 drawPage.append("<li class=\"page-item\">");
-                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getEndPageNo() +  1) + ")\">다음</a>");
+                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getEndPageNo() + 1).append(")\">다음</a>");
                 drawPage.append("</li>");
 
                 if ((page.getStartPageNo() + 25) < page.getFinalPageNo()) {
                     drawPage.append("<li class=\"page-item\">");
-                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + (page.getStartPageNo() +  (PAGE_SIZE * 5)) + ")\">+5</a>");
+                    drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getStartPageNo() + (PAGE_SIZE * 5)).append(")\">+5</a>");
                     drawPage.append("</li>");
                 }
 
                 drawPage.append("<li class=\"page-item\">");
-                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(" + page.getFinalPageNo() + ")\">마지막</a>");
+                drawPage.append("    <a class=\"page-link border ts-btn-arrow\" href=\"javascript:void(0);\" onclick=\"pageOver(").append(page.getFinalPageNo()).append(")\">마지막</a>");
                 drawPage.append("</li>");
             }
 
@@ -153,7 +154,7 @@ public class HelmetPageUtil {
             drawPage.append("    <div class=\"container\">");
             drawPage.append("        <div class=\"ts-compare-items-table\">");
             drawPage.append("            <section id=\"details\">");
-            drawPage.append("                <h1>상태 정보가 없습니다.</h4>");
+            drawPage.append("                <h1>헬멧 정보가 없습니다.</h4>");
             drawPage.append("            </section>");
             drawPage.append("        </div>");
             drawPage.append("    </div>");
