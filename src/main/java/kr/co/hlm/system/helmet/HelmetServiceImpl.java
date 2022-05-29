@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.util.*;
 
 @Service
@@ -22,11 +23,11 @@ public class HelmetServiceImpl implements HelmetService{
 
     @Override
     public void createHelmet(Helmet helmet) {
-//        Kickboard pairKickboard = new Kickboard();
-//        pairKickboard.setIp(helmet.getKickboardIp());
-//        helmetPair.put(helmet.getNo(), kickboardMapper.select(pairKickboard).getNo());
-//
-//        helmetMapper.insert(helmet);
+        Kickboard pairKickboard = new Kickboard();
+        pairKickboard.setIp(helmet.getKickboardIp());
+        helmetPair.put(helmet.getNo(), kickboardMapper.select(pairKickboard).getNo());
+
+        helmetMapper.insert(helmet);
     }
 
     //문서 추가

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,30 +25,24 @@ public class HelmetController {
     //문서 추가
     @GetMapping("/main")
     public ModelAndView getMainPage() {
-        ModelAndView modelAndView = new ModelAndView("helmet/main");
-
-        return modelAndView;
+        return new ModelAndView("helmet/main");
     }
 
     //문서 추가
     @PostMapping(value = "/main", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Mark> getMainPage(@RequestBody Helmet helmet) {
-        List<Mark> mark = helmetService.getMarks(helmet);
-
-        return mark;
+        return helmetService.getMarks(helmet);
     }
 
     @GetMapping
     public ModelAndView getHelmets() {
-        ModelAndView modelAndView = new ModelAndView("helmet/list");
-
-        return modelAndView;
+        return new ModelAndView("helmet/list");
     }
 
     //문서 추가
     @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getHelmets(@PathVariable int pageNo, @RequestBody Helmet helmet) {
-        String drawPage = "";
+        String drawPage;
 
         Page page = helmetPageUtil.setPage(helmet.getNo(), helmetService.getHelmets(helmet).size(), pageNo);
 
@@ -73,13 +68,11 @@ public class HelmetController {
     public ModelAndView editHelmet(Helmet helmet) {
         helmetService.editHelmet(helmet);
 
-        ModelAndView modelAndView = new ModelAndView(new RedirectView("/helmets/" + helmet.getNo()));
-
-        return modelAndView;
+        return new ModelAndView(new RedirectView("/helmets/" + helmet.getNo()));
     }
 
     @PostMapping(value = "/info", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ReceiveState receiveHelmet(@RequestBody Helmet helmet) {
+    public ReceiveState receiveHelmet(@RequestBody @Valid Helmet helmet) {
         helmetService.createHelmet(helmet);
 
         ReceiveState state = new ReceiveState();

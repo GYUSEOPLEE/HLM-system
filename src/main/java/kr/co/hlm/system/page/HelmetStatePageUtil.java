@@ -63,7 +63,7 @@ public class HelmetStatePageUtil {
         StringBuilder drawPage = new StringBuilder();
 
         if (helmetStateList.size() > 0) {
-            drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 350px\">");
+            drawPage.append("    <section id=\"compared-properties\" class=\"py-0\" style=\"height: 250px\">");
             drawPage.append("            <div class=\"ts-compare-items-table\" >");
             drawPage.append("                <section id=\"details\">");
             drawPage.append("                    <div class=\"row\">");

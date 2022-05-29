@@ -115,7 +115,7 @@
             </div>
         </section>
     </main>
-    <div style="margin-right: 210px"><a href="/helmetstates/${helmet.no}" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1em; float: right;background-color: blue;color: white;">헬멧 상태정보</a><</div>
+    <div style="margin-right: 210px"><a href="/helmetstates/${helmet.no}" class="nav-link px-2 link-dark" style="font-weight: bold; font-size: 1em; float: right;background-color: blue;color: white;">헬멧 상태정보</a></div>
 
 </div>
 

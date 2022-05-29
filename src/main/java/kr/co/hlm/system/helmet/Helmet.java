@@ -2,15 +2,17 @@ package kr.co.hlm.system.helmet;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class Helmet {
-    private String no;
-    private String model;
-    private String ip;
-    private String kickboardIp;
+    @NotBlank private String no;
+    @NotBlank private String model;
+    @NotBlank private String ip;
+    @NotBlank private String kickboardIp;
+    @NotBlank private char size;
     private char activation;
-    private char size;
 }
