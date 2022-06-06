@@ -16,13 +16,13 @@ public class ManagementServiceImpl implements ManagementService{
     public void sendHelmetLoss(Helmet helmet) {
         String url = "http://" + helmet.getIp() + "/helmet/loss";
 
-        Gson helmetWear = new Gson();
+        Gson helmetLoss = new Gson();
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("loss", 'Y');
 
         OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), helmetWear.toJson(jsonObject));
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), helmetLoss.toJson(jsonObject));
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)

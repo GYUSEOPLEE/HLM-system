@@ -1,20 +1,17 @@
 package kr.co.hlm.system.helmetstate;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import kr.co.hlm.system.helmet.WebSocketMap;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.websocket.Session;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @Service
 public class HelmetStateEventHendler {
 
-    @EventListener()
+    @EventListener
     public void receiveHelmetState(HelmetState helmetState) throws IOException {
         JsonObject helmetObj = new JsonObject();
 

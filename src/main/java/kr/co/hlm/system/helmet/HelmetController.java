@@ -22,24 +22,21 @@ public class HelmetController {
     private final HelmetService helmetService;
     private final HelmetPageUtil helmetPageUtil;
 
-    //문서 추가
     @GetMapping("/main")
-    public ModelAndView getMainPage() {
+    public ModelAndView getMainForm() {
         return new ModelAndView("helmet/main");
     }
 
-    //문서 추가
     @PostMapping(value = "/main", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Mark> getMainPage(@RequestBody Helmet helmet) {
         return helmetService.getMarks(helmet);
     }
 
     @GetMapping
-    public ModelAndView getHelmets() {
+    public ModelAndView getHelmetsForm() {
         return new ModelAndView("helmet/list");
     }
 
-    //문서 추가
     @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getHelmets(@PathVariable int pageNo, @RequestBody Helmet helmet) {
         String drawPage;
@@ -50,7 +47,7 @@ public class HelmetController {
 
         List<Helmet> helmets = helmetService.getHelmets(helmet);
 
-        drawPage = helmetPageUtil.drawPage(page, helmets);
+        drawPage = helmetPageUtil.drawHelmetPage(page, helmets);
 
         return drawPage;
     }
@@ -75,11 +72,11 @@ public class HelmetController {
     public ReceiveState receiveHelmet(@RequestBody @Valid Helmet helmet) {
         helmetService.createHelmet(helmet);
 
-        ReceiveState state = new ReceiveState();
-        state.setCode("200");
-        state.setMessage(null);
+        ReceiveState receiveState = new ReceiveState();
+        receiveState.setCode("200");
+        receiveState.setMessage(null);
 
-        return state;
+        return receiveState;
     }
 
 }

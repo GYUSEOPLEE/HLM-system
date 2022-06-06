@@ -12,7 +12,7 @@ import java.util.Set;
 @Service
 @ServerEndpoint("/helmets/main")
 public class WebSocketMap {
-    public static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
+    public static Set<Session> clients = Collections.synchronizedSet(new HashSet<>());
 
     @OnOpen
     public void onOpen(Session s) {
@@ -24,7 +24,6 @@ public class WebSocketMap {
             System.out.println("already access Session");
         }
     }
-
 
     @OnMessage
     public void onMessage(String msg, Session session) throws Exception{

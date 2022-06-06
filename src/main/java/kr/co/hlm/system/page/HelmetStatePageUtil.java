@@ -59,7 +59,7 @@ public class HelmetStatePageUtil {
     }
 
     //드로우
-    public String drawPage(Page page, List<HelmetState> helmetStateList) {
+    public String drawHelmetStaetePage(Page page, List<HelmetState> helmetStateList) {
         StringBuilder drawPage = new StringBuilder();
 
         if (helmetStateList.size() > 0) {

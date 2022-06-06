@@ -57,7 +57,7 @@ public class KickboardPageUtil {
     }
 
     //드로우
-    public String drawPage(Page page, List<Kickboard> kickboardList) {
+    public String drawKickboardPage(Page page, List<Kickboard> kickboardList) {
         StringBuilder drawPage = new StringBuilder();
 
         if (kickboardList.size() > 0) {

@@ -58,7 +58,7 @@ public class HelmetPageUtil {
     }
 
     //드로우
-    public String drawPage(Page page, List<Helmet> helmetList) {
+    public String drawHelmetPage(Page page, List<Helmet> helmetList) {
         StringBuilder drawPage = new StringBuilder();
 
         if (helmetList.size() > 0) {

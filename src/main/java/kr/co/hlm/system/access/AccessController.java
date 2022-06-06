@@ -46,6 +46,7 @@ public class AccessController {
     public ModelAndView logout(HttpServletRequest httpServletRequest) {
         HttpSession session = httpServletRequest.getSession();
         session.invalidate();
+
         return new ModelAndView(new RedirectView("/login"));
     }
 

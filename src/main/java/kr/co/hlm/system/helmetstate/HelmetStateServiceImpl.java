@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import kr.co.hlm.system.helmet.Helmet;
 import kr.co.hlm.system.helmet.HelmetMapper;
+import kr.co.hlm.system.helmet.HelmetService;
 import kr.co.hlm.system.helmet.HelmetServiceImpl;
 import kr.co.hlm.system.kickboardlocation.KickboardLocation;
 import kr.co.hlm.system.kickboardlocation.KickboardLocationMapper;
+import kr.co.hlm.system.kickboardlocation.KickboardLocationService;
 import kr.co.hlm.system.management.HelmetLostUtil;
 import kr.co.hlm.system.management.ManagementService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +23,9 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class HelmetStateServiceImpl implements HelmetStateService{
-    private final HelmetMapper helmetMapper;
     private final HelmetStateMapper helmetStateMapper;
-    private final KickboardLocationMapper kickboardLocationMapper;
+    private final HelmetService helmetService;
+    private final KickboardLocationService kickboardLocationService;
     private final ApplicationEventPublisher applicationEventPublisher;
     private final HelmetLostUtil helmetLostUtil;
     private final ManagementService managementService;
@@ -33,18 +35,18 @@ public class HelmetStateServiceImpl implements HelmetStateService{
     public void createHelmetState(HelmetState helmetState) {
         Helmet helmet = new Helmet();
         helmet.setNo(helmetState.getHelmetNo());
-        helmet = helmetMapper.select(helmet);
+        helmet = helmetService.getHelmet(helmet);
 
         KickboardLocation kickboardLocation = new KickboardLocation();
         kickboardLocation.setKickboardNo(HelmetServiceImpl.helmetPair.get(helmet.getNo()));
 
         //T면 분실X F면 분실
-        if (helmetLostUtil.helmetLostCalculation(helmetState, kickboardLocationMapper.select(kickboardLocation))) {
+        if (helmetLostUtil.helmetLostCalculation(helmetState, kickboardLocationService.getKickboardLocation(kickboardLocation))) {
             helmetState.setLoss('N');
         } else {
             helmetState.setLoss('Y');
 
-            managementService.sendHelmetLoss(helmetMapper.select(helmet));
+            managementService.sendHelmetLoss(helmetService.getHelmet(helmet));
         }
 
         helmetState.setWear(helmetWear.get(helmetState.getHelmetNo()));

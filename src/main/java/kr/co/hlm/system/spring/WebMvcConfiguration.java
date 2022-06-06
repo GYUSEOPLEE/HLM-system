@@ -25,7 +25,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/helmetstates/*")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/kickboards/info")
-                .excludePathPatterns("/kickboards/location")
+                .excludePathPatterns("/kickboardslocations")
                 .excludePathPatterns("/helmetstates/wear")
                 .excludePathPatterns("/helmetstates/location")
                 .excludePathPatterns("/helmets/info");

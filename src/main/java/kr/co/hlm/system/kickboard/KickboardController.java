@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,14 +19,12 @@ public class KickboardController {
     private final KickboardService kickboardService;
     private final KickboardPageUtil kickboardPageUtil;
 
-    //킥보드 목록 조회 폼
     @GetMapping
-    public ModelAndView getKickboards(){
+    public ModelAndView getKickboardsForm(){
         ModelAndView modelAndView = new ModelAndView("kickboard/list");
         return modelAndView;
     }
 
-    //킥보드 목록 조회 (문서 바꾸기)
     @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getKickboards(@PathVariable int pageNo, @RequestBody Kickboard kickboard){
         String drawPage = "";
@@ -36,12 +35,11 @@ public class KickboardController {
 
         List<Kickboard> kickboards = kickboardService.getKickboards(kickboard);
 
-        drawPage = kickboardPageUtil.drawPage(page, kickboards);
+        drawPage = kickboardPageUtil.drawKickboardPage(page, kickboards);
 
         return drawPage;
     }
 
-    //킥보드 조회 (문서 바꾸기)
     @GetMapping("/{no}")
     public ModelAndView getKickboard(Kickboard kickboard){
         ModelAndView modelAndView = new ModelAndView("kickboard/view");
@@ -63,12 +61,14 @@ public class KickboardController {
 
     //킥보드 정보 수신
     @PostMapping("/info")
-    public ReceiveState receiveKickboard(@RequestBody Kickboard kickboard) {
-        kickboardService.createKickboard(kickboard);
+    public ReceiveState receiveKickboard(@RequestBody @Valid Kickboard kickboard) {
+        //kickboardService.createKickboard(kickboard);
+        System.out.println(kickboard.toString());
 
         ReceiveState receiveState = new ReceiveState();
         receiveState.setCode("200");
         receiveState.setMessage("OK");
+
         return receiveState;
     }
 
