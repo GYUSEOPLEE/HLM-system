@@ -19,6 +19,15 @@ public class KickboardController {
     private final KickboardService kickboardService;
     private final KickboardPageUtil kickboardPageUtil;
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String test(@RequestBody Kickboard kickboard) {
+//        ReceiveState receiveState = new ReceiveState();
+//        receiveState.setCode("200");
+//        receiveState.setMessage("OK");
+
+        return "1";
+    }
+
     @GetMapping
     public ModelAndView getKickboardsForm(){
         ModelAndView modelAndView = new ModelAndView("kickboard/list");

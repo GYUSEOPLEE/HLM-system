@@ -1,6 +1,6 @@
 package kr.co.hlm.system.helmet;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.Session;
@@ -9,8 +9,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-@Service
-@ServerEndpoint("/helmets/main")
+@Component
+@ServerEndpoint(value = "/helmets/main")
 public class WebSocketMap {
     public static Set<Session> clients = Collections.synchronizedSet(new HashSet<>());
 
