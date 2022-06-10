@@ -4,12 +4,14 @@ import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.HelmetStatePageUtil;
 import kr.co.hlm.system.page.Page;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/helmetstates")
@@ -40,10 +42,17 @@ public class HelmetStateController {
         return drawPage;
     }
 
-    @PostMapping("/location")
+    @PostMapping(value = "/location", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ReceiveState receiveHelmetLocation(@RequestBody HelmetState helmetState) {
+        log.info("====================INFO====================");
+        log.info("| receiveHelmetLocation");
+        log.info("| dateTime  : " + helmetState.getDateTime());
+        log.info("| latitude  : " + helmetState.getLatitude());
+        log.info("| longitude : " + helmetState.getLongitude());
+        log.info("| helmetNo  : " + helmetState.getHelmetNo());
+        log.info("=============================================");
+
         helmetStateService.createHelmetState(helmetState);
-        System.out.println(helmetState.toString());
 
         ReceiveState state = new ReceiveState();
         state.setCode("200");
@@ -53,10 +62,15 @@ public class HelmetStateController {
     }
 
     //완성
-    @PostMapping("/wear")
+    @PostMapping(value = "/wear", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ReceiveState receiceHelmetWear(@RequestBody HelmetState helmetState) {
+        log.info("====================INFO====================");
+        log.info("| receiveHelmetWear");
+        log.info("| helmetNo : " + helmetState.getHelmetNo());
+        log.info("| wear     : " + helmetState.getWear());
+        log.info("=============================================");
+
         helmetStateService.editHelmetState(helmetState);
-        System.out.println(helmetState.toString());
 
         ReceiveState receiveState = new ReceiveState();
         receiveState.setCode("200");

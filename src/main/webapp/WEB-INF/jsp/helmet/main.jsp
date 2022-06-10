@@ -166,15 +166,15 @@
                         //마커 색
                         if (loss == 'N') {
                             if (wear == 'N') {
-                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-yellow.png";
+                                iconUrl = "http://3.39.218.6/assets/img/marker-image/icon-circle-yellow.png";
                             } else {
-                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-green.png";
+                                iconUrl = "http://3.39.218.6/assets/img/marker-image/icon-circle-green.png";
                             }
                         } else {
                             if (wear == 'N') {
-                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-red.png";
+                                iconUrl = "http://3.39.218.6/assets/img/marker-image/icon-circle-red.png";
                             } else {
-                                iconUrl = "http://localhost/assets/img/marker-image/icon-circle-orange.png";
+                                iconUrl = "http://3.39.218.6/assets/img/marker-image/icon-circle-orange.png";
                             }
                         }
 

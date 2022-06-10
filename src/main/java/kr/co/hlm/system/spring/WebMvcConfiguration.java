@@ -22,7 +22,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(accessService)
                 .addPathPatterns("/*")
                 .addPathPatterns("/helmets/*")
-                .addPathPatterns("/helmetstates/*")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/kickboards/info")
                 .excludePathPatterns("/kickboards")

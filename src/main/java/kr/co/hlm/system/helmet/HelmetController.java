@@ -1,20 +1,19 @@
 package kr.co.hlm.system.helmet;
 
-
-import kr.co.hlm.system.helmetstate.HelmetState;
 import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.HelmetPageUtil;
 import kr.co.hlm.system.page.Page;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/helmets")
@@ -70,6 +69,15 @@ public class HelmetController {
 
     @PostMapping(value = "/info", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ReceiveState receiveHelmet(@RequestBody @Valid Helmet helmet) {
+        log.info("==============INFO==============");
+        log.info("| receiveHelmetInfo");
+        log.info("| no          : " + helmet.getNo());
+        log.info("| model       : " + helmet.getModel());
+        log.info("| ip          : " + helmet.getIp());
+        log.info("| kickboardIp : " + helmet.getKickboardIp());
+        log.info("| size        : " + helmet.getSize());
+        log.info("=================================");
+
         helmetService.createHelmet(helmet);
 
         ReceiveState receiveState = new ReceiveState();

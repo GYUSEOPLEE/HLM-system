@@ -10,4 +10,5 @@ public interface HelmetMapper {
     public List<Helmet> selectAll(Helmet helmet);
     public Helmet select(Helmet helmet);
     public void update(Helmet helmet);
+    public void updateByIp(Helmet helmet);
 }

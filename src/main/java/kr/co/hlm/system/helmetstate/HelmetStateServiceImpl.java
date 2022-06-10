@@ -1,18 +1,13 @@
 package kr.co.hlm.system.helmetstate;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import kr.co.hlm.system.helmet.Helmet;
-import kr.co.hlm.system.helmet.HelmetMapper;
 import kr.co.hlm.system.helmet.HelmetService;
 import kr.co.hlm.system.helmet.HelmetServiceImpl;
 import kr.co.hlm.system.kickboardlocation.KickboardLocation;
-import kr.co.hlm.system.kickboardlocation.KickboardLocationMapper;
 import kr.co.hlm.system.kickboardlocation.KickboardLocationService;
 import kr.co.hlm.system.management.HelmetLostUtil;
 import kr.co.hlm.system.management.ManagementService;
 import lombok.RequiredArgsConstructor;
-import okhttp3.*;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +41,7 @@ public class HelmetStateServiceImpl implements HelmetStateService{
         } else {
             helmetState.setLoss('Y');
 
-            managementService.sendHelmetLoss(helmetService.getHelmet(helmet));
+            //managementService.sendHelmetLoss(helmetService.getHelmet(helmet));
         }
 
         helmetState.setWear(helmetWear.get(helmetState.getHelmetNo()));

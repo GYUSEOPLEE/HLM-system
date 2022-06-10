@@ -1,6 +1,5 @@
 package kr.co.hlm.system.kickboard;
 
-import kr.co.hlm.system.helmet.Helmet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,9 @@ public class KickboardServiceImpl implements KickboardService{
 
     @Override
     public void createKickboard(Kickboard kickboard) {
-        kickboardMapper.insert(kickboard);
+        if (kickboardMapper.select(kickboard) == null) {
+            kickboardMapper.insert(kickboard);
+        }
     }
 
     @Override

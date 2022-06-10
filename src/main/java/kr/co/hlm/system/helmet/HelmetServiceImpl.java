@@ -27,7 +27,11 @@ public class HelmetServiceImpl implements HelmetService{
         pairKickboard.setIp(helmet.getKickboardIp());
         helmetPair.put(helmet.getNo(), kickboardMapper.select(pairKickboard).getNo());
 
-        helmetMapper.insert(helmet);
+        if(getHelmet(helmet) == null) {
+            helmetMapper.insert(helmet);
+        } else {
+            helmetMapper.updateByIp(helmet);
+        }
     }
 
     //문서 추가

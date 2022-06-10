@@ -43,4 +43,10 @@
         SET ACTIVATION = #{activation}
         WHERE NO = #{no}
     </update>
+
+    <update id="updateByIp" parameterType="helmet">
+        UPDATE HELMET
+        SET IP = #{ip}
+        WHERE NO = #{no}
+    </update>
 </mapper>

@@ -4,6 +4,7 @@ import kr.co.hlm.system.management.ReceiveState;
 import kr.co.hlm.system.page.KickboardPageUtil;
 import kr.co.hlm.system.page.Page;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,21 +13,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.validation.Valid;
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/kickboards")
 public class KickboardController {
     private final KickboardService kickboardService;
     private final KickboardPageUtil kickboardPageUtil;
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String test(@RequestBody Kickboard kickboard) {
-//        ReceiveState receiveState = new ReceiveState();
-//        receiveState.setCode("200");
-//        receiveState.setMessage("OK");
-
-        return "1";
-    }
 
     @GetMapping
     public ModelAndView getKickboardsForm(){
@@ -71,8 +64,14 @@ public class KickboardController {
     //킥보드 정보 수신
     @PostMapping("/info")
     public ReceiveState receiveKickboard(@RequestBody @Valid Kickboard kickboard) {
-        //kickboardService.createKickboard(kickboard);
-        System.out.println(kickboard.toString());
+        log.info("==========INFO==========");
+        log.info("| receiveKickboardInfo");
+        log.info("| no    : " + kickboard.getNo());
+        log.info("| model : " + kickboard.getModel());
+        log.info("| ip    : " + kickboard.getIp());
+        log.info("=========================");
+
+        kickboardService.createKickboard(kickboard);
 
         ReceiveState receiveState = new ReceiveState();
         receiveState.setCode("200");
@@ -80,5 +79,4 @@ public class KickboardController {
 
         return receiveState;
     }
-
 }
