@@ -1,7 +1,6 @@
 package kr.co.hlm.system.page;
 
 import kr.co.hlm.system.helmet.Helmet;
-import kr.co.hlm.system.kickboard.Kickboard;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

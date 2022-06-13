@@ -6,9 +6,9 @@ import java.util.List;
 
 @Mapper
 public interface HelmetMapper {
-    public void insert(Helmet helmet);
-    public List<Helmet> selectAll(Helmet helmet);
-    public Helmet select(Helmet helmet);
-    public void update(Helmet helmet);
-    public void updateByIp(Helmet helmet);
+    void insert(Helmet helmet);
+    List<Helmet> selectAll(Helmet helmet);
+    Helmet select(Helmet helmet);
+    void update(Helmet helmet);
+    void updateByIp(Helmet helmet);
 }

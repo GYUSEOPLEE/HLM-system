@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface KickboardLocationMapper {
-    public void insert(KickboardLocation kickboardLocation);
-    public KickboardLocation select(KickboardLocation kickboardLocation);
+    void insert(KickboardLocation kickboardLocation);
+    KickboardLocation select(KickboardLocation kickboardLocation);
 }

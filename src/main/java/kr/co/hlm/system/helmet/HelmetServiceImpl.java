@@ -37,7 +37,6 @@ public class HelmetServiceImpl implements HelmetService{
         }
     }
 
-    //문서 추가
     @Override
     public List<Mark> getMarks(Helmet helmet) {
         List<Mark> marks = new ArrayList<>();

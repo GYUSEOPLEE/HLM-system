@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class KickboardLocationServiceImpl implements KickboardLocationService{
     private final KickboardLocationMapper kickboardLocationMapper;
+
     @Override
     public void createKickboardLocation(KickboardLocation kickboardLocation) {
         kickboardLocationMapper.insert(kickboardLocation);
@@ -14,7 +15,6 @@ public class KickboardLocationServiceImpl implements KickboardLocationService{
 
     @Override
     public KickboardLocation getKickboardLocation(KickboardLocation kickboardLocation) {
-        KickboardLocation resultKickboardLocation = kickboardLocationMapper.select(kickboardLocation);
-        return resultKickboardLocation;
+        return kickboardLocationMapper.select(kickboardLocation);
     }
 }

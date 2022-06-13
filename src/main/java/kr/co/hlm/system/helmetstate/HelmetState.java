@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class HelmetState {
     private int no;

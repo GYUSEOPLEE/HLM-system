@@ -23,23 +23,18 @@ public class KickboardController {
 
     @GetMapping
     public ModelAndView getKickboardsForm(){
-        ModelAndView modelAndView = new ModelAndView("kickboard/list");
-        return modelAndView;
+        return new ModelAndView("kickboard/list");
     }
 
     @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getKickboards(@PathVariable int pageNo, @RequestBody Kickboard kickboard){
-        String drawPage = "";
-
         Page page = kickboardPageUtil.setPage(kickboard.getNo(), kickboardService.getKickboards(kickboard).size(), pageNo);
 
         kickboard.setModel("" + (pageNo - 1) * 5);
 
         List<Kickboard> kickboards = kickboardService.getKickboards(kickboard);
 
-        drawPage = kickboardPageUtil.drawKickboardPage(page, kickboards);
-
-        return drawPage;
+        return kickboardPageUtil.drawKickboardPage(page, kickboards);
     }
 
     @GetMapping("/{no}")
@@ -50,7 +45,6 @@ public class KickboardController {
         return modelAndView;
     }
 
-    //킥보드 수정
     @PostMapping("/{no}/edit")
     public ModelAndView editKickboard(Kickboard kickboard){
         kickboardService.editKickboard(kickboard);
@@ -61,15 +55,12 @@ public class KickboardController {
         return modelAndView;
     }
 
-    //킥보드 정보 수신
     @PostMapping("/info")
     public ReceiveState receiveKickboard(@RequestBody @Valid Kickboard kickboard) {
-        log.info("==========INFO==========");
-        log.info("| receiveKickboardInfo");
-        log.info("| no    : " + kickboard.getNo());
-        log.info("| model : " + kickboard.getModel());
-        log.info("| ip    : " + kickboard.getIp());
-        log.info("=========================");
+        log.info("K INFO");
+        log.info("no    : " + kickboard.getNo());
+        log.info("model : " + kickboard.getModel());
+        log.info("ip    : " + kickboard.getIp() + "\n");
 
         kickboardService.createKickboard(kickboard);
 

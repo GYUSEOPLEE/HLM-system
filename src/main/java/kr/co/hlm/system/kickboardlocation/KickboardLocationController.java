@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class KickboardLocationController {
     private final KickboardLocationService kickboardLocationService;
 
-    //킥보드 위치 정보 수신
     @PostMapping("/location")
     public ReceiveState receiveKickboardLocation(@RequestBody KickboardLocation kickboardLocation) {
         kickboardLocation.setLatitude(kickboardLocation.getLatitude() + 0.319078);

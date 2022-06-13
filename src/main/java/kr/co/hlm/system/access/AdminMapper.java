@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface AdminMapper {
-    public Admin select (Admin admin);
+    Admin select (Admin admin);
 }

@@ -1,9 +1,5 @@
 package kr.co.hlm.system.access;
 
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
-
 public interface AccessService {
-    public boolean getAdmin(Admin admin);
+    boolean getAdmin(Admin admin);
 }

@@ -35,7 +35,6 @@ public class HelmetStateServiceImpl implements HelmetStateService{
         KickboardLocation kickboardLocation = new KickboardLocation();
         kickboardLocation.setKickboardNo(HelmetServiceImpl.helmetPair.get(helmet.getNo()));
 
-        //T면 분실X F면 분실
         if (helmetLostUtil.helmetLostCalculation(helmetState, kickboardLocationService.getKickboardLocation(kickboardLocation))) {
             helmetState.setLoss('N');
         } else {
@@ -62,14 +61,14 @@ public class HelmetStateServiceImpl implements HelmetStateService{
        return helmetStates;
     }
 
-    @Override
-    public HelmetState getHelmetState(HelmetState helmetState) {
-        HelmetState viewHelmetState = helmetStateMapper.select(helmetState);
-
-        return viewHelmetState != null
-                ? viewHelmetState
-                : new HelmetState();
-    }
+//    @Override
+//    public HelmetState getHelmetState(HelmetState helmetState) {
+//        HelmetState viewHelmetState = helmetStateMapper.select(helmetState);
+//
+//        return viewHelmetState != null
+//                ? viewHelmetState
+//                : new HelmetState();
+//    }
 
     @Override
     public void editHelmetState(HelmetState helmetState) {

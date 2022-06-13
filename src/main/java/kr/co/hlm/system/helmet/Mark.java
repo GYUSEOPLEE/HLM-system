@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Mark {
     private String no;
     private LocalDateTime dateTime;

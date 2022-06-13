@@ -6,7 +6,7 @@ import java.util.List;
 
 @Mapper
 public interface HelmetStateMapper {
-    public void insert(HelmetState helmetState);
-    public List<HelmetState> selectAll(HelmetState helmetState);
-    public HelmetState select(HelmetState helmetState);
+    void insert(HelmetState helmetState);
+    List<HelmetState> selectAll(HelmetState helmetState);
+    HelmetState select(HelmetState helmetState);
 }

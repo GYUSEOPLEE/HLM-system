@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Helmet {
     @NotBlank private String no;

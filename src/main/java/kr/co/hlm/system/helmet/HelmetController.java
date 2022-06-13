@@ -38,7 +38,6 @@ public class HelmetController {
 
     @PostMapping(value = "/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getHelmets(@PathVariable int pageNo, @RequestBody Helmet helmet) {
-        String drawPage;
 
         Page page = helmetPageUtil.setPage(helmet.getNo(), helmetService.getHelmets(helmet).size(), pageNo);
 
@@ -46,9 +45,7 @@ public class HelmetController {
 
         List<Helmet> helmets = helmetService.getHelmets(helmet);
 
-        drawPage = helmetPageUtil.drawHelmetPage(page, helmets);
-
-        return drawPage;
+        return helmetPageUtil.drawHelmetPage(page, helmets);
     }
 
     @GetMapping("/{no}")
@@ -59,7 +56,6 @@ public class HelmetController {
         return modelAndView;
     }
 
-    //문서추가
     @PostMapping("/{no}/edit")
     public ModelAndView editHelmet(Helmet helmet) {
         helmetService.editHelmet(helmet);
@@ -69,14 +65,12 @@ public class HelmetController {
 
     @PostMapping(value = "/info", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ReceiveState receiveHelmet(@RequestBody @Valid Helmet helmet) {
-        log.info("==============INFO==============");
-        log.info("| receiveHelmetInfo");
-        log.info("| no          : " + helmet.getNo());
-        log.info("| model       : " + helmet.getModel());
-        log.info("| ip          : " + helmet.getIp());
-        log.info("| kickboardIp : " + helmet.getKickboardIp());
-        log.info("| size        : " + helmet.getSize());
-        log.info("=================================");
+        log.info("H INFO");
+        log.info("no          : " + helmet.getNo());
+        log.info("model       : " + helmet.getModel());
+        log.info("ip          : " + helmet.getIp());
+        log.info("kickboardIp : " + helmet.getKickboardIp());
+        log.info("size        : " + helmet.getSize() + "\n");
 
         helmetService.createHelmet(helmet);
 
