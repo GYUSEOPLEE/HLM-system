@@ -35,9 +35,7 @@ public class HelmetStateController {
 
         List<HelmetState> helmetStates = helmetStateService.getHelmetStates(helmetState);
 
-        String drawPage = helmetStatePageUtil.drawHelmetStaetePage(page, helmetStates);
-
-        return drawPage;
+        return  helmetStatePageUtil.drawHelmetStaetePage(page, helmetStates);
     }
 
     @PostMapping(value = "/location", consumes = MediaType.APPLICATION_JSON_VALUE)
