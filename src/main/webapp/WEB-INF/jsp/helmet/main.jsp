@@ -24,15 +24,6 @@
                     <br>
                     <br>
                     <br>
-<%--                    검색 라인 감추기 버튼--%>
-<%--                    <div class="position-absolute w-100 ts-bottom__0 ts-z-index__1 text-center ts-h-0">--%>
-<%--                        <button type="button" class="ts-circle p-3 bg-white ts-shadow__sm border-0 ts-push-up__50 mt-2" data-toggle="collapse" data-target="#form-collapse">--%>
-<%--                            <i class="fa fa-chevron-up ts-text-color-primary ts-visible-on-uncollapsed"></i>--%>
-<%--                            <i class="fa fa-chevron-down ts-text-color-primary ts-visible-on-collapsed"></i>--%>
-<%--                        </button>--%>
-<%--                    </div>--%>
-
-<%--                검색 라인--%>
                     <div id="form-collapse" class="collapse ts-xs-hide-collapse show">
                         <div class="ts-form mb-0 d-flex flex-column flex-sm-row py-2 pl-2 pr-3">
                             <div class="form-group m-1 w-100">
@@ -194,32 +185,6 @@
                         markers.set(no, element);
                     }
                     document.getElementById("drawResult").innerHTML = script;
-                    for (var i = 0; i < dataToJson.length; i++) {
-
-
-                        //마커 하나하나 위치
-
-
-                        //마커 윈도우 정보
-                        var contentString = [
-                            '<section style="margin: auto; width: fit-content" class="mb-1 pl-0">'
-                            + '    <input type="hidden" id="contentString" value="' + i + '" />'
-                            // + '    <div class="mb-2 card ts-item ts-card ts-result" data-toggle="tooltip" data-placement="right" title="상세 정보 보기">'
-                            // + '        <a style="text-align: center; width: 100%; font-size: 1.5em" href="/parasol/' + document.getElementById("id" + i).value + '">' + document.getElementById("managementNo" + i).value + '</a>'
-                            // + '    </div>'
-                            + '    <div style="text-align: center; margin: auto" class="row">'
-                            + '        <div class="col-sm-4">'
-                            + '            <label>분실</label>'
-                            + '            <p>' + document.getElementById("loss" + i).value + '</p>'
-                            + '        </div>'
-                            + '        <div class="col-sm-4">'
-                            + '            <label>착용</label>'
-                            + '            <p>' + document.getElementById("wear" + i).value + '</p>'
-                            + '        </div>'
-                            + '    </div>'
-                            + '</section>'
-                        ].join('');
-                    }
                 } else {
                     document.getElementById("drawResult").innerHTML = '<div class="ts-result-link " data-ts-id="6" data-ts-ln="5">'
                         + '    <p class="card ts-item ts-card ts-result">'
