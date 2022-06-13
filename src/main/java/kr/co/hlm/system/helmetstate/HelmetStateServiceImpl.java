@@ -41,10 +41,11 @@ public class HelmetStateServiceImpl implements HelmetStateService{
         } else {
             helmetState.setLoss('Y');
 
-            //managementService.sendHelmetLoss(helmetService.getHelmet(helmet));
+            managementService.sendHelmetLoss(helmetService.getHelmet(helmet));
         }
 
         helmetState.setWear(helmetWear.get(helmetState.getHelmetNo()));
+        helmetState.setWear('N');
 
         helmetStateMapper.insert(helmetState);
         applicationEventPublisher.publishEvent(helmetState);

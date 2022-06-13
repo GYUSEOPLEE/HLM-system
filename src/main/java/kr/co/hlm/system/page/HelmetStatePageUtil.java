@@ -1,8 +1,6 @@
 package kr.co.hlm.system.page;
 
-import kr.co.hlm.system.helmet.Helmet;
 import kr.co.hlm.system.helmetstate.HelmetState;
-import kr.co.hlm.system.kickboard.Kickboard;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -78,7 +76,7 @@ public class HelmetStatePageUtil {
 
             for (int i = 0; i < helmetStateList.size(); i++) {
                 drawPage.append("<div class=\"row\">");
-                drawPage.append("    <div class=\"col text-center\">").append(page.getTotalRowCount() - (i + ((page.getPageNo() - 1) * 5))).append("</div>");
+                drawPage.append("    <div class=\"col text-center\">").append((i + ((page.getPageNo() - 1) * 5)) + 1).append("</div>");
                 drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getHelmetNo()).append("</div>");
                 drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getDateTime()).append("</div>");
                 drawPage.append("    <div class=\"col text-left\">").append(helmetStateList.get(i).getLongitude()).append("</div>");

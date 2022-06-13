@@ -48,6 +48,9 @@
                             <div class="form-group m-1 ml-auto">
                                 <button type="button" class="btn btn-primary" id="search-btn">검색</button>
                             </div>
+                            <div class="form-group m-1 ml-auto">
+                                <button type="button" class="btn btn-primary" id="reset-btn">리셋</button>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -106,10 +109,6 @@
                 dataToJson = JSON.parse(searchXmlHttpRequest.responseText);
             }
             if (markers.length > 0) {
-                // for (var i = 0; i < markers.length; i ++) {
-                //     markers[i].setMap(null); = 오버레이 지도에서 제거하기
-                // }
-                // infowindows = [];
                 markers = new Map();
             }
             if (dataToJson != null) {
@@ -220,23 +219,6 @@
                             + '    </div>'
                             + '</section>'
                         ].join('');
-
-                        //마커 윈도우
-                        // var infowindow = new naver.maps.InfoWindow({
-                        //     content: contentString,
-                        //     maxWidth: 200,
-                        //     backgroundColor: "rgb(214,250,223)",
-                        //     borderColor: color,
-                        //     borderWidth: 3,
-                        //     anchorSize: new naver.maps.Size(10, 10),
-                        //     anchorSkew: true,
-                        //     anchorColor: "rgb(214,250,223)",
-                        //     pixelOffset: new naver.maps.Point(20, -20)
-                        // });
-
-                        //naver.maps.Event.addListener(marker, 'click', markerClick(i));
-
-                        // infowindows.push(infowindow);
                     }
                 } else {
                     document.getElementById("drawResult").innerHTML = '<div class="ts-result-link " data-ts-id="6" data-ts-ln="5">'
@@ -251,16 +233,6 @@
                 }
             }
         }
-
-        // function responseBysendAction() {
-        //     if (actionXmlHttpRequest.readyState == 4 && actionXmlHttpRequest.status == 200) {
-        //         code = JSON.parse(actionXmlHttpRequest.responseText);
-        //         console.log(code);
-        //     }
-        //     if (document.getElementById("contentString").value == indexI) {
-        //         receiveStatus(indexI);
-        //     }
-        // }
 
         function receiveStatus(indexI) {
             StatusXmlHttpRequest = new XMLHttpRequest();
@@ -281,59 +253,19 @@
             document.getElementById("dateTime" + indexI).setAttribute('value', parasolStatus.dateTime);
             document.getElementById("latitude" + indexI).setAttribute('value', parasolStatus.latitude);
             document.getElementById("longitude" + indexI).setAttribute('value', parasolStatus.longitude);
-
-            // document.getElementById("infoStatus" + indexI).innerText = parasolStatus.status;
-            // document.getElementById("infoTemperature" + indexI).innerText = parasolStatus.temperature;
-            // document.getElementById("infoDateTime" + indexI).innerText = parasolStatus.dateTime;
-
-            // if (parasolStatus.status == "펼침") {
-            //     document.getElementById("action" + indexI).setAttribute('value', "F");
-            //     document.getElementById("actionButton" + indexI).innerText = "접기";
-            // } else {
-            //     document.getElementById("action" + indexI).setAttribute('value', "U");
-            //     document.getElementById("actionButton" + indexI).innerText = "펼치기";
-            // }
-            // document.getElementById("actionButton" + indexI).setAttribute('class', "btn btn-primary");
         }
-
-        //마커 클릭했을때
-        // function markerClick(index) {
-        //     return function (e) {
-        //         if (markers[index].getAnimation() != null) {
-        //             markers[index].setAnimation(null);
-        //         } else {
-        //             for (var i = 0; i < markers.length; i++) {
-        //                 markers[i].setAnimation(null);
-        //             }
-        //             markers[index].setAnimation(naver.maps.Animation.BOUNCE);
-        //         }
-        //         if (infowindows[index].getMap()) {
-        //             infowindows[index].close();
-        //         } else {
-        //             receiveStatus(index);
-        //             infowindows[index].open(map, markers[index]);
-        //         }
-        //     }
-        // }
 
         //누른 항목으로 지도 이동
         function moveMap(no, latitude, longitude, index) {
             setViewHelmet(no);
 
             map.setCenter(new naver.maps.LatLng(latitude, longitude));
-            map.setZoom(18);
-
-            //receiveStatus(index);
-            //console.log(markers[index])
-            //infowindows[index].open(map, markers[index]);
+            map.setZoom(20);
         }
 
         //헬멧 정보 들어올 때마다 그리기
         function reload() {
             webSocket.onmessage = function(msg) {
-
-                // console.log(markers[indexI])
-
                 let helmetState = JSON.parse(msg.data);
 
                 let no = helmetState.helmetNo;
@@ -380,25 +312,15 @@
                         && no == viewHelmet) {
                     moveMap(no, latitude, longitude, index);
                 }
-
-                // console.log(helmetState.loss);
-                // console.log(helmetState.wear);
-
-                // var marker = new naver.maps.Marker({
-                //     position: new naver.maps.LatLng(document.getElementById("latitude" + i).value, document.getElementById("longitude" + i).value),
-                //     map: map
-                // });
-                //
-                // let dateTime = dataToJson[i].dateTime;
-                // let latitude = dataToJson[i].latitude;
-                // let longitude = dataToJson[i].longitude;
-                // let activation = dataToJson[i].activation;
-                // let loss = dataToJson[i].loss;
-                // let wear = dataToJson[i].wear;
             }
         }
 
+        function reset() {
+            viewHelmet = null;
+        }
+
         document.getElementById("search-btn").addEventListener("click", search, false);
+        document.getElementById("reset-btn").addEventListener("click", reset, false);
     </script>
 
     <%@ include file="/WEB-INF/jsp/include/bottom.jsp" %>

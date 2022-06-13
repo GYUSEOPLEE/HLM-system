@@ -6,11 +6,9 @@ import kr.co.hlm.system.helmetstate.HelmetStateServiceImpl;
 import kr.co.hlm.system.kickboard.Kickboard;
 import kr.co.hlm.system.kickboard.KickboardMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.validation.Valid;
 import java.util.*;
 
 @Service
@@ -23,11 +21,16 @@ public class HelmetServiceImpl implements HelmetService{
 
     @Override
     public void createHelmet(Helmet helmet) {
+        helmetMapper.insert(helmet);
+
         Kickboard pairKickboard = new Kickboard();
         pairKickboard.setIp(helmet.getKickboardIp());
         helmetPair.put(helmet.getNo(), kickboardMapper.select(pairKickboard).getNo());
 
-        if(getHelmet(helmet) == null) {
+        HelmetStateServiceImpl.helmetWear.put(helmet.getNo(), 'N');
+
+        helmet.setActivation('Y');
+        if(helmetMapper.select(helmet) == null) {
             helmetMapper.insert(helmet);
         } else {
             helmetMapper.updateByIp(helmet);
@@ -65,8 +68,6 @@ public class HelmetServiceImpl implements HelmetService{
 
     @Override
     public List<Helmet> getHelmets(Helmet helmet) {
-        System.out.println(helmet.getNo());
-        System.out.println(helmet.getActivation());
         List<Helmet> helmets = helmetMapper.selectAll(helmet);
 
         return helmets != null

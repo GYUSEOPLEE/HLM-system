@@ -13,6 +13,6 @@ public class Helmet {
     @NotBlank private String model;
     @NotBlank private String ip;
     @NotBlank private String kickboardIp;
-    @NotBlank private char size;
+    private char size;
     private char activation;
 }

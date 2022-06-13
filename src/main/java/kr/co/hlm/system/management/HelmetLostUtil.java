@@ -2,29 +2,24 @@ package kr.co.hlm.system.management;
 
 import kr.co.hlm.system.helmetstate.HelmetState;
 import kr.co.hlm.system.kickboardlocation.KickboardLocation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
+@Log4j2
 @Component
 public class HelmetLostUtil {
     public boolean helmetLostCalculation(HelmetState helmetState, KickboardLocation kickboardLocation){
-        boolean result = true;
         double theta = helmetState.getLongitude() - kickboardLocation.getLongitude();
         double dist = Math.sin(deg2rad(helmetState.getLatitude())) * Math.sin(deg2rad(kickboardLocation.getLatitude()))
                 + Math.cos(deg2rad(helmetState.getLatitude())) * Math.cos(deg2rad(kickboardLocation.getLatitude()))
                 * Math.cos(deg2rad(theta));
 
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist *= 60 * 1.1515;
-        dist *= 1609.344;
+        dist = rad2deg(Math.acos(dist));
+        dist *= 60 * 1.1515 * 1609.344;
 
-        if(dist > 30){
-            result = false;
-        }
+        log.info("distance : " + dist);
 
-        System.out.println(dist);
-
-        return result;
+        return !(dist > 20);
     }
 
     private double deg2rad(double deg) {

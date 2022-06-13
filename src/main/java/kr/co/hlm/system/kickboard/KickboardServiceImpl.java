@@ -13,6 +13,8 @@ public class KickboardServiceImpl implements KickboardService{
 
     @Override
     public void createKickboard(Kickboard kickboard) {
+        kickboard.setActivation('Y');
+
         if (kickboardMapper.select(kickboard) == null) {
             kickboardMapper.insert(kickboard);
         }
@@ -24,7 +26,7 @@ public class KickboardServiceImpl implements KickboardService{
 
         return kickboards != null
                 ? kickboards
-                : new ArrayList<Kickboard>();
+                : new ArrayList<>();
     }
 
     @Override

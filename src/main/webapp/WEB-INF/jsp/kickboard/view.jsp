@@ -32,7 +32,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-12 mx-auto" style="padding: 10px">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 19%;">일련번호</label>
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 18%; margin-left: 19%;">일련번호</label>
                                             <p style="font-size: 1.5em; transform: translate(9%, 50%);">${kickboard.no}</p>
                                         </div>
                                         <div class="col-12 mx-auto" style="padding: 10px">
@@ -40,11 +40,11 @@
                                             <p style="font-size: 1.5em; transform: translate(10%, 50%);">${kickboard.model}</p>
                                         </div>
                                         <div class="col-12 mx-auto" style="padding: 10px">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 19%;">킥보드 IP</label>
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 19%; margin-left: 19%;">킥보드 IP</label>
                                             <p style="font-size: 1.5em; transform: translate(8%, 50%);">${kickboard.ip}</p>
                                         </div>
                                         <div class="col-12 mx-auto" style="padding: 10px">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 20%;">활성</label>
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 23%; margin-left: 20%;">활성</label>
                                             <c:choose>
                                             <c:when test="${fn:contains(kickboard.activation, 'Y')}">
                                             <h3 class="p-2" style="margin: auto; transform: translate(11%, 0%);" data-toggle="tooltip" data-placement="right" title="상태 변경 : 비활성 버튼">

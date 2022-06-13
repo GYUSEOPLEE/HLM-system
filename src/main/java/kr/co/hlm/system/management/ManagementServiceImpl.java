@@ -4,17 +4,21 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import kr.co.hlm.system.helmet.Helmet;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import okhttp3.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class ManagementServiceImpl implements ManagementService{
     @Override
     public void sendHelmetLoss(Helmet helmet) {
         String url = "http://" + helmet.getIp() + "/helmet/loss";
+
+        log.info("Loss URL : " + url + "\n");
 
         Gson helmetLoss = new Gson();
 
@@ -29,7 +33,6 @@ public class ManagementServiceImpl implements ManagementService{
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.body().string());
         } catch (IOException e) {
             e.printStackTrace();
         }

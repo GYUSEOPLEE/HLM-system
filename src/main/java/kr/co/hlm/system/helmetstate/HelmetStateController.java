@@ -29,28 +29,26 @@ public class HelmetStateController {
 
     @PostMapping(value = "/{helmetNo}/{pageNo}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String getHelmetStates(@PathVariable int pageNo, @RequestBody HelmetState helmetState) {
-        String drawPage = "";
-
         Page page = helmetStatePageUtil.setPage(helmetState.getHelmetNo(), helmetStateService.getHelmetStates(helmetState).size(), pageNo);
 
         helmetState.setNo((pageNo - 1) * 5);
 
         List<HelmetState> helmetStates = helmetStateService.getHelmetStates(helmetState);
 
-        drawPage = helmetStatePageUtil.drawHelmetStaetePage(page, helmetStates);
+        String drawPage = helmetStatePageUtil.drawHelmetStaetePage(page, helmetStates);
 
         return drawPage;
     }
 
     @PostMapping(value = "/location", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ReceiveState receiveHelmetLocation(@RequestBody HelmetState helmetState) {
-        log.info("====================INFO====================");
-        log.info("| receiveHelmetLocation");
-        log.info("| dateTime  : " + helmetState.getDateTime());
-        log.info("| latitude  : " + helmetState.getLatitude());
-        log.info("| longitude : " + helmetState.getLongitude());
-        log.info("| helmetNo  : " + helmetState.getHelmetNo());
-        log.info("=============================================");
+        helmetState.setLatitude(helmetState.getLatitude() + 0.319078);
+        helmetState.setLongitude(helmetState.getLongitude() + 0.030081);
+
+        log.info("H LOC");
+        log.info("latitude  : " + helmetState.getLatitude());
+        log.info("longitude : " + helmetState.getLongitude());
+        log.info("helmetNo  : " + helmetState.getHelmetNo() + "\n");
 
         helmetStateService.createHelmetState(helmetState);
 
@@ -64,11 +62,8 @@ public class HelmetStateController {
     //완성
     @PostMapping(value = "/wear", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ReceiveState receiceHelmetWear(@RequestBody HelmetState helmetState) {
-        log.info("====================INFO====================");
-        log.info("| receiveHelmetWear");
-        log.info("| helmetNo : " + helmetState.getHelmetNo());
-        log.info("| wear     : " + helmetState.getWear());
-        log.info("=============================================");
+        log.info("Wear");
+        log.info("wear     : " + helmetState.getWear() + "\n");
 
         helmetStateService.editHelmetState(helmetState);
 

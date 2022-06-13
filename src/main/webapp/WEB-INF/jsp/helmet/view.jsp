@@ -33,34 +33,38 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                            <div class="col-sm-4">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 20%;">일련번호</label>
+                                        <div class="col-12 mx-auto" style="padding: 10px">
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 27%; margin-left: 20%;">일련번호</label>
                                             <p style="font-size: 1.5em;">${helmet.no}</p>
                                         </div>
                                         <br>
-                                        <div class="col-sm-4">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 20%; margin-left: 20%;">모델명</label>
+                                        <div class="col-12 mx-auto" style="padding: 10px">
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left;margin-right: 33%; margin-left: 20%;">모델명</label>
                                             <p style="font-size: 1.5em;">${helmet.model}</p>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 20%;"> 사이즈</label>
+                                        <div class="col-12 mx-auto" style="padding: 10px">
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 35%; margin-left: 20%;"> 사이즈</label>
                                             <p style="font-size: 1.5em;">${helmet.size}</p>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 20%;"> 킥보드 IP</label>
+                                        <div class="col-12 mx-auto" style="padding: 10px">
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 33%; margin-left: 20%;"> IP</label>
+                                            <p style="font-size: 1.5em;">${helmet.ip}</p>
+                                        </div>
+                                        <div class="col-12 mx-auto" style="padding: 10px">
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 28%; margin-left: 20%;"> 킥보드 IP</label>
                                             <p style="font-size: 1.5em;">${helmet.kickboardIp}</p>
                                         </div>
 
-                                        <div class="col-sm-4">
-                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 20%; margin-left: 20%;">활성</label>
+                                        <div class="col-12 mx-auto" style="padding: 10px">
+                                            <label class="badge badge-light" style="font-size: 1.5em; font-weight: 500; float: left; margin-right: 24%; margin-left: 20%;">활성</label>
                                             <c:choose>
                                             <c:when test="${helmet.activation == 'Y'.charAt(0)}">
-                                            <h3 class="p-2" style="margin: auto" data-toggle="tooltip" data-placement="right" title="상태 변경 : 비활성 버튼">
-                                                <button type="button" class="card ts-item ts-card ts-result border text-primary" style="font-size: 1.5em" data-toggle="modal" data-target="#activeCenter">${helmet.activation}</button>
+                                            <h3 class="p-2" style="margin: auto; transform: translate(11%, 0%);" data-toggle="tooltip" data-placement="right" title="상태 변경 : 비활성 버튼">
+                                                <button type="button" class="card ts-item ts-card ts-result border" style="font-size: 1em;" data-toggle="modal" data-target="#activeCenter">활성</button>
                                                 </c:when>
                                                 <c:otherwise>
-                                                <h3 class="p-2" style="margin: auto" data-toggle="tooltip" data-placement="right" title="상태 변경 : 활성 버튼">
-                                                    <button type="button" class="card ts-item ts-card ts-result border text-danger" style="font-size: 1.5em" data-toggle="modal" data-target="#activeCenter">${helmet.activation}</button>
+                                                <h3 class="p-2" style="margin: auto; color: orange" data-toggle="tooltip" data-placement="right" title="상태 변경 : 활성 버튼">
+                                                    <button type="button" class="card ts-item ts-card ts-result border" style="font-size: 1em;" data-toggle="modal" data-target="#activeCenter">비활성</button>
                                                     </c:otherwise>
                                                     </c:choose>
                                                 </h3>

@@ -18,13 +18,12 @@ public class KickboardLocationController {
     //킥보드 위치 정보 수신
     @PostMapping("/location")
     public ReceiveState receiveKickboardLocation(@RequestBody KickboardLocation kickboardLocation) {
-        log.info("====================INFO====================");
-        log.info("| receiveKickboardLocation");
-        log.info("| dateTime    : " + kickboardLocation.getDateTime());
-        log.info("| latitude    : " + kickboardLocation.getLatitude());
-        log.info("| longitude   : " + kickboardLocation.getLongitude());
-        log.info("| kickboardNo : " + kickboardLocation.getKickboardNo());
-        log.info("=============================================");
+        kickboardLocation.setLatitude(kickboardLocation.getLatitude() + 0.319078);
+        kickboardLocation.setLongitude(kickboardLocation.getLongitude() + 0.030081);
+
+        log.info("K LOC");
+        log.info("latitude    : " + kickboardLocation.getLatitude());
+        log.info("longitude   : " + kickboardLocation.getLongitude() + "\n");
 
         kickboardLocationService.createKickboardLocation(kickboardLocation);
 
